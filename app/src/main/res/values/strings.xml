@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SFParking</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="connection_error">Error loading data. Check network connection and try again.</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="settings">Settings</string>
+    <string name="error_connecting">Could not connect to SFPark</string>
+    <string name="retrieving_data">Retrieving data</string>
+</resources>
