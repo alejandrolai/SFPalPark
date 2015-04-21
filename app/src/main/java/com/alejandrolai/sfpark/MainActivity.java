@@ -1,126 +1,242 @@
 package com.alejandrolai.sfpark;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alejandrolai.sfpark.model.ParkingSpot;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+public class MainActivity extends FragmentActivity implements LocationListener {
 
-public class MainActivity extends ActionBarActivity {
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
-    private Toolbar mToolbar;
-
-    ListView mParkingListView;
-    ParkingSpotList mParkingSpotList;
-    Adapter mAdapter;
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    ParkingSpotList mParkingSpotList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_maps);
 
-        // Set up Toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        // Set up adapter to put data into the listview (we don't need this)
-        mAdapter = new Adapter(this);
-        mParkingListView = (ListView) findViewById(R.id.parking_location_list);
-        mParkingListView.setAdapter(mAdapter);
-        getData();
-    }
-    public void getData() {
         if (isOnline()) {
-            Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
-            // Call getParkingSpots() and test connection to Sfpark,
-            // on succcess retrieve
-            Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
-                @Override
-                public void success(ParkingSpotList parkingSpotList, Response response) {
-                    try {
-                        retrieveData(parkingSpotList);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (TimeoutException e) {
-                        e.printStackTrace();
-                    }
-                }
+            setUpMapIfNeeded();
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            criteria.setAltitudeRequired(true);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
+            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.e(TAG, error.getLocalizedMessage());
-                    try {
-                        retrieveData(null);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (TimeoutException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+            if (location != null) {
+                onLocationChanged(location);
+            } else {
+                Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
+                showLocationSettingsAlert();
+            }
+
+            locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
-            Toast.makeText(this, getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+            showInternetAlert();
+        }
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        TextView locationTv = (TextView) findViewById(R.id.LatLongLocation);
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        /*
+        mMap.addMarker(new MarkerOptions().position(latLng));
+
+        CameraUpdate
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
+        locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
+        */
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+
+        // You can customize the marker image using images bundled with
+        // your app, or dynamically generated bitmaps.
+        mMap.addMarker(new MarkerOptions()
+                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                .position(latLng)
+                .title(latitude + ", " + longitude));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(15)
+                .bearing(30)
+                .tilt(50)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+    }
+
+    private boolean isGooglePlayServicesAvailable() {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (ConnectionResult.SUCCESS == status) {
+            return true;
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
+            return false;
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-            case R.id.action_settings:
-                Toast.makeText(this,getString(R.string.settings),Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.action_refresh:
-                //getData();
-                return true;
-            default:
-                break;
+    /**
+     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
+     * installed) and the map has not already been instantiated.. This will ensure that we only ever
+     * call {@link #setUpMap()} once when {@link #mMap} is not null.
+     * <p/>
+     * If it isn't installed {@link SupportMapFragment} (and
+     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
+     * install/update the Google Play services APK on their device.
+     * <p/>
+     * A user can return to this FragmentActivity after following the prompt and correctly
+     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
+     * have been completely destroyed during this process (it is likely that it would only be
+     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
+     * method in {@link #onResume()} to guarantee that it will be called.
+     */
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
+            }
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * This is where we can add markers or lines, add listeners or move the camera.
+     * <p/>
+     * This should only be called once and when we are sure that {@link #mMap} is not null.
+     */
+    private void setUpMap() {
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setMyLocationEnabled(true);
+    }
+
+    /**
+     * Check if there internet connection
+     * @return true if there is a connection to the internet
+     */
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    /**
+     * Connect to SFpark
+     */
+    public void connect() {
+        Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
+        // Call getParkingSpots() and test connection to Sfpark,
+        // on succcess retrieve
+        Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
+            @Override
+            public void success(ParkingSpotList parkingSpotList, Response response) {
+                try {
+                    retrieveData(parkingSpotList);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.getLocalizedMessage());
+                try {
+                    retrieveData(null);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Retrieve the data from SFPark
+     * @param parkingSpotList list of parking spots
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws TimeoutException
+     */
     private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
         if (parkingSpotList != null) {
-            AsyncTask<Void,Void,ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
+            AsyncTask<Void, Void, ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
                 protected ParkingSpotList doInBackground(Void... params) {
                     return parkingSpotList;
@@ -130,36 +246,87 @@ public class MainActivity extends ActionBarActivity {
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
-                    mAdapter.setParkingSpots(mParkingSpotList.getList());
+
+                    putMarkers(mParkingSpotList);
                 }
             };
             task.execute();
             task.get(4000, TimeUnit.MILLISECONDS);
-        }
-        else {
+        } else {
             Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void putMarkers(ParkingSpotList list) {
+
+    }
+
     /**
-     * Check if internet connection is on
-     * @return true if there is internet connection
+     * Prompt user to change location settings
      */
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+    public void showLocationSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        //Setting Dialog Title
+        alertDialog.setTitle("Location services not activated");
+
+        //Setting Dialog Message
+        alertDialog.setMessage("Activate location services");
+
+        //On Pressing Setting button
+        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        //On pressing cancel button
+        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
     }
 
-    public void shareToMap(View view) {
+    /**
+     *  Show a Dialog to prompt the user to change internet settings
+     */
+    public void showInternetAlert()
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-        String location = (String) view.getContentDescription();
+        //Setting Dialog Title
+        alertDialog.setTitle("No connection available");
 
-        Uri uri = Uri.parse("geo:0,0?q=" + location);
+        //Setting Dialog Message
+        alertDialog.setMessage("Turn on wifi or data services");
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        //On Pressing Setting button
+        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        //On pressing cancel button
+        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
     }
-
 }
