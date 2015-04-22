@@ -27,6 +27,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -53,9 +54,15 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
         button = (Button) findViewById(R.id.button);
 
+
         if (isOnline()) {
             setUpMapIfNeeded();
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+            //Disable Option to open in Google Maps, so we can work in SFParkPal App
+            UiSettings mapSettings = mMap.getUiSettings();
+            mapSettings.setMapToolbarEnabled(false);
+
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
             String bestProvider = locationManager.getBestProvider(criteria, true);
@@ -316,7 +323,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         mMap.addMarker(new MarkerOptions()
                 .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(latLng)
-                .title(latLng.toString()));
+                .title(latLng.toString())
+                .draggable(true));//make marker draggable
     }
 
     public void goToList(View view){
