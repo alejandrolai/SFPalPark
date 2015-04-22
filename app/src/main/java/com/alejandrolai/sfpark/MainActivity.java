@@ -195,7 +195,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
+    //
     /**
      * Connect to SFpark
      */
