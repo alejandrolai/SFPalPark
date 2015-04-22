@@ -14,7 +14,7 @@ public class Splash extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashSF);
+        setContentView(R.layout.splashh);
 
         final ImageView iv = (ImageView) findViewById(R.id.imageView);
         Thread startTimer = new Thread(){
