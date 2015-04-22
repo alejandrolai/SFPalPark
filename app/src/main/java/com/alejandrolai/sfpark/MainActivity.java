@@ -13,10 +13,14 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alejandrolai.sfpark.list.ListActivity;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -40,12 +44,14 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    ParkingSpotList mParkingSpotList;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        button = (Button) findViewById(R.id.button);
 
         if (isOnline()) {
             setUpMapIfNeeded();
@@ -312,4 +318,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 .position(latLng)
                 .title(latLng.toString()));
     }
+
+    public void goToList(View view){
+        startActivity(new Intent(this, ListActivity.class));
+    }
+
 }

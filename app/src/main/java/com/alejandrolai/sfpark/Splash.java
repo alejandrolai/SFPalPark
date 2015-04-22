@@ -20,7 +20,7 @@ public class Splash extends Activity {
         Thread startTimer = new Thread(){
             public void run(){
                 try {
-                    sleep(4000);
+                    sleep(2500);
                     Intent i = new Intent(Splash.this, MainActivity.class);
                     startActivity(i);
                     finish();
