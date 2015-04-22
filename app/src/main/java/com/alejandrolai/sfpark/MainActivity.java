@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
             UiSettings mapSettings = mMap.getUiSettings();
             mapSettings.setMapToolbarEnabled(false);
 
-            //Set Map Type
+            //Set Map Type//
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
             Criteria criteria = new Criteria();
