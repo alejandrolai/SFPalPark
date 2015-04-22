@@ -88,7 +88,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         CameraUpdate
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
-        locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
+
         */
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
 
@@ -107,6 +107,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
 
     }
 
@@ -247,7 +249,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
 
-                    putMarkers(mParkingSpotList);
+                    // putMarkers(mParkingSpotList);
                 }
             };
             task.execute();
@@ -289,6 +291,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 dialog.cancel();
             }
         });
+
+        alertDialog.setCancelable(false);
 
         alertDialog.show();
     }
