@@ -63,6 +63,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
             UiSettings mapSettings = mMap.getUiSettings();
             mapSettings.setMapToolbarEnabled(false);
 
+            //Set Map Type
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
             String bestProvider = locationManager.getBestProvider(criteria, true);
