@@ -322,5 +322,4 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     public void goToList(View view){
         startActivity(new Intent(this, ListActivity.class));
     }
-
 }
