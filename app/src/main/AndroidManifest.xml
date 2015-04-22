@@ -24,10 +24,16 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.default" /> <!--"default" changed from "MAIN"-->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+            </activity>
+            <activity android:name=".Splash"> <!--added activity Splash-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+             </activity>
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
