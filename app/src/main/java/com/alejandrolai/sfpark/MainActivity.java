@@ -10,7 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,22 +17,17 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alejandrolai.sfpark.model.ParkingSpot;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import retrofit.Callback;
@@ -72,7 +66,6 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         } else {
             showInternetAlert();
         }
-
     }
 
     @Override
@@ -94,10 +87,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
         // You can customize the marker image using images bundled with
         // your app, or dynamically generated bitmaps.
-        mMap.addMarker(new MarkerOptions()
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                .position(latLng)
-                .title(latitude + ", " + longitude));
+
+        addMarker(latLng);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
@@ -238,29 +229,11 @@ public class MainActivity extends FragmentActivity implements LocationListener {
      */
     private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
         if (parkingSpotList != null) {
-            AsyncTask<Void, Void, ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
-                @Override
-                protected ParkingSpotList doInBackground(Void... params) {
-                    return parkingSpotList;
-                }
-
-                @Override
-                protected void onPostExecute(ParkingSpotList parkingSpotList) {
-                    super.onPostExecute(parkingSpotList);
-                    mParkingSpotList = parkingSpotList;
-
-                    // putMarkers(mParkingSpotList);
-                }
-            };
-            task.execute();
-            task.get(4000, TimeUnit.MILLISECONDS);
+            //new Requestor(parkingSpotList).execute();
+            Toast.makeText(this,"Requesting data...",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void putMarkers(ParkingSpotList list) {
-
     }
 
     /**
@@ -291,9 +264,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 dialog.cancel();
             }
         });
-
         alertDialog.setCancelable(false);
-
         alertDialog.show();
     }
 
@@ -330,7 +301,15 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 dialog.cancel();
             }
         });
-
+        alertDialog.setCancelable(false);
         alertDialog.show();
+    }
+
+    private void addMarker(LatLng latLng){
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions()
+                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                .position(latLng)
+                .title(latLng.toString()));
     }
 }

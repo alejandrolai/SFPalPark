@@ -1,7 +1,6 @@
 package com.alejandrolai.sfpark;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alejandrolai.sfpark.model.ParkingSpot;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
@@ -25,7 +24,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
             JsonObject sfParkData = json.getAsJsonObject();
             if (sfParkData.getAsJsonArray("AVL").isJsonArray()) {
                 JsonArray data = sfParkData.getAsJsonArray("AVL");
-                // Log.i("ParkingConverter", "Getting Data");
                 for (int i = 0; i < data.size(); i++) {
                     JsonObject dataObject = data.get(i).getAsJsonObject();
                     ParkingSpot parkingSpot = new ParkingSpot();
