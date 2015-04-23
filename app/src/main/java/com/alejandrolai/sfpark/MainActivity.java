@@ -69,8 +69,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         button = (Button) findViewById(R.id.button);
         button.setEnabled(true);
 
-        Bundle extras = getIntent().getExtras();
 
+        Bundle extras = getIntent().getExtras();
         if (extras != null){
             String location = extras.getString("location_key");
             String[] parts = location.split(",");
