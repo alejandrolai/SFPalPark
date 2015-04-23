@@ -69,7 +69,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
             //Set Map Type//
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-           mMap.OnMapClickListener(this);
+           //mMap.OnMapClickListener(this);
 
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
