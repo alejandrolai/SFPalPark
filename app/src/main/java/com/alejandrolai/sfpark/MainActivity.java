@@ -54,9 +54,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        Intent intent = getIntent();
-
-
         /*
         ActionBarActivity/Toolbar
         if (mToolbar != null) {
@@ -66,33 +63,45 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         }
         */
 
+
+        setUpMapIfNeeded();
+
         button = (Button) findViewById(R.id.button);
         button.setEnabled(true);
 
-        if (isOnline()) {
-            setUpMapIfNeeded();
-            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            criteria.setAltitudeRequired(true);
-            String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        Bundle extras = getIntent().getExtras();
 
-            if (location != null) {
-                onLocationChanged(location);
-            } else {
-                Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
-                showLocationSettingsAlert();
-            }
-
-            locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+        if (extras != null){
+            String location = extras.getString("location_key");
+            String[] parts = location.split(",");
+            Double longitude = Double.parseDouble(parts[1]);
+            Double latitude = Double.parseDouble(parts[0]);
+            LatLng latLng = new LatLng(latitude,longitude);
+            addMarker(latLng);
         } else {
-            showInternetAlert();
+            if (isOnline()) {
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+                criteria.setAltitudeRequired(true);
+                String bestProvider = locationManager.getBestProvider(criteria, true);
+                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                if (location != null) {
+                    onLocationChanged(location);
+                } else {
+                    Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
+                    showLocationSettingsAlert();
+                }
+
+                locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+            } else {
+                showInternetAlert();
+            }
         }
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        TextView locationTv = (TextView) findViewById(R.id.LatLongLocation);
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
@@ -110,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         // You can customize the marker image using images bundled with
         // your app, or dynamically generated bitmaps.
 
-        addMarker(latLng);
+        //addMarker(latLng);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
@@ -120,9 +129,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
-
     }
 
     @Override
@@ -333,6 +339,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                 .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(latLng)
                 .title(latLng.toString()));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(15)
+                .bearing(30)
+                .tilt(50)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     public void goToList(View view){

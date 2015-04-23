@@ -95,7 +95,8 @@ public class ListActivity extends ActionBarActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
 
-        intent.putExtra("location_key",location);
+        intent.putExtra("location_key",location.toString());
+        Toast.makeText(this,location,Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
 

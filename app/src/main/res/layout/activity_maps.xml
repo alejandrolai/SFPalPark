@@ -22,16 +22,4 @@
         tools:context=".MapsActivity"
         tools:layout="@layout/activity_maps" />
 
-    <TextView
-        android:background="#ff058fff"
-        android:gravity="bottom"
-        android:id="@+id/LatLongLocation"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:textColor="#ffffffff" />
 </RelativeLayout>
