@@ -92,7 +92,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                     Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
                     showLocationSettingsAlert();
                 }
-
                 locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
             } else {
                 showInternetAlert();
@@ -104,22 +103,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     public void onLocationChanged(Location location) {
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-
         LatLng latLng = new LatLng(latitude, longitude);
-        /*
-        mMap.addMarker(new MarkerOptions().position(latLng));
-
-        CameraUpdate
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
-
-        */
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-
-        // You can customize the marker image using images bundled with
-        // your app, or dynamically generated bitmaps.
-
-        //addMarker(latLng);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
