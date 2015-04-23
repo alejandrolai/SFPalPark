@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.Adapter;
+import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
 import com.alejandrolai.sfpark.Requestor;
 import com.alejandrolai.sfpark.Service;
@@ -85,11 +86,19 @@ public class ListActivity extends ActionBarActivity {
     public void shareToMap(View view) {
 
         String location = (String) view.getContentDescription();
-
+        /*
         Uri uri = Uri.parse("geo:0,0?q=" + location);
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
+        */
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        intent.putExtra("location_key",location);
+
+        startActivity(intent);
+
     }
 
     /**
@@ -163,4 +172,6 @@ public class ListActivity extends ActionBarActivity {
             Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

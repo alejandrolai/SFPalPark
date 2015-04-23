@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +39,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends FragmentActivity implements LocationListener {
+public class MainActivity extends ActionBarActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -46,12 +47,27 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
     private Button button;
 
+    //private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        Intent intent = getIntent();
+
+
+        /*
+        ActionBarActivity/Toolbar
+        if (mToolbar != null) {
+            // Set a Toolbar to act as the ActionBar for this Activity window.
+            setSupportActionBar(mToolbar);
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        */
+
         button = (Button) findViewById(R.id.button);
+        button.setEnabled(true);
 
         if (isOnline()) {
             setUpMapIfNeeded();
@@ -322,4 +338,11 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     public void goToList(View view){
         startActivity(new Intent(this, ListActivity.class));
     }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        addMarker(latLng);
+    }
+
+
 }
