@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -39,13 +40,15 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends FragmentActivity implements LocationListener {
+public class MainActivity extends FragmentActivity implements LocationListener, OnMapClickListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private Button button;
+
+    private OnMapClickListener clickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 
             //Set Map Type//
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+           mMap.OnMapClickListener(this);
 
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
@@ -331,6 +336,14 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     }
 
     public void goToList(View view){
+
         startActivity(new Intent(this, ListActivity.class));
     }
+
+    //@Override
+    public void onMapClick(LatLng point) {
+        addMarker(point);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(point));
+    }
+
 }
