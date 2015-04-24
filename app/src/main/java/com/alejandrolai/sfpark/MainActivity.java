@@ -13,12 +13,9 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
@@ -39,7 +36,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity implements LocationListener, GoogleMap.OnMapClickListener {
+public class MainActivity extends FragmentActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -335,6 +332,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     }
 
     public void goToList(View view){
+
         startActivity(new Intent(this, ListActivity.class));
     }
 

@@ -3,6 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
     </style>
+
+
 
 </resources>
