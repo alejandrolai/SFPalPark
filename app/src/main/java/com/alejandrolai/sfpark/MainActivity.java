@@ -28,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -59,7 +60,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
             //getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         */
-
 
         setUpMapIfNeeded();
 
@@ -105,8 +105,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(15)
-                .bearing(30)
-                .tilt(50)
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -317,15 +315,12 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void addMarker(LatLng latLng){
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(latLng)
                 .title(latLng.toString()));
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(15)
-                .bearing(30)
-                .tilt(50)
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -339,6 +334,13 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     @Override
     public void onMapClick(LatLng latLng) {
         addMarker(latLng);
+    }
+
+    private void addLine(LatLng startLatLng, LatLng endLatLng){
+        mMap.clear();
+        mMap.addPolyline(new PolylineOptions().geodesic(true)
+        .add(startLatLng)
+        .add(endLatLng));
     }
 
 
