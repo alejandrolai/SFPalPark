@@ -17,6 +17,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -36,7 +41,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="AIzaSyCtqjrAcNJb1Yyha4ruq-KTotEslG72m4U" />
 
         <activity
             android:name=".list.ListActivity"
@@ -46,6 +51,35 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alejandrolai.sfpark.MainActivity" />
         </activity>
+
+
+
+
+
+
+
+
+
+        <!-- Added by Ihsan on Thursday, 11:30pm, 4/23/15 -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName="com.alejandrolai.sfpark.SettingsActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.alejandrolai.sfpark.SettingsActivity" />
+        </activity>
+        <!-- End of Addition -->
+
+
+
+
+
+
+
+
+
     </application>
 
 </manifest>

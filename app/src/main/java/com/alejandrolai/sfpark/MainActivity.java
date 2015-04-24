@@ -1,5 +1,28 @@
 package com.alejandrolai.sfpark;
 
+
+
+
+
+
+
+
+
+// Added by Ihsan Taha on Thursday, 11:30pm, 4/23/15
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TabHost;
+// End of Addition
+
+
+
+
+
+
+
+
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,6 +61,7 @@ import retrofit.client.Response;
 
 public class MainActivity extends FragmentActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -47,7 +71,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     //private Toolbar mToolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -68,12 +92,12 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             String location = extras.getString("location_key");
             String[] parts = location.split(",");
             Double longitude = Double.parseDouble(parts[1]);
             Double latitude = Double.parseDouble(parts[0]);
-            LatLng latLng = new LatLng(latitude,longitude);
+            LatLng latLng = new LatLng(latitude, longitude);
             addMarker(latLng);
         } else {
             if (isOnline()) {
@@ -97,7 +121,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged (Location location){
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         LatLng latLng = new LatLng(latitude, longitude);
@@ -113,17 +137,17 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
+    public void onProviderDisabled (String provider){
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled (String provider){
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+    public void onStatusChanged (String provider,int status, Bundle extras){
         // TODO Auto-generated method stub
     }
 
@@ -183,6 +207,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     /**
      * Check if there internet connection
+     *
      * @return true if there is a connection to the internet
      */
     public boolean isOnline() {
@@ -231,6 +256,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     /**
      * Retrieve the data from SFPark
+     *
      * @param parkingSpotList list of parking spots
      * @throws InterruptedException
      * @throws ExecutionException
@@ -239,7 +265,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
         if (parkingSpotList != null) {
             //new Requestor(parkingSpotList).execute();
-            Toast.makeText(this,"Requesting data...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Requesting data...", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
         }
@@ -278,10 +304,9 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
     /**
-     *  Show a Dialog to prompt the user to change internet settings
+     * Show a Dialog to prompt the user to change internet settings
      */
-    public void showInternetAlert()
-    {
+    public void showInternetAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
         //Setting Dialog Title
@@ -291,22 +316,18 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.setMessage("Turn on wifi or data services");
 
         //On Pressing Setting button
-        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener()
-        {
+        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 startActivity(intent);
             }
         });
 
         //On pressing cancel button
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener()
-        {
+        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
@@ -314,7 +335,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.show();
     }
 
-    private void addMarker(LatLng latLng){
+    private void addMarker(LatLng latLng) {
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
                 .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
@@ -331,7 +352,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    public void goToList(View view){
+    public void goToList(View view) {
 
         startActivity(new Intent(this, ListActivity.class));
     }
@@ -340,6 +361,68 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     public void onMapClick(LatLng latLng) {
         addMarker(latLng);
     }
+
+
+
+
+
+
+
+
+
+
+// Added by Ihsan Taha on Thursday, 11:30pm. 4/23/15
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_about, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            settingsActivity();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Create the tabs in the settingsActivity Function
+    public void settingsActivity() {
+
+        setContentView(R.layout.activity_menu);
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("back");
+        tabSpec.setContent(R.id.back);
+        tabSpec.setIndicator("Back");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("reminder");
+        tabSpec.setContent(R.id.reminder);
+        tabSpec.setIndicator("Reminder");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("About");
+        tabSpec.setContent(R.id.about);
+        tabSpec.setIndicator("About");
+        tabHost.addTab(tabSpec);
+    }
+// End of Addition
+
+
+
 
 
 }

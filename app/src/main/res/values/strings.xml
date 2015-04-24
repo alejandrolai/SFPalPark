@@ -9,4 +9,44 @@
     <string name="error_connecting">Could not connect to SFPark</string>
     <string name="retrieving_data">Retrieving data</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="Settings">Settings</string>
+
+
+
+
+
+
+
+
+
+
+    <!-- Added by Ihsan On Thursday, 11:30pm, 4/23/15 -->
+    <string name="about_title">About SF Park Pal</string>
+    <string name="about_creators">Created By:</string>
+    <string name="about_company">San Francisco State University</string>
+    <string name="about_class">CSC 413 Class</string>
+    <string name="about_group">Group 3 (Team Leader: Daniel Martin)</string>
+    <string name="about_date">Spring 2015 Semester</string>
+    <string name="about_members">Team Members:</string>
+    <string name="about_membernames">Alejandro Lai, Ami Parikh, Daniel Martin, Dennis Chung, Dolly Ramos, and Ihsan Taha.</string>
+    <string name="about_contact">Contact:</string>
+    <string name="about_email">Email:</string>
+    <string name="about_leaderemail">dpmartin@mail.sfsu.edu</string>
+    <string name="about_phone">Phone:</string>
+    <string name="about_phonenumber">415-265-3692</string>
+
+    <string name="action_back">Back</string>
+
+    <string name="title_activity_about">Menu</string>
+    <!-- End of Addition -->
+
+
+
+
+
+
+
+
+
+
 </resources>
