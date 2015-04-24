@@ -11,6 +11,7 @@ package com.alejandrolai.sfpark;
 // Added by Ihsan Taha on Thursday, 11:30pm, 4/23/15
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -378,7 +379,9 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_about, menu);
+        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_about, menu);
         return true;
     }
 
@@ -390,12 +393,22 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            settingsActivity();
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+                settingsActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
+        //if (id == R.id.action_settings) {
+        //    settingsActivity();
+        //    return true;
+        //}
+
+        //return super.onOptionsItemSelected(item);
     }
 
     // Create the tabs in the settingsActivity Function
