@@ -13,18 +13,34 @@
     android:focusableInTouchMode="true"
     android:background="#EEEEEE">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:text="@string/button_return"
-        android:id="@+id/button_return"
-        android:layout_gravity="center_horizontal|left"
-        android:background="#DD6600"
-        android:alpha="50"
-        android:onClick="sendToMain"
-        android:clickable="true"
-        android:textColor="#DDDDDD"
-        android:layout_marginBottom="1dp" />
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="0dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/button_return"
+            android:id="@+id/button_return"
+            android:layout_gravity="center_horizontal|left"
+            android:background="#DD6600"
+            android:alpha="50"
+            android:onClick="sendToMain"
+            android:clickable="true"
+            android:textColor="#DDDDDD"
+            android:padding="0dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/menu_settings"
+            android:id="@+id/menu_settings"
+            android:layout_gravity="center_horizontal"
+            android:gravity="right"
+            android:textColor="#999999" />
+    </TableRow>
 
     <TabHost
         android:layout_width="fill_parent"
@@ -210,4 +226,5 @@
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
 </LinearLayout>
