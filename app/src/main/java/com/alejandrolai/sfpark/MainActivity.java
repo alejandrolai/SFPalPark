@@ -203,6 +203,20 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMyLocationEnabled(true);
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        double latitude = myLocation.getLatitude();
+        double longitude = myLocation.getLongitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here!").snippet("Latitude: " + latitude + ", Longitude: " + longitude));
+
     }
 
     /**

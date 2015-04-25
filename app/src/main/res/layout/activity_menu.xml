@@ -70,8 +70,85 @@
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
                     android:focusableInTouchMode="true"
-                    android:onClick="settingsActivity"
                     android:clickable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/reminder_title"
+                        android:id="@+id/reminder_title"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#333333" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/reminder_setreminder"
+                        android:id="@+id/reminder_setreminder"
+                        android:textColor="#DD6600"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp" />
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="125dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/reminder_currenttime"
+                            android:id="@+id/reminder_currenttime"
+                            android:textColor="#333333"
+                            android:gravity="center_vertical" />
+
+                        <AnalogClock
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/analogClock" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp" >
+
+                        <TextView
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/reminder_entertime"
+                            android:id="@+id/reminder_entertime"
+                            android:textColor="#333333" />
+
+                        <EditText
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:ems="10"
+                            android:id="@+id/reminder_inputtime"
+                            android:text="@string/reminder_inputtime"
+                            android:textColor="#009900" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reminder_ambutton"
+                            android:id="@+id/reminder_ambutton"
+                            android:textColor="#009900" />
+
+                        <RadioButton
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reminder_pmbutton"
+                            android:id="@+id/reminder_pmbutton"
+                            android:textColor="#009900" />
+                    </TableRow>
+
                 </LinearLayout>
 
                 <LinearLayout
