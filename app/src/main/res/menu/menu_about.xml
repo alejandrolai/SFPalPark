@@ -15,6 +15,7 @@
         android:id="@+id/action_back"
         android:title="Back"
         android:orderInCategory="100"
+
         app:showAsAction="never" />
 
 </menu>

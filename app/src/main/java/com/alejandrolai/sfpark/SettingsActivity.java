@@ -14,16 +14,15 @@ public class SettingsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // If your minSdkVersion is 11 or higher, instead use:
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
+
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("back");
-        tabSpec.setContent(R.id.back);
-        tabSpec.setIndicator("Back");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("reminder");
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
         tabSpec.setContent(R.id.reminder);
         tabSpec.setIndicator("Reminder");
         tabHost.addTab(tabSpec);
