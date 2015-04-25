@@ -13,6 +13,19 @@
     android:focusableInTouchMode="true"
     android:background="#EEEEEE">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:text="@string/button_return"
+        android:id="@+id/button_return"
+        android:layout_gravity="center_horizontal|left"
+        android:background="#DD6600"
+        android:alpha="50"
+        android:onClick="sendToMain"
+        android:clickable="true"
+        android:textColor="#DDDDDD"
+        android:layout_marginBottom="1dp" />
+
     <TabHost
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -27,7 +40,8 @@
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#0099CC"></TabWidget>
+                android:background="#0099CC"
+                android:clickable="true"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -35,26 +49,22 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:id="@+id/back"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/reminder"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:focusableInTouchMode="true"></LinearLayout>
+                    android:focusableInTouchMode="true"
+                    android:onClick="settingsActivity"
+                    android:clickable="true">
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/about"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:clickable="true">
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -398,17 +398,18 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
             case R.id.action_settings:
                 settingsActivity();
                 return true;
+            //case R.id.action_back:
+                //Intent intent = new Intent(this, MainActivity.class);
+                //startActivity(intent);
+                //return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
-
-        //if (id == R.id.action_settings) {
-        //    settingsActivity();
-        //    return true;
-        //}
-
-        //return super.onOptionsItemSelected(item);
+    public void sendToMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     // Create the tabs in the settingsActivity Function
@@ -420,12 +421,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("back");
-        tabSpec.setContent(R.id.back);
-        tabSpec.setIndicator("Back");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("reminder");
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
         tabSpec.setContent(R.id.reminder);
         tabSpec.setIndicator("Reminder");
         tabHost.addTab(tabSpec);

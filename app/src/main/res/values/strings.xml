@@ -38,6 +38,8 @@
     <string name="action_back">Back</string>
 
     <string name="title_activity_about">Menu</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="button_return">Return</string>
     <!-- End of Addition -->
 
 
