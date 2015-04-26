@@ -38,6 +38,8 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                             parkingSpot.setStreetName(dataObject.get("NAME").getAsString()
                                     + ", " + dataObject.get("DESC").getAsString());
                         }
+                    } else {
+                        Log.e("ParkingConverter", "No parking spots");
                     }
                     if (!dataObject.get("LOC").isJsonNull()) {
                         String location = dataObject.get("LOC").getAsString();
@@ -54,8 +56,15 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                         parkingSpot.endLongitude = parts[2];
                         */
                     }
-                    parkingSpotList.addParkingSpot(parkingSpot);
+                    else {
+                        Log.e("ParkingConverter", "No parking spots");
+                    }
+                    if (parkingSpot.getParkingType() != "") {
+                        parkingSpotList.addParkingSpot(parkingSpot);
+                    }
                 }
+            } else {
+                Log.e("ParkingConverter", "No parking spots");
             }
         } else {
             Log.w("ParkingConverter", "No Data 1");

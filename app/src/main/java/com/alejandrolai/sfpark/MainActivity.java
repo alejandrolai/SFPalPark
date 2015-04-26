@@ -1,30 +1,11 @@
 package com.alejandrolai.sfpark;
 
-
-
-
-
-
-
-
-
-// Added by Ihsan Taha on Thursday, 11:30pm, 4/23/15
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import com.google.android.gms.maps.model.PolylineOptions;
-// End of Addition
-
-
-
-
-
-
-
-
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -72,6 +53,9 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private Button button;
 
     //private Toolbar mToolbar;
+    Location location;
+    double currentLatitude=0;
+    double currentLongitude=0;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -94,12 +78,13 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        if (extras != null){
             String location = extras.getString("location_key");
+            Toast.makeText(this,"location: " + location,Toast.LENGTH_SHORT).show();
             String[] parts = location.split(",");
             Double longitude = Double.parseDouble(parts[1]);
             Double latitude = Double.parseDouble(parts[0]);
-            LatLng latLng = new LatLng(latitude, longitude);
+            LatLng latLng = new LatLng(latitude,longitude);
             addMarker(latLng);
         } else {
             if (isOnline()) {
@@ -107,7 +92,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
                 Criteria criteria = new Criteria();
                 criteria.setAltitudeRequired(true);
                 String bestProvider = locationManager.getBestProvider(criteria, true);
-                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
                 if (location != null) {
                     onLocationChanged(location);
@@ -124,16 +109,22 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     @Override
     public void onLocationChanged (Location location){
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
+        LatLng latLng;
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+        if (currentLatitude != 0 && currentLongitude != 0){
+            latLng = new LatLng(currentLatitude, currentLongitude);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng)
+                    .zoom(15)
+                    .build();
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)
-                .zoom(15)
-                .build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            button.setVisibility(View.VISIBLE);
+        }
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
     }
 
     @Override
@@ -203,20 +194,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMyLocationEnabled(true);
-
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here!").snippet("Latitude: " + latitude + ", Longitude: " + longitude));
-
     }
 
     /**
@@ -349,6 +326,10 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.show();
     }
 
+    /**
+     * Puts marker in map and zooms in
+     * @param latLng
+     */
     private void addMarker(LatLng latLng) {
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
@@ -365,7 +346,18 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     public void goToList(View view) {
 
-        startActivity(new Intent(this, ListActivity.class));
+        if (location != null) {
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("latitude_key",location.getLatitude());
+            intent.putExtra("longitude_key",location.getLongitude());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this,"no location",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -381,15 +373,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
 
-
-
-
-
-
-
-
-
-// Added by Ihsan Taha on Thursday, 11:30pm. 4/23/15
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -426,7 +409,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         startActivity(intent);
     }
 
-    // Create the tabs in the settingsActivity Function
     public void settingsActivity() {
 
         setContentView(R.layout.activity_menu);
@@ -445,10 +427,4 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
     }
-// End of Addition
-
-
-
-
-
 }

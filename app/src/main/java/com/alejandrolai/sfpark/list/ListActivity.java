@@ -22,11 +22,18 @@ import com.alejandrolai.sfpark.R;
 import com.alejandrolai.sfpark.Requestor;
 import com.alejandrolai.sfpark.Service;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
+import com.google.android.gms.maps.model.LatLng;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -41,6 +48,10 @@ public class ListActivity extends ActionBarActivity {
     ListView mParkingListView;
     ParkingSpotList mParkingSpotList;
     Adapter mAdapter;
+    private double currentLatitude;
+    private double currentLongitude;
+
+    LinkedHashMap map = new LinkedHashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +64,20 @@ public class ListActivity extends ActionBarActivity {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        // Set up adapter to put data into the listview (we don't need this)
-        mAdapter = new Adapter(this);
-        mParkingListView = (ListView) findViewById(R.id.parking_location_list);
-        mParkingListView.setAdapter(mAdapter);
-        getData();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            currentLatitude = extras.getDouble("latitude_key");
+            currentLongitude = extras.getDouble("longitude_key");
+            // Set up adapter to put data into the listview (we don't need this)
+            mAdapter = new Adapter(this);
+            mParkingListView = (ListView) findViewById(R.id.parking_location_list);
+            mParkingListView.setAdapter(mAdapter);
+            getData();
+        } else {
+            Toast.makeText(this,"Unable to get location",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -96,6 +116,7 @@ public class ListActivity extends ActionBarActivity {
         Intent intent = new Intent(this, MainActivity.class);
 
         intent.putExtra("location_key",location.toString());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Toast.makeText(this,location,Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
@@ -114,11 +135,17 @@ public class ListActivity extends ActionBarActivity {
     }
 
     public void getData() {
+
+        map.put("lat",Double.toString(currentLatitude));
+        map.put("long",Double.toString(currentLongitude));
+        map.put("radius","4");
+        map.put("uom","mile");
+        map.put("response","json");
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
             // on succcess retrieve
-            Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
+            Service.getService().getParkingSpots(map,new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
                     try {
@@ -170,7 +197,7 @@ public class ListActivity extends ActionBarActivity {
             task.get(4000, TimeUnit.MILLISECONDS);
         }
         else {
-            Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"error connecting", Toast.LENGTH_SHORT).show();
         }
     }
 
