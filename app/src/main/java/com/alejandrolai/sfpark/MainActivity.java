@@ -1,5 +1,30 @@
 package com.alejandrolai.sfpark;
 
+
+
+
+
+
+
+
+
+// Added by Ihsan Taha on Thursday, 11:30pm, 4/23/15
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TabHost;
+import com.google.android.gms.maps.model.PolylineOptions;
+// End of Addition
+
+
+
+
+
+
+
+
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,25 +38,22 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -40,7 +62,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends FragmentActivity implements LocationListener, OnMapClickListener {
+public class MainActivity extends FragmentActivity implements LocationListener, GoogleMap.OnMapClickListener {
+
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -48,94 +71,83 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     private Button button;
 
-    private OnMapClickListener clickListener;
+    //private Toolbar mToolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        /*
+        ActionBarActivity/Toolbar
+        if (mToolbar != null) {
+            // Set a Toolbar to act as the ActionBar for this Activity window.
+            setSupportActionBar(mToolbar);
+            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        */
+
+        setUpMapIfNeeded();
+
         button = (Button) findViewById(R.id.button);
+        button.setEnabled(true);
 
 
-        if (isOnline()) {
-            setUpMapIfNeeded();
-            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-            //Disable Option to open in Google Maps, so we can work in SFParkPal App
-            UiSettings mapSettings = mMap.getUiSettings();
-            mapSettings.setMapToolbarEnabled(false);
-
-            //Set Map Type//
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-           //mMap.OnMapClickListener(this);
-
-            Criteria criteria = new Criteria();
-            criteria.setAltitudeRequired(true);
-            String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-            if (location != null) {
-                onLocationChanged(location);
-            } else {
-                Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
-                showLocationSettingsAlert();
-            }
-
-            locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String location = extras.getString("location_key");
+            String[] parts = location.split(",");
+            Double longitude = Double.parseDouble(parts[1]);
+            Double latitude = Double.parseDouble(parts[0]);
+            LatLng latLng = new LatLng(latitude, longitude);
+            addMarker(latLng);
         } else {
-            showInternetAlert();
+            if (isOnline()) {
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+                criteria.setAltitudeRequired(true);
+                String bestProvider = locationManager.getBestProvider(criteria, true);
+                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                if (location != null) {
+                    onLocationChanged(location);
+                } else {
+                    Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
+                    showLocationSettingsAlert();
+                }
+                locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+            } else {
+                showInternetAlert();
+            }
         }
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-        TextView locationTv = (TextView) findViewById(R.id.LatLongLocation);
+    public void onLocationChanged (Location location){
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-
         LatLng latLng = new LatLng(latitude, longitude);
-        /*
-        mMap.addMarker(new MarkerOptions().position(latLng));
-
-        CameraUpdate
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
-
-        */
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-
-        // You can customize the marker image using images bundled with
-        // your app, or dynamically generated bitmaps.
-
-        addMarker(latLng);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(15)
-                .bearing(30)
-                .tilt(50)
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
-
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
+    public void onProviderDisabled (String provider){
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled (String provider){
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+    public void onStatusChanged (String provider,int status, Bundle extras){
         // TODO Auto-generated method stub
     }
 
@@ -191,10 +203,25 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMyLocationEnabled(true);
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        double latitude = myLocation.getLatitude();
+        double longitude = myLocation.getLongitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here!").snippet("Latitude: " + latitude + ", Longitude: " + longitude));
+
     }
 
     /**
      * Check if there internet connection
+     *
      * @return true if there is a connection to the internet
      */
     public boolean isOnline() {
@@ -203,7 +230,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-    //
+
     /**
      * Connect to SFpark
      */
@@ -243,6 +270,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     /**
      * Retrieve the data from SFPark
+     *
      * @param parkingSpotList list of parking spots
      * @throws InterruptedException
      * @throws ExecutionException
@@ -251,7 +279,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
         if (parkingSpotList != null) {
             //new Requestor(parkingSpotList).execute();
-            Toast.makeText(this,"Requesting data...",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Requesting data...", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
         }
@@ -290,10 +318,9 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
     /**
-     *  Show a Dialog to prompt the user to change internet settings
+     * Show a Dialog to prompt the user to change internet settings
      */
-    public void showInternetAlert()
-    {
+    public void showInternetAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
         //Setting Dialog Title
@@ -303,22 +330,18 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.setMessage("Turn on wifi or data services");
 
         //On Pressing Setting button
-        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener()
-        {
+        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 startActivity(intent);
             }
         });
 
         //On pressing cancel button
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener()
-        {
+        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
@@ -326,24 +349,106 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.show();
     }
 
-    private void addMarker(LatLng latLng){
+    private void addMarker(LatLng latLng) {
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(latLng)
-                .title(latLng.toString())
-                .draggable(true));//make marker draggable
+                .title(latLng.toString()));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(15)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    public void goToList(View view){
+    public void goToList(View view) {
 
         startActivity(new Intent(this, ListActivity.class));
     }
 
-    //@Override
-    public void onMapClick(LatLng point) {
-        addMarker(point);
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(point));
+    @Override
+    public void onMapClick(LatLng latLng) {
+        addMarker(latLng);
     }
+
+    private void addLine(LatLng startLatLng, LatLng endLatLng){
+        mMap.clear();
+        mMap.addPolyline(new PolylineOptions().geodesic(true)
+        .add(startLatLng)
+        .add(endLatLng));
+    }
+
+
+
+
+
+
+
+
+
+
+// Added by Ihsan Taha on Thursday, 11:30pm. 4/23/15
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_about, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        switch (item.getItemId()) {
+
+            case R.id.action_settings:
+                settingsActivity();
+                return true;
+            //case R.id.action_back:
+                //Intent intent = new Intent(this, MainActivity.class);
+                //startActivity(intent);
+                //return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void sendToMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    // Create the tabs in the settingsActivity Function
+    public void settingsActivity() {
+
+        setContentView(R.layout.activity_menu);
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
+        tabSpec.setContent(R.id.reminder);
+        tabSpec.setIndicator("Reminder");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("About");
+        tabSpec.setContent(R.id.about);
+        tabSpec.setIndicator("About");
+        tabHost.addTab(tabSpec);
+    }
+// End of Addition
+
+
+
+
 
 }

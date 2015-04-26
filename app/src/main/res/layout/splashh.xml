@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="68dp"
-        android:textSize="45dp"/>
+        android:textSize="45sp"/>
 
 
     <ImageView

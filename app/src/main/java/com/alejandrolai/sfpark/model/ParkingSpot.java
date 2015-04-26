@@ -5,6 +5,8 @@ import java.util.Iterator;
 /**
  * Created by Alejandro on 4/8/15.
  */
+
+
 public class ParkingSpot implements Iterable<ParkingSpot> {
 
     private String parkingType;
