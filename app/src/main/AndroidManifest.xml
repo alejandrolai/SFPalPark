@@ -42,10 +42,11 @@
             </intent-filter>
         </activity>
 
+
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="AIzaSyApcaCsBwnLK4JuXTpUYUE739cqBGI8mb0" />
 
         <activity
             android:name=".list.ListActivity"
