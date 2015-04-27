@@ -95,12 +95,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
             }
         }
 
-        /*parkMebutton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, MyOtherActivity.class));
-            }
-        });*/
     }
 
     @Override
@@ -351,7 +345,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
             case R.id.action_settings:
-                settingsActivity();
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_search:
                 goToList();
@@ -368,36 +363,28 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
    public void goToStoreLocation(View view)
     {
-        Toast.makeText(this,"Clciked",Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
        //StoreLocation SL = new StoreLocation(context);
     }
+
     public void displayLocationHistory()
     {
 
-
     }
 
-    public void settingsActivity() {
+    /**
+     * This method is used for the Park Me button, when called, opens up the
+     * reminder Activity
+     * @param view
+     */
+    public void goToReminder(View park_me) {
+        Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
 
-        setContentView(R.layout.activity_menu);
-
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
-
-        tabHost.setup();
-
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
-        tabSpec.setContent(R.id.reminder);
-        tabSpec.setIndicator("Reminder");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("About");
-        tabSpec.setContent(R.id.about);
-        tabSpec.setIndicator("About");
-        tabHost.addTab(tabSpec);
+        Intent intent = new Intent(this, ReminderActivity.class);
+        startActivity(intent);
     }
+
 
 }
