@@ -60,10 +60,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
-            // Set a Toolbar to act as the ActionBar for this Activity window.
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
         setUpMapIfNeeded();
 
         Bundle extras = getIntent().getExtras();
@@ -117,9 +117,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
-
-
-
     }
 
 
@@ -344,11 +341,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
 
-        //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
             case R.id.action_settings:
                 settingsActivity();

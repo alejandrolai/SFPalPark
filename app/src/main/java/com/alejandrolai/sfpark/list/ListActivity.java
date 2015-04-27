@@ -55,6 +55,7 @@ public class ListActivity extends ActionBarActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
@@ -81,17 +82,8 @@ public class ListActivity extends ActionBarActivity {
         return true;
     }
 
-
-
-
-
-
-// Added on 4/26/15
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
 
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
@@ -126,11 +118,6 @@ public class ListActivity extends ActionBarActivity {
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
     }
-// End of addition
-
-
-
-
 
     public void shareToMap(View view) {
 
@@ -223,6 +210,7 @@ public class ListActivity extends ActionBarActivity {
                     // then it is set passed
                     mParkingSpotList = parkingSpotList;
                     mAdapter.setParkingSpots(mParkingSpotList.getList());
+                    getLocation(mParkingSpotList);
                 }
             };
             task.execute();
@@ -231,6 +219,10 @@ public class ListActivity extends ActionBarActivity {
         else {
             Toast.makeText(this,"error connecting", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void getLocation(ParkingSpotList mParkingSpotList) {
+
     }
 
 
