@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TabHost;
 
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -45,6 +46,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     Location location;
     double currentLatitude=0;
     double currentLongitude=0;
+
+    //Adding the Park Me! Button
+    //Button parkMebutton = (Button)findViewById(R.id.parkMebutton);
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -87,6 +91,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                 showInternetAlert();
             }
         }
+
+        /*parkMebutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //startActivity(new Intent(MainActivity.this, MyOtherActivity.class));
+            }
+        });*/
     }
 
     @Override
@@ -350,4 +361,5 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
     }
+
 }
