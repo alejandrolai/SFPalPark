@@ -2,18 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+
     <item android:id="@+id/action_search"
-        android:icon="@mipmap/ic_magnify_black"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"
         android:orderInCategory="10"/>
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="Settings"
         app:showAsAction="never" />
+
     <item android:id="@+id/action_refresh"
         android:orderInCategory="50"
         android:title="Refresh"
         app:showAsAction="never" />
+
 </menu>
