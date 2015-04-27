@@ -53,6 +53,7 @@
     <string name="reminder_pmbutton">pm</string>
     <string name="reminder_currenttime">Current Time:</string>
     <string name="reminder_clocktime">Clock Time</string>
+    <string name="action_search">Search</string>
     <!-- End of Addition -->
 
 

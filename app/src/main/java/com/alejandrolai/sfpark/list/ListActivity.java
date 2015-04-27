@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,12 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.Adapter;
 import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
-import com.alejandrolai.sfpark.Requestor;
 import com.alejandrolai.sfpark.Service;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 
@@ -27,6 +26,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -41,6 +41,10 @@ public class ListActivity extends ActionBarActivity {
     ListView mParkingListView;
     ParkingSpotList mParkingSpotList;
     Adapter mAdapter;
+    private double currentLatitude;
+    private double currentLongitude;
+
+    LinkedHashMap map = new LinkedHashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +57,20 @@ public class ListActivity extends ActionBarActivity {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        // Set up adapter to put data into the listview (we don't need this)
-        mAdapter = new Adapter(this);
-        mParkingListView = (ListView) findViewById(R.id.parking_location_list);
-        mParkingListView.setAdapter(mAdapter);
-        getData();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            currentLatitude = extras.getDouble("latitude_key");
+            currentLongitude = extras.getDouble("longitude_key");
+            // Set up adapter to put data into the listview (we don't need this)
+            mAdapter = new Adapter(this);
+            mParkingListView = (ListView) findViewById(R.id.parking_location_list);
+            mParkingListView.setAdapter(mAdapter);
+            getData();
+        } else {
+            Toast.makeText(this,"Unable to get location",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -68,27 +81,62 @@ public class ListActivity extends ActionBarActivity {
         return true;
     }
 
+
+
+
+
+
+// Added on 4/26/15
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                settingsActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    public void sendToMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void settingsActivity() {
+
+        setContentView(R.layout.activity_menu);
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
+        tabSpec.setContent(R.id.reminder);
+        tabSpec.setIndicator("Reminder");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("About");
+        tabSpec.setContent(R.id.about);
+        tabSpec.setIndicator("About");
+        tabHost.addTab(tabSpec);
+    }
+// End of addition
+
+
+
+
 
     public void shareToMap(View view) {
 
         String location = (String) view.getContentDescription();
         /*
         Uri uri = Uri.parse("geo:0,0?q=" + location);
-
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
         */
@@ -96,6 +144,7 @@ public class ListActivity extends ActionBarActivity {
         Intent intent = new Intent(this, MainActivity.class);
 
         intent.putExtra("location_key",location.toString());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Toast.makeText(this,location,Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
@@ -114,11 +163,17 @@ public class ListActivity extends ActionBarActivity {
     }
 
     public void getData() {
+
+        map.put("lat",Double.toString(currentLatitude));
+        map.put("long",Double.toString(currentLongitude));
+        map.put("radius","4");
+        map.put("uom","mile");
+        map.put("response","json");
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
             // on succcess retrieve
-            Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
+            Service.getService().getParkingSpots(map,new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
                     try {
@@ -156,12 +211,16 @@ public class ListActivity extends ActionBarActivity {
             AsyncTask<Void,Void,ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
                 protected ParkingSpotList doInBackground(Void... params) {
+                    // here the list of parking spots is returned
                     return parkingSpotList;
                 }
 
                 @Override
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
+                    // and here is where you can use it
+                    // here first is passed to a local variable (mParkingSpotList)
+                    // then it is set passed
                     mParkingSpotList = parkingSpotList;
                     mAdapter.setParkingSpots(mParkingSpotList.getList());
                 }
@@ -170,7 +229,7 @@ public class ListActivity extends ActionBarActivity {
             task.get(4000, TimeUnit.MILLISECONDS);
         }
         else {
-            Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"error connecting", Toast.LENGTH_SHORT).show();
         }
     }
 

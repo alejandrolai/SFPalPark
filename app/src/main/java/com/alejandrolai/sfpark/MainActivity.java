@@ -1,30 +1,13 @@
 package com.alejandrolai.sfpark;
 
-
-
-
-
-
-
-
-
-// Added by Ihsan Taha on Thursday, 11:30pm, 4/23/15
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
+
 import com.google.android.gms.maps.model.PolylineOptions;
-// End of Addition
-
-
-
-
-
-
-
-
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,15 +19,11 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
-import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -55,51 +34,39 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-
-public class MainActivity extends FragmentActivity implements LocationListener, GoogleMap.OnMapClickListener {
+public class MainActivity extends ActionBarActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Button button;
-
-    //private Toolbar mToolbar;
+    private Toolbar mToolbar;
+    Location location;
+    double currentLatitude=0;
+    double currentLongitude=0;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        /*
-        ActionBarActivity/Toolbar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             // Set a Toolbar to act as the ActionBar for this Activity window.
             setSupportActionBar(mToolbar);
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        */
-
         setUpMapIfNeeded();
 
-        button = (Button) findViewById(R.id.button);
-        button.setEnabled(true);
-
-
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        if (extras != null){
             String location = extras.getString("location_key");
+            Toast.makeText(this,"location: " + location,Toast.LENGTH_SHORT).show();
             String[] parts = location.split(",");
             Double longitude = Double.parseDouble(parts[1]);
             Double latitude = Double.parseDouble(parts[0]);
-            LatLng latLng = new LatLng(latitude, longitude);
+            LatLng latLng = new LatLng(latitude,longitude);
             addMarker(latLng);
         } else {
             if (isOnline()) {
@@ -107,7 +74,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
                 Criteria criteria = new Criteria();
                 criteria.setAltitudeRequired(true);
                 String bestProvider = locationManager.getBestProvider(criteria, true);
-                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
                 if (location != null) {
                     onLocationChanged(location);
@@ -124,16 +91,21 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     @Override
     public void onLocationChanged (Location location){
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
+        LatLng latLng;
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+        if (currentLatitude != 0 && currentLongitude != 0){
+            latLng = new LatLng(currentLatitude, currentLongitude);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng)
+                    .zoom(15)
+                    .build();
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)
-                .zoom(15)
-                .build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
     }
 
     @Override
@@ -203,20 +175,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMyLocationEnabled(true);
-
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here!").snippet("Latitude: " + latitude + ", Longitude: " + longitude));
-
     }
 
     /**
@@ -229,60 +187,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    /**
-     * Connect to SFpark
-     */
-    public void connect() {
-        Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
-        // Call getParkingSpots() and test connection to Sfpark,
-        // on succcess retrieve
-        Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
-            @Override
-            public void success(ParkingSpotList parkingSpotList, Response response) {
-                try {
-                    retrieveData(parkingSpotList);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(TAG, error.getLocalizedMessage());
-                try {
-                    retrieveData(null);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Retrieve the data from SFPark
-     *
-     * @param parkingSpotList list of parking spots
-     * @throws InterruptedException
-     * @throws ExecutionException
-     * @throws TimeoutException
-     */
-    private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
-        if (parkingSpotList != null) {
-            //new Requestor(parkingSpotList).execute();
-            Toast.makeText(this, "Requesting data...", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
@@ -349,6 +253,10 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         alertDialog.show();
     }
 
+    /**
+     * Puts marker in map and zooms in
+     * @param latLng LatLng object latitude and longitude coordinates
+     */
     private void addMarker(LatLng latLng) {
         mMap.clear();
         mMap.addMarker(new MarkerOptions()
@@ -363,9 +271,19 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    public void goToList(View view) {
+    public void goToList() {
+        if (location != null) {
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("latitude_key",location.getLatitude());
+            intent.putExtra("longitude_key",location.getLongitude());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this,"no location",Toast.LENGTH_SHORT).show();
+        }
 
-        startActivity(new Intent(this, ListActivity.class));
     }
 
     @Override
@@ -381,21 +299,12 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
 
-
-
-
-
-
-
-
-
-// Added by Ihsan Taha on Thursday, 11:30pm. 4/23/15
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_about, menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_about, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -404,18 +313,15 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
-
             case R.id.action_settings:
                 settingsActivity();
                 return true;
-            //case R.id.action_back:
-                //Intent intent = new Intent(this, MainActivity.class);
-                //startActivity(intent);
-                //return true;
+            case R.id.action_search:
+                goToList();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -426,7 +332,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         startActivity(intent);
     }
 
-    // Create the tabs in the settingsActivity Function
     public void settingsActivity() {
 
         setContentView(R.layout.activity_menu);
@@ -445,10 +350,4 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
     }
-// End of Addition
-
-
-
-
-
 }
