@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -19,21 +18,14 @@ import android.widget.Toast;
 import com.alejandrolai.sfpark.Adapter;
 import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
-import com.alejandrolai.sfpark.Requestor;
 import com.alejandrolai.sfpark.Service;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
-import com.google.android.gms.maps.model.LatLng;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -108,7 +100,6 @@ public class ListActivity extends ActionBarActivity {
         String location = (String) view.getContentDescription();
         /*
         Uri uri = Uri.parse("geo:0,0?q=" + location);
-
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
         */
@@ -183,12 +174,16 @@ public class ListActivity extends ActionBarActivity {
             AsyncTask<Void,Void,ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
                 protected ParkingSpotList doInBackground(Void... params) {
+                    // here the list of parking spots is returned
                     return parkingSpotList;
                 }
 
                 @Override
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
+                    // and here is where you can use it
+                    // here first is passed to a local variable (mParkingSpotList)
+                    // then it is set passed
                     mParkingSpotList = parkingSpotList;
                     mAdapter.setParkingSpots(mParkingSpotList.getList());
                 }

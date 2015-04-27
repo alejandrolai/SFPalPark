@@ -1,10 +1,12 @@
 package com.alejandrolai.sfpark;
 
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
+
 import com.google.android.gms.maps.model.PolylineOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,15 +19,12 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
-import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,14 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-
-public class MainActivity extends FragmentActivity implements LocationListener, GoogleMap.OnMapClickListener {
+public class MainActivity extends ActionBarActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -52,7 +44,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     private Button button;
 
-    //private Toolbar mToolbar;
+    private Toolbar mToolbar;
     Location location;
     double currentLatitude=0;
     double currentLongitude=0;
@@ -62,15 +54,12 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        /*
-        ActionBarActivity/Toolbar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             // Set a Toolbar to act as the ActionBar for this Activity window.
             setSupportActionBar(mToolbar);
-            //getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        */
-
         setUpMapIfNeeded();
 
         button = (Button) findViewById(R.id.button);
@@ -209,60 +198,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
     }
 
     /**
-     * Connect to SFpark
-     */
-    public void connect() {
-        Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
-        // Call getParkingSpots() and test connection to Sfpark,
-        // on succcess retrieve
-        Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
-            @Override
-            public void success(ParkingSpotList parkingSpotList, Response response) {
-                try {
-                    retrieveData(parkingSpotList);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(TAG, error.getLocalizedMessage());
-                try {
-                    retrieveData(null);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Retrieve the data from SFPark
-     *
-     * @param parkingSpotList list of parking spots
-     * @throws InterruptedException
-     * @throws ExecutionException
-     * @throws TimeoutException
-     */
-    private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
-        if (parkingSpotList != null) {
-            //new Requestor(parkingSpotList).execute();
-            Toast.makeText(this, "Requesting data...", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getString(R.string.error_connecting), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
      * Prompt user to change location settings
      */
     public void showLocationSettingsAlert() {
@@ -328,7 +263,7 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
 
     /**
      * Puts marker in map and zooms in
-     * @param latLng
+     * @param latLng LatLng object latitude and longitude coordinates
      */
     private void addMarker(LatLng latLng) {
         mMap.clear();
@@ -387,7 +322,6 @@ public class MainActivity extends FragmentActivity implements LocationListener, 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
