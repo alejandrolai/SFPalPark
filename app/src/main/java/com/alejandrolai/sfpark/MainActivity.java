@@ -119,6 +119,24 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
     }
 
+
+    public double getLatitude()
+    {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        return this.location.getLatitude();
+
+    }
+
+    public double getLongitude()
+    {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        return this.location.getLatitude();
+
+    }
+
+
     @Override
     public void onProviderDisabled (String provider){
         // TODO Auto-generated method stub
@@ -270,8 +288,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
      */
     private void addMarker(LatLng latLng) {
         mMap.clear();
+
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
+                .draggable(true)
                 .title(latLng.toString()));
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
