@@ -21,7 +21,6 @@ import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.list.ListActivity;
@@ -42,8 +41,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Button button;
-
     private Toolbar mToolbar;
     Location location;
     double currentLatitude=0;
@@ -61,10 +58,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         setUpMapIfNeeded();
-
-        button = (Button) findViewById(R.id.button);
-        button.setEnabled(true);
-
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
@@ -109,7 +102,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
                     .build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            button.setVisibility(View.VISIBLE);
         }
 
 
@@ -279,8 +271,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-    public void goToList(View view) {
-
+    public void goToList() {
         if (location != null) {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -313,7 +304,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_about, menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_about, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -325,14 +316,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
 
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
-
             case R.id.action_settings:
                 settingsActivity();
                 return true;
-            //case R.id.action_back:
-                //Intent intent = new Intent(this, MainActivity.class);
-                //startActivity(intent);
-                //return true;
+            case R.id.action_search:
+                goToList();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

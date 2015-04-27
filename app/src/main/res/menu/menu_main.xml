@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+    <item android:id="@+id/action_search"
+        android:icon="@mipmap/ic_magnify_black"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="10"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -11,30 +16,4 @@
         android:orderInCategory="50"
         android:title="Refresh"
         app:showAsAction="never" />
-
-
-
-
-
-
-
-
-
-    <!-- Added by Ihsan on Thursday, 11:30pm, 4/23/15 -->
-    <item
-        android:id="@+id/action_back"
-        android:title="Back"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-    <!-- End of Addition -->
-
-
-
-
-
-
-
-
-
-
 </menu>
