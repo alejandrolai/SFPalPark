@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TabHost;
 
+import com.alejandrolai.sfpark.database.StoreLocation;
 import com.google.android.gms.maps.model.PolylineOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import com.alejandrolai.sfpark.database.StoreLocation;
 
 public class MainActivity extends ActionBarActivity implements LocationListener, GoogleMap.OnMapClickListener {
 
@@ -41,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    //Context context = getApplicationContext();
 
     private Toolbar mToolbar;
     Location location;
@@ -353,6 +356,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
             case R.id.action_search:
                 goToList();
                 return true;
+            case R.id.action_history:
+                displayLocationHistory();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -361,6 +367,18 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     public void sendToMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+   public void goToStoreLocation(View view)
+    {
+        Toast.makeText(this,"Clciked",Toast.LENGTH_SHORT).show();
+
+       //StoreLocation SL = new StoreLocation(context);
+    }
+    public void displayLocationHistory()
+    {
+
+
     }
 
     public void settingsActivity() {

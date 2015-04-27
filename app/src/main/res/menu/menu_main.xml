@@ -20,4 +20,8 @@
         android:title="Refresh"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_history"
+        android:orderInCategory="50"
+        android:title="Parking History"
+        app:showAsAction="never" />
 </menu>

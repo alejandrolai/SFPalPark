@@ -42,7 +42,7 @@ public class StoreLocation extends SQLiteOpenHelper {
                     COLUMN_currenttime + " TEXT);";
 
 
-    StoreLocation(Context context) {
+   public StoreLocation(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mValues = new ContentValues();
     }
