@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.Adapter;
@@ -80,20 +81,56 @@ public class ListActivity extends ActionBarActivity {
         return true;
     }
 
+
+
+
+
+
+// Added on 4/26/15
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                settingsActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    public void sendToMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void settingsActivity() {
+
+        setContentView(R.layout.activity_menu);
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        tabHost.setup();
+
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
+        tabSpec.setContent(R.id.reminder);
+        tabSpec.setIndicator("Reminder");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("About");
+        tabSpec.setContent(R.id.about);
+        tabSpec.setIndicator("About");
+        tabHost.addTab(tabSpec);
+    }
+// End of addition
+
+
+
+
 
     public void shareToMap(View view) {
 
