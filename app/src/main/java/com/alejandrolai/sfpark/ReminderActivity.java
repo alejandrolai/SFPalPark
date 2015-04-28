@@ -4,36 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 
-public class SettingsActivity extends ActionBarActivity {
+public class ReminderActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
-
-        tabHost.setup();
-
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
-        tabSpec.setContent(R.id.reminder);
-        tabSpec.setIndicator("Reminder");
-        tabHost.addTab(tabSpec);
-
-        tabSpec = tabHost.newTabSpec("About");
-        tabSpec.setContent(R.id.about);
-        tabSpec.setIndicator("About");
-        tabHost.addTab(tabSpec);
+        setContentView(R.layout.activity_reminder);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_reminder, menu);
         return true;
     }
 

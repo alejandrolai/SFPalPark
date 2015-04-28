@@ -42,7 +42,7 @@
     <string name="button_return">Return</string>
     <string name="menu_settings">Settings</string>
 
-    <string name="reminder_title">SF Park Pal Reminder</string>
+    <string name="reminder_title">Reminder</string>
     <string name="reminder_info">Info</string>
     <string name="reminder_hours">Hours</string>
     <string name="reminder_type">AM/PM</string>
@@ -54,6 +54,8 @@
     <string name="reminder_currenttime">Current Time:</string>
     <string name="reminder_clocktime">Clock Time</string>
     <string name="action_search">Search</string>
+    <string name="title_activity_reminder">ReminderActivity</string>
+
     <!-- End of Addition -->
 
 

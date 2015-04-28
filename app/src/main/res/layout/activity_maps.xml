@@ -30,7 +30,7 @@
             android:layout_gravity="bottom|right"
             android:background="#DD6600"
             android:alpha="50"
-            android:onClick="goToStoreLocation"
+            android:onClick="goToReminder"
             android:clickable="true"
             android:textColor="#DDDDDD"
             android:padding="0dp" />
