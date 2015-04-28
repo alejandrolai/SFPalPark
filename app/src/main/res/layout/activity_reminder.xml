@@ -10,7 +10,8 @@
     android:orientation="vertical"
     android:id="@+id/menu"
     android:focusableInTouchMode="true"
-    android:background="#EEEEEE">
+    android:background="#EEEEEE"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="fill_parent"
@@ -19,17 +20,20 @@
         android:text="@string/reminder_title"
         android:id="@+id/menu_settings"
         android:layout_gravity="center_horizontal"
-        android:textColor="#999999"
-        android:gravity="center" />
+        android:textColor="#DDDDDD"
+        android:gravity="center"
+        android:background="#DD6600"
+        android:autoText="false" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="135dp"
         android:orientation="vertical"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:layout_gravity="center" >
+        android:layout_gravity="center"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,6 +101,21 @@
                 android:id="@+id/radioButton2"
                 android:textColor="#009900" />
         </TableRow>
+
     </LinearLayout>
+
+    <android.inputmethodservice.ExtractEditText
+        android:layout_width="336dp"
+        android:layout_height="wrap_content"
+        android:text="Reminder Notes"
+        android:id="@+id/extractEditText"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remind Me!"
+        android:id="@+id/button2"
+        android:layout_gravity="right" />
 
 </LinearLayout>

@@ -377,7 +377,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     /**
      * This method is used for the Park Me button, when called, opens up the
      * reminder Activity
-     * @param view
+     * @param View
      */
     public void goToReminder(View park_me) {
         Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
