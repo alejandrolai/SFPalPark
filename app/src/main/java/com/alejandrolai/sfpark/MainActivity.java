@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TabHost;
 
 import com.alejandrolai.sfpark.database.StoreLocation;
+import com.alejandrolai.sfpark.model.ParkingSpot;
+import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.maps.model.PolylineOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -281,7 +283,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
      * @param latLng LatLng object latitude and longitude coordinates
      */
     private void addMarker(LatLng latLng) {
-        mMap.clear();
+       // mMap.clear();
 
         mMap.addMarker(new MarkerOptions()
                 .position(latLng)
@@ -370,7 +372,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     /**
      * This method is used for the Park Me button, when called, opens up the
      * reminder Activity
-     * @param view
+     * @param
      */
     public void goToReminder(View park_me) {
         Toast.makeText(this,"Clicked",Toast.LENGTH_SHORT).show();
@@ -380,4 +382,79 @@ public class MainActivity extends ActionBarActivity implements LocationListener,
     }
 
 
+    /**
+     * Added by Dolly 4/27/15
+     * @param numberReturn - number of  nearest spots wanted (in our case pass 5)
+     * @param listOfSpots - list of Parking spots (in our case the whole sfpark list)
+     *
+     */
+    public void getNearestParkingSpots(int numberReturn, ParkingSpotList listOfSpots) {
+
+        // the list that  will contain numberReturn nearest spots (in our case 5 spots)
+        ParkingSpotList nearestParkingSpots = new ParkingSpotList();
+        LatLng current_loc = new LatLng(this.getLatitude(), this.getLongitude());
+        //temporary list
+        ParkingSpot[] copy_parkings = new ParkingSpot[listOfSpots.getListSize()];
+
+        // check if there is enough spots in the list compared to the number of nearest spots to be returned
+        if(numberReturn <= listOfSpots.getListSize()) {
+
+
+            //copy into temporary list for sorting
+            for (int i = 0; i < listOfSpots.getListSize(); i++) {
+                copy_parkings[i] = listOfSpots.getSpot(i);
+            }
+
+
+
+            // bubble sorting the list in ascending order
+            boolean swapped = true;
+            int j = 0;
+            ParkingSpot tmp;
+
+            while (swapped) {
+                swapped = false;
+                j++;
+                for (int i = 0; i < copy_parkings.length - j; i++) {
+
+                    if (copy_parkings[i].computeDistanceFrom(current_loc) >
+                            copy_parkings[i + 1].computeDistanceFrom(current_loc)) {
+                        tmp = copy_parkings[i];
+                        copy_parkings[i] = copy_parkings[i + 1];
+                        copy_parkings[i + 1] = tmp;
+                        swapped = true;
+                    }
+
+                }
+            }
+            //copy the first numberReturn ( first 5) spots
+
+            for (int i = 0; i < numberReturn; i++) {
+                nearestParkingSpots.addParkingSpot(copy_parkings[i]);
+            }
+
+        }
+        else{
+
+            //add error message that  the list doesn't contain enough spots to return
+        }
+        markNearSpots(nearestParkingSpots);
+    }
+
+    /**
+     * A method that iterates add marker method and pass the coordinates from the nearestparkingspot list
+     * @param nearSpots
+     */
+    public void markNearSpots(ParkingSpotList nearSpots){
+
+        for(int i = 0; i< nearSpots.getListSize(); i++){
+           addMarker(nearSpots.getSpot(i).getCoordinates());
+        }
+
+    }
+
 }
+
+
+
+
