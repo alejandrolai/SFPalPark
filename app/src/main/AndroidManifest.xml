@@ -36,7 +36,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB8JN1Rzky71uxqTXcQnF8Q0WAizRQandw" />
+            android:value="" />
 
         <activity
             android:name=".list.ListActivity"

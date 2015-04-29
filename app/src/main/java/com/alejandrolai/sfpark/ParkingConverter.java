@@ -44,19 +44,19 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                     if (!dataObject.get("LOC").isJsonNull()) {
                         String location = dataObject.get("LOC").getAsString();
                         String[] parts = location.split(",");
-                        String longitude = parts[0];
-                        String latitude = parts[1];
-                        parkingSpot.setLocation(latitude + "," + longitude);
-                        /*
-                        String location = dataObject.get("LOC").getAsString();
-                        String[] parts = location.split(",");
-                        parkingSpot.startLatitude = parts[1];
-                        parkingSpot.startLongitude = parts[0];
-                        parkingSpot.endLatitude = parts[3];
-                        parkingSpot.endLongitude = parts[2];
-                        */
-                    }
-                    else {
+                        if (parts.length == 4) {
+                            parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                            parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                            parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
+                            parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
+                        } else {
+                            parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                            parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                            parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
+                            parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
+                        }
+
+                    } else {
                         Log.e("ParkingConverter", "No parking spots");
                     }
                     if (parkingSpot.getParkingType() != "") {
