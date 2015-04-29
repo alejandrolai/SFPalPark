@@ -174,6 +174,17 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+
+        if (theme.equalsIgnoreCase("beach")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#DD6600"));
+            mToolbar.setBackgroundColor(Color.parseColor("#0099CC"));
+        } else if (theme.equalsIgnoreCase("garden")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#006600"));
+            mToolbar.setBackgroundColor(Color.parseColor("#006600"));
+        } else if (theme.equalsIgnoreCase("lady")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#990000"));
+            mToolbar.setBackgroundColor(Color.parseColor("#990000"));
+        }
     }
 
     /**
@@ -578,8 +589,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
         theme = theTheme;
     }
 
-    public String getBeachTheme() {
+    /*public String getBeachTheme() {
         return theme;
-    }
+    }*/
 
 }
