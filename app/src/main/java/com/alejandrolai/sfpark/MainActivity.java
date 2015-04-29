@@ -1,5 +1,6 @@
 package com.alejandrolai.sfpark;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,7 @@ import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity implements LocationListener{
 
+    private static String theme = "beach";
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -346,9 +348,19 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
+                if (theme.equalsIgnoreCase("beach")) {
+                    Intent intent = new Intent(this, SettingsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("garden")) {
+                    Intent intent = new Intent(this, SettingsActivity2.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("lady")) {
+                    Intent intent = new Intent(this, SettingsActivity3.class);
+                    startActivity(intent);
+                    return true;
+                }
             case R.id.action_search:
                 goToList();
                 return true;
@@ -381,6 +393,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
      * @param view button view
      */
     public void goToReminder(View view) {
+
+
+        /*if (theme.equalsIgnoreCase("beach")) {
+            view.setBackgroundColor(Color.parseColor("#DDCC00"));
+        } else if (theme.equalsIgnoreCase("garden")) {
+            view.setBackgroundColor(Color.parseColor("#006600"));
+        } else if (theme.equalsIgnoreCase("lady")) {
+            view.setBackgroundColor(Color.parseColor("#990000"));
+        }*/
 
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
 
@@ -549,6 +570,16 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
         } else {
             Toast.makeText(this, "error connecting", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+    public static void setTheme(String theTheme) {
+        theme = theTheme;
+    }
+
+    public String getBeachTheme() {
+        return theme;
     }
 
 }

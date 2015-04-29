@@ -21,6 +21,7 @@
 
 
     <!-- Added by Ihsan On Thursday, 11:30pm, 4/23/15 -->
+
     <string name="about_title">About SF Park Pal</string>
     <string name="about_creators">Created By:</string>
     <string name="about_company">San Francisco State University</string>
@@ -55,6 +56,18 @@
     <string name="reminder_clocktime">Clock Time</string>
     <string name="action_search">Search</string>
     <string name="title_activity_reminder">ReminderActivity</string>
+    <string name="title_activity_settings_activity2">SettingsActivity2</string>
+
+    <string name="first_theme">1. </string>
+    <string name="button_beach">Beach</string>
+    <string name="second_theme">2. </string>
+    <string name="button_garden">Garden</string>
+    <string name="third_theme">3. </string>
+    <string name="button_lady">Lady</string>
+    <string name="themes">Themes</string>
+    <string name="themes_title">Themes</string>
+    <string name="title_activity_settings_activity3">SettingsActivity3</string>
+
 
     <!-- End of Addition -->
 
