@@ -16,53 +16,11 @@
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-642da9237ad5ff9e2e38587cfe4f6df56b5aeccd.jar" />
     </item>
     <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-a26668a12b4f7addd5f5dd745a429140aaeeb3e7.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-288063ee4a250c793392c697bceaea02c7a4c09d.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-639dca5388c25bbc1610edd376c7869e12dbd0ed.jar" />
-    </item>
-    <item
         jar="/Users/Alejandro/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/gson-2.3.1-21342c622074ce03f238f53e5ecbafc07904fa5b.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-2abbb3de5b5afd203048bdb23b09b7d11f68874f.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-9118e3b0d818508090236b7e11eac51388c64578.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-efccfc4674192451448540258833b3db975b3cd9.jar" />
     </item>
     <item
         jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
@@ -86,20 +44,6 @@
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-ead97b3e8343d257e8189e82fc6e5b58fdc6eb81.jar" />
     </item>
     <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="055783146ba9654a725442563be78cad303aad1f">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-d268cf47fa94c9af9763a02e19dd378838ab663d.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-3b22f3d7cf9fe7e488e40cfeb3bf1bdd8774939b.jar" />
-    </item>
-    <item
         jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -114,11 +58,11 @@
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-19a03a411f98c22373d9ef1561a98725397a0295.jar" />
     </item>
     <item
-        jar="/Users/Alejandro/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.maps.android/android-maps-utils/0.3.4/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="a681c044244d9fc375198588297a39ba78028423">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/retrofit-1.9.0-c488d73f2811dc7ee696aa093d79eebb01dde8bb.jar" />
+        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-df581227c5962c347d6e292c7af6b104e22ee328.jar" />
     </item>
     <item
         jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
@@ -133,6 +77,76 @@
         revision="22.0.1"
         sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-b73195e338c87d36960cbedcf1a278a3d01f0cdd.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-292be32c2370ab1917c2c447d10dbf62a734fdec.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-a26668a12b4f7addd5f5dd745a429140aaeeb3e7.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-288063ee4a250c793392c697bceaea02c7a4c09d.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-639dca5388c25bbc1610edd376c7869e12dbd0ed.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-2abbb3de5b5afd203048bdb23b09b7d11f68874f.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-9118e3b0d818508090236b7e11eac51388c64578.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-efccfc4674192451448540258833b3db975b3cd9.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-d268cf47fa94c9af9763a02e19dd378838ab663d.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-3b22f3d7cf9fe7e488e40cfeb3bf1bdd8774939b.jar" />
+    </item>
+    <item
+        jar="/Users/Alejandro/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/retrofit-1.9.0-c488d73f2811dc7ee696aa093d79eebb01dde8bb.jar" />
     </item>
     <item
         jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
@@ -154,13 +168,6 @@
         revision="22.0.1"
         sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
         <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-0b80230e9a632626ede04bd97662941c7310c225.jar" />
-    </item>
-    <item
-        jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
-        <dex dex="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-292be32c2370ab1917c2c447d10dbf62a734fdec.jar" />
     </item>
     <item
         jar="/Users/Alejandro/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"

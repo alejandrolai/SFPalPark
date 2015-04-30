@@ -2,8 +2,6 @@ package com.alejandrolai.sfpark.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Iterator;
-
 import com.google.maps.android.SphericalUtil;
 
 /**

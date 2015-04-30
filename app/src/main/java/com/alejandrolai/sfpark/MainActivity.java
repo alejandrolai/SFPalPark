@@ -1,6 +1,6 @@
 package com.alejandrolai.sfpark;
 
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.model.ParkingSpot;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -49,7 +48,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity implements LocationListener{
+public class MainActivity extends ActionBarActivity implements LocationListener {
 
     private static String theme = "beach";
 
@@ -83,33 +82,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
 
         setUpMapIfNeeded();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String location = extras.getString("location_key");
-            Toast.makeText(this, "location: " + location, Toast.LENGTH_SHORT).show();
-            String[] parts = location.split(",");
-            Double longitude = Double.parseDouble(parts[1]);
-            Double latitude = Double.parseDouble(parts[0]);
-            LatLng latLng = new LatLng(latitude, longitude);
-            addMarker(latLng);
-        } else {
-            if (isOnline()) {
-                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                Criteria criteria = new Criteria();
-                criteria.setAltitudeRequired(true);
-                String bestProvider = locationManager.getBestProvider(criteria, true);
-                location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        if (isOnline()) {
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            criteria.setAltitudeRequired(true);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
+            location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
-                if (location != null) {
-                    onLocationChanged(location);
-                } else {
-                    Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
-                    showLocationSettingsAlert();
-                }
-                locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+            if (location != null) {
+                onLocationChanged(location);
             } else {
-                showInternetAlert();
+                Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
+                showLocationSettingsAlert();
             }
+            locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
+        } else {
+            showInternetAlert();
         }
 
     }
@@ -175,17 +163,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-
-        if (theme.equalsIgnoreCase("beach")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#DD6600"));
-            mToolbar.setBackgroundColor(Color.parseColor("#0099CC"));
-        } else if (theme.equalsIgnoreCase("garden")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#006600"));
-            mToolbar.setBackgroundColor(Color.parseColor("#006600"));
-        } else if (theme.equalsIgnoreCase("lady")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#990000"));
-            mToolbar.setBackgroundColor(Color.parseColor("#990000"));
-        }
     }
 
     /**
@@ -303,25 +280,48 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
     }
 
     /**
-     * Puts marker in map
-     *
-     * @param latLng LatLng object latitude and longitude coordinates
+     * Prompt user to change location settings
      */
-    private void addMarker(LatLng latLng) {
+    public void shareToMap(final String location) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        //Setting Dialog Title
+        alertDialog.setTitle("Share to Google Maps?");
+
+        //On Pressing Setting button
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Uri uri = Uri.parse("geo:0,0?q=" + location);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        //On pressing cancel button
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+    /**
+     *
+     * @param startLatitude
+     * @param startLongitude
+     */
+    private void addMarker(String streetName,double startLatitude, double startLongitude) {
 
         mMap.addMarker(new MarkerOptions()
-                .position(latLng)
+                .position(new LatLng(startLatitude,startLongitude))
                 .draggable(true)
-                .title(latLng.toString()));
-        /*
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)
-                .zoom(15)
-                .build();
-
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        */
+                .title(startLatitude + "," +startLongitude)
+                .snippet(streetName));
     }
 
     public void goToList() {
@@ -360,19 +360,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                if (theme.equalsIgnoreCase("beach")) {
-                    Intent intent = new Intent(this, SettingsActivity.class);
-                    startActivity(intent);
-                    return true;
-                } else if (theme.equalsIgnoreCase("garden")) {
-                    Intent intent = new Intent(this, SettingsActivity2.class);
-                    startActivity(intent);
-                    return true;
-                } else if (theme.equalsIgnoreCase("lady")) {
-                    Intent intent = new Intent(this, SettingsActivity3.class);
-                    startActivity(intent);
-                    return true;
-                }
+                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.action_search:
                 goToList();
                 return true;
@@ -405,15 +394,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
      * @param view button view
      */
     public void goToReminder(View view) {
-
-
-        /*if (theme.equalsIgnoreCase("beach")) {
-            view.setBackgroundColor(Color.parseColor("#DDCC00"));
-        } else if (theme.equalsIgnoreCase("garden")) {
-            view.setBackgroundColor(Color.parseColor("#006600"));
-        } else if (theme.equalsIgnoreCase("lady")) {
-            view.setBackgroundColor(Color.parseColor("#990000"));
-        }*/
 
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
 
@@ -489,6 +469,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
         ArrayList<ParkingSpot> list = nearSpots.getList();
 
         for (ParkingSpot parkingSpot : list) {
+            String streetName = parkingSpot.getStreetName();
             double startLatitude = parkingSpot.getStartLatitude();
             double startLongitude = parkingSpot.getStartLongitude();
             double endLatitude = parkingSpot.getEndLatitude();
@@ -496,12 +477,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
-            mMap.addPolyline(new PolylineOptions().geodesic(true)
-                    .add(startLatLng)
-                    .add(endLatLng)
-            );
 
-            addMarker(startLatLng);
+            addLine(startLatLng,endLatLng);
+            addMarker(streetName,startLatitude,startLongitude);
+
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
                     .zoom(15)
@@ -584,14 +563,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
         }
     }
 
-    public void reminderFunction(){}
-
     public static void setTheme(String theTheme) {
         theme = theTheme;
     }
 
-    /*public String getBeachTheme() {
-        return theme;
-    }*/
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            showLocationSettingsAlert();
+        } else if (!isOnline()){
+            showInternetAlert();
+        }
+
+    }
 
 }

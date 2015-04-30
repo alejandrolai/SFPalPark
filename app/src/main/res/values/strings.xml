@@ -11,8 +11,6 @@
     <string name="title_activity_list">ListActivity</string>
 
 
-    <!-- Added by Ihsan On Thursday, 11:30pm, 4/23/15 -->
-
     <string name="about_title">About SF Park Pal</string>
     <string name="about_creators">Created By:</string>
     <string name="about_company">San Francisco State University</string>
@@ -39,7 +37,7 @@
     <string name="reminder_hours">Hours</string>
     <string name="reminder_type">AM/PM</string>
     <string name="reminder_setreminder">Set Reminder:</string>
-    <string name="reminder_entertime">Set Timer:</string>
+    <string name="reminder_entertime">Enter Time:</string>
     <string name="reminder_inputtime">00:00</string>
     <string name="reminder_ambutton">am</string>
     <string name="reminder_pmbutton">pm</string>
@@ -58,17 +56,5 @@
     <string name="themes">Themes</string>
     <string name="themes_title">Themes</string>
     <string name="title_activity_settings_activity3">SettingsActivity3</string>
-
-
-    <!-- End of Addition -->
-
-
-
-
-
-
-
-
-
 
 </resources>
