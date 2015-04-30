@@ -1,6 +1,7 @@
-package com.alejandrolai.sfpark;
+package com.alejandrolai.sfpark.data;
 
-import com.alejandrolai.sfpark.model.ParkingSpotList;
+import com.alejandrolai.sfpark.data.ParkingConverter;
+import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.alejandrolai.sfpark.Timer.ReminderActivity;
-import com.alejandrolai.sfpark.model.ParkingSpot;
-import com.alejandrolai.sfpark.model.ParkingSpotList;
+import com.alejandrolai.sfpark.data.ParkingSpot;
+import com.alejandrolai.sfpark.data.ParkingSpotList;
+import com.alejandrolai.sfpark.data.Service;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.AlertDialog;
@@ -71,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -316,21 +317,17 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
      * @param startLatitude
      * @param startLongitude
      */
-    private void addMarker(String streetName,double startLatitude, double startLongitude) {
+    private void addMarker(String streetName, double rate, String rateQual, double startLatitude, double startLongitude) {
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(startLatitude,startLongitude))
                 .draggable(true)
                 .title(startLatitude + "," +startLongitude)
-                .snippet(streetName));
+                .snippet(streetName + "\n" + rate + ", " +rateQual));
     }
 
-    public void goToList() {
-        if (location != null) {
-            getData(getLatitude(), getLongitude());
-        } else {
-            Toast.makeText(this, "no location 1", Toast.LENGTH_SHORT).show();
-        }
+    public void showParkingSpots() {
+        getData(getLatitude(),getLongitude());
     }
 
     /**
@@ -340,7 +337,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
      * @param endLatLng   end location of block
      */
     private void addLine(LatLng startLatLng, LatLng endLatLng) {
-        mMap.clear();
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .add(startLatLng)
                 .add(endLatLng));
@@ -364,7 +360,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_search:
-                goToList();
+                showParkingSpots();
                 return true;
             case R.id.action_history:
                 displayLocationHistory();
@@ -444,7 +440,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         copy_parkings[i + 1] = tmp;
                         swapped = true;
                     }
-
                 }
             }
             //copy the first numberReturn ( first 5) spots
@@ -469,18 +464,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         ArrayList<ParkingSpot> list = nearSpots.getList();
 
+        Toast.makeText(this,"Found: " + list.size(),Toast.LENGTH_SHORT).show();
+
         for (ParkingSpot parkingSpot : list) {
             String streetName = parkingSpot.getStreetName();
             double startLatitude = parkingSpot.getStartLatitude();
             double startLongitude = parkingSpot.getStartLongitude();
             double endLatitude = parkingSpot.getEndLatitude();
             double endLongitude = parkingSpot.getEndLongitude();
+            double rate = parkingSpot.getRate();
+            String rateQual = parkingSpot.getRateQualifier();
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
             addLine(startLatLng,endLatLng);
-            addMarker(streetName,startLatitude,startLongitude);
+            addMarker(streetName,rate, rateQual, startLatitude,startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -504,7 +503,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
             // on succcess retrieve
-            Service.getService().getParkingSpots(map, new Callback<ParkingSpotList>() {
+            Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
                     try {
@@ -553,7 +552,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     // here first is passed to a local variable (mParkingSpotList)
                     // then it is set passed
                     mParkingSpotList = parkingSpotList;
-                    markNearSpots(mParkingSpotList);
+                    getNearestParkingSpots(10,mParkingSpotList);
 
                 }
             };

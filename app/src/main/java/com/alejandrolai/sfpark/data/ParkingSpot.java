@@ -1,4 +1,4 @@
-package com.alejandrolai.sfpark.model;
+package com.alejandrolai.sfpark.data;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,6 +23,10 @@ public class ParkingSpot {
     private double startLatitude;
     private double endLongitude;
     private double endLatitude;
+
+    private double rate;
+    // per hour, street sweep, no charge
+    private String rateQualifier;
 
     public String getStreetName() {
         return streetName;
@@ -84,6 +88,22 @@ public class ParkingSpot {
 
     public void setEndLatitude(double endLatitude) {
         this.endLatitude = endLatitude;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public String getRateQualifier() {
+        return rateQualifier;
+    }
+
+    public void setRateQualifier(String rateQualifier) {
+        this.rateQualifier = rateQualifier;
     }
 
     /**

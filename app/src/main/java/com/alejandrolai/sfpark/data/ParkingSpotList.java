@@ -1,6 +1,4 @@
-package com.alejandrolai.sfpark.model;
-
-import com.alejandrolai.sfpark.model.ParkingSpot;
+package com.alejandrolai.sfpark.data;
 
 import java.util.ArrayList;
 

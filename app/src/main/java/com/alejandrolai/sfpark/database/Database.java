@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-import com.alejandrolai.sfpark.model.ParkingSpot;
+import com.alejandrolai.sfpark.data.ParkingSpot;
 
 import java.util.ArrayList;
 import java.util.Date;

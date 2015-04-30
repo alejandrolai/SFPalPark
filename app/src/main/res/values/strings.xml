@@ -56,5 +56,6 @@
     <string name="themes">Themes</string>
     <string name="themes_title">Themes</string>
     <string name="title_activity_settings_activity3">SettingsActivity3</string>
+    <string name="can_not_get_location">Could not get your location</string>
 
 </resources>

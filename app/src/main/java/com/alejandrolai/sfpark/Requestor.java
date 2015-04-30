@@ -2,7 +2,7 @@ package com.alejandrolai.sfpark;
 
 import android.os.AsyncTask;
 
-import com.alejandrolai.sfpark.model.ParkingSpotList;
+import com.alejandrolai.sfpark.data.ParkingSpotList;
 
 /**
  * Created by Alejandro on 4/21/15.
