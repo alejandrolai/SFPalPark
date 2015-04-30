@@ -477,12 +477,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
-            mMap.addPolyline(new PolylineOptions().geodesic(true)
-                            .add(startLatLng)
-                            .add(endLatLng)
-            );
 
+            addLine(startLatLng,endLatLng);
             addMarker(streetName,startLatitude,startLongitude);
+
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
                     .zoom(15)
