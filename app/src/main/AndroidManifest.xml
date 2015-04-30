@@ -51,7 +51,7 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".ReminderActivity"
+            android:name=".Timer.ReminderActivity"
             android:label="@string/title_activity_reminder" >
         </activity>
         <activity

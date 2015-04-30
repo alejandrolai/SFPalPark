@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.model.ParkingSpot;
 import com.alejandrolai.sfpark.model.ParkingSpotList;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -583,7 +584,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener{
         }
     }
 
-
+    public void reminderFunction(){}
 
     public static void setTheme(String theTheme) {
         theme = theTheme;

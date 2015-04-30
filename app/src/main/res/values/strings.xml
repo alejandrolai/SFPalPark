@@ -11,15 +11,6 @@
     <string name="title_activity_list">ListActivity</string>
 
 
-
-
-
-
-
-
-
-
-
     <!-- Added by Ihsan On Thursday, 11:30pm, 4/23/15 -->
 
     <string name="about_title">About SF Park Pal</string>
@@ -48,7 +39,7 @@
     <string name="reminder_hours">Hours</string>
     <string name="reminder_type">AM/PM</string>
     <string name="reminder_setreminder">Set Reminder:</string>
-    <string name="reminder_entertime">Enter Time:</string>
+    <string name="reminder_entertime">Set Timer:</string>
     <string name="reminder_inputtime">00:00</string>
     <string name="reminder_ambutton">am</string>
     <string name="reminder_pmbutton">pm</string>

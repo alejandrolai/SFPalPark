@@ -1,12 +1,18 @@
-package com.alejandrolai.sfpark;
+package com.alejandrolai.sfpark.Timer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.os.CountDownTimer;
+import android.view.View;
+
+import com.alejandrolai.sfpark.MainActivity;
+import com.alejandrolai.sfpark.R;
 
 
-public class ReminderActivity extends ActionBarActivity {
+public class ReminderActivity extends ActionBarActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,4 +42,11 @@ public class ReminderActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void backtoMaps(View view){
+
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
