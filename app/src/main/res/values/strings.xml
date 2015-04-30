@@ -11,17 +11,6 @@
     <string name="title_activity_list">ListActivity</string>
 
 
-
-
-
-
-
-
-
-
-
-    <!-- Added by Ihsan On Thursday, 11:30pm, 4/23/15 -->
-
     <string name="about_title">About SF Park Pal</string>
     <string name="about_creators">Created By:</string>
     <string name="about_company">San Francisco State University</string>
@@ -67,17 +56,5 @@
     <string name="themes">Themes</string>
     <string name="themes_title">Themes</string>
     <string name="title_activity_settings_activity3">SettingsActivity3</string>
-
-
-    <!-- End of Addition -->
-
-
-
-
-
-
-
-
-
 
 </resources>
