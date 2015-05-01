@@ -280,10 +280,10 @@
     <color name="blue_grey_900">#263238</color>
 
 
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
-    <color name="primary_light">#7986CB</color>
-    <color name="accent">#FFEB3B</color>
+    <color name="primary">@color/indigo_500</color>
+    <color name="primary_dark">@color/indigo_700</color>
+    <color name="primary_light">@color/indigo_100</color>
+    <color name="accent">@color/teal_500</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>

@@ -224,6 +224,7 @@ public class MainActivity extends ActionBarActivity
 
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
+
                     .position(new LatLng(startLatitude, startLongitude))
                     .draggable(true)
                     .title(streetName)
@@ -244,8 +245,18 @@ public class MainActivity extends ActionBarActivity
      * @param startLatLng start location of block
      * @param endLatLng   end location of block
      */
-    private void addLine(LatLng startLatLng, LatLng endLatLng) {
+    private void addLine(LatLng startLatLng, LatLng endLatLng, double rate) {
+        int color = getResources().getColor(R.color.black);
+
+        if (rate <= 1) {
+            color = getResources().getColor(R.color.green_500);
+        } else if (rate > 1 && rate <= 2) {
+            color = getResources().getColor(R.color.yellow_500);
+        } else if (rate > 2) {
+            color = getResources().getColor(R.color.red_500);
+        }
         mMap.addPolyline(new PolylineOptions().geodesic(true)
+                .color(color)
                 .add(startLatLng)
                 .add(endLatLng));
     }
@@ -392,7 +403,7 @@ public class MainActivity extends ActionBarActivity
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
-            addLine(startLatLng,endLatLng);
+            addLine(startLatLng,endLatLng, rate);
             addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
