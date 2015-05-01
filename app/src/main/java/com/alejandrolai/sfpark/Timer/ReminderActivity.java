@@ -30,14 +30,21 @@ public class ReminderActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
+        //Add buttons
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
 
+        //View the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
 
+        //Set the text to the tested time. Need to Set text time to user input
         textViewTime.setText("00:00:30");
 
+        //Need to set this timer to the time the user specifies
         final CounterClass timer = new CounterClass(30000, 1000);
+
+        //Starts the timer with the Start Button
+        //Need to fix bug that when timer is restarted, it continues from the previous time
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +52,7 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
+        //Stops the timer with the stop button.
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +62,15 @@ public class ReminderActivity extends ActionBarActivity{
     }
 
     //@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+
+    //CountDown Timer Class
     public class CounterClass extends CountDownTimer{
 
         public CounterClass(long millisInFuture, long countDownInterval){
             super(millisInFuture, countDownInterval);
         }
 
+        //Counting down method of Timer
         @Override
         public void onTick(long millisUntilFinished) {
             long millisecs = millisUntilFinished;
@@ -71,6 +82,7 @@ public class ReminderActivity extends ActionBarActivity{
             textViewTime.setText(tick);
         }
 
+        //When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
         @Override
         public void onFinish() {
             textViewTime.setText("Time is up!");
