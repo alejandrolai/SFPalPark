@@ -5,6 +5,10 @@ package com.alejandrolai.sfpark;
  */
 public class ParkedLocation {
 
+
+
+    // Data members
+
     private int _id;
     private float _xlocation;
     private float _ylocation;
@@ -12,6 +16,10 @@ public class ParkedLocation {
     public ParkedLocation() {
 
     }
+
+
+
+    // Data methods
 
     public ParkedLocation(int id, float xloc , float yloc) {
 
@@ -21,6 +29,8 @@ public class ParkedLocation {
 
     }
 
+
+
     public ParkedLocation(float xloc , float yloc) {
 
         this._xlocation = xloc;
@@ -28,19 +38,31 @@ public class ParkedLocation {
 
     }
 
+
+
     public void setID(int id) {
         this._id = id;
     }
 
+
+
     public void setXLocation (float xloc) { this._xlocation = xloc; }
 
+
+
     public void setYLocation (float yloc) { this._ylocation = yloc; }
+
+
 
     public int getID() {
         return this._id;
     }
 
+
+
     public float getXLocation() { return this._xlocation; }
+
+
 
     public float getYLocation() { return this._ylocation; }
 

@@ -14,6 +14,10 @@ import com.alejandrolai.sfpark.ParkedLocation;
 
 public class MyLocationDBHandler extends SQLiteOpenHelper {
 
+
+
+    // Data Members
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "parkedLocationDB.db";
     private static final String TABLE_PARKED_LOCATION = "parked_location";
@@ -22,11 +26,17 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_XLOCATION = "xlocation";
     private static final String COLUMN_YLOCATION = "ylocation";
 
+
+
+    // Data Methods
+
     public MyLocationDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
 
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -39,6 +49,8 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
     }
 
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -46,6 +58,8 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+
+
 
     public void addParkedLocation(ParkedLocation parkedlocation) {
 
@@ -60,6 +74,8 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
+
+
 
     public ParkedLocation findLocation(float input_x_location) {
 
@@ -87,6 +103,8 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         return parkedlocation;
 
     }
+
+
 
     public boolean deleteParkedLocation(Float input_x_location) {
 

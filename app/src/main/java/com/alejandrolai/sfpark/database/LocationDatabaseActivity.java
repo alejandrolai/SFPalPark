@@ -17,13 +17,15 @@ import com.alejandrolai.sfpark.R;
  */
 public class LocationDatabaseActivity extends ActionBarActivity {
 
-
+    // Data members
 
     TextView idView;
     EditText xBox;
     EditText yBox;
 
 
+
+    // Data methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -372,6 +372,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         switch (item.getItemId()) {
 
+            // Chooses the settings' color theme based on the current theme
             case R.id.action_settings:
                 if (theme.equalsIgnoreCase("beach")) {
                     Intent intent = new Intent(this, SettingsActivity.class);
@@ -542,12 +543,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
-
-            // Added By Ihsan on 4/30/15
-
-
 
         }
 
