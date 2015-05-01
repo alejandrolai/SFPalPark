@@ -86,13 +86,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText" />
+                android:id="@+id/hour" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/editText2"
-                android:text="hour(s)" />
+                android:text="hour(s)"
+                android:textColor="#ffff890c" />
 
             <EditText
                 android:layout_width="9dp"
@@ -105,32 +106,41 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText3"
+                android:id="@+id/minute"
                 android:layout_weight="0.15" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/editText4"
-                android:text="minute(s)" />
+                android:text="minute(s)"
+                android:textColor="#ffff9e04" />
 
         </TableRow>
 
     </LinearLayout>
 
-    <android.inputmethodservice.ExtractEditText
-        android:layout_width="336dp"
+    <Button
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
-        android:text="Reminder Notes"
-        android:id="@+id/extractEditText"
-        android:layout_gravity="center_horizontal" />
+        android:text="Stop"
+        android:id="@+id/buttonStop"
+        android:layout_gravity="right" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remind Me!"
-        android:id="@+id/button2"
-        android:layout_gravity="right"
-        android:onClick="backtoMaps"/>
+        android:text="Start"
+        android:id="@+id/buttonStart"/>
+
+    <TextView
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_above = "@+id/b"
+        android:text="New Text"
+        android:id="@+id/viewTime"
+        android:layout_weight="0.60"
+        android:textSize="50sp"
+        android:textColor="#ff0f1215" />
 
 </LinearLayout>
