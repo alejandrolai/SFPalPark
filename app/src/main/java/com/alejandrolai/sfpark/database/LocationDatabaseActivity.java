@@ -18,7 +18,7 @@ import com.alejandrolai.sfpark.R;
 public class LocationDatabaseActivity extends ActionBarActivity {
 
     // Data members
-
+    // Why wont you commit!?
     TextView idView;
     EditText xBox;
     EditText yBox;

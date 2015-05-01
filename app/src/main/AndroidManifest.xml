@@ -58,6 +58,7 @@
             android:name=".database.LocationDatabaseActivity"
             android:label="@string/location_database_activity" >
         </activity>
+        <!-- Commit! -->
     </application>
 
 </manifest>

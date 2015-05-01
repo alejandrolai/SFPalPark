@@ -29,6 +29,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
 
     // Data Methods
+    // Why won't you commit?!
 
     public MyLocationDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 

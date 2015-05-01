@@ -69,6 +69,6 @@
     <string name="delete_location_button">Delete Location</string>
     <string name="product">Park ID:</string>
     <string name="productID"></string>
-
+    <string name="hey">Just commit already!</string>
 
 </resources>

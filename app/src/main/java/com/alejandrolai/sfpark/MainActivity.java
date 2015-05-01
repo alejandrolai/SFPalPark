@@ -13,6 +13,7 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
+import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.AlertDialog;
@@ -286,10 +287,10 @@ public class MainActivity extends ActionBarActivity
     private void addMarker(String streetName, double rate, String rateQual, double startLatitude, double startLongitude) {
 
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(startLatitude,startLongitude))
+                .position(new LatLng(startLatitude, startLongitude))
                 .draggable(true)
-                .title(startLatitude + "," +startLongitude)
-                .snippet(streetName + "\n" + rate + ", " +rateQual));
+                .title(startLatitude + "," + startLongitude)
+                .snippet(streetName + "\n" + rate + ", " + rateQual));
     }
 
     public void showParkingSpots() {
@@ -322,9 +323,22 @@ public class MainActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_settings:
-                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
-                return true;
+                if (theme.equalsIgnoreCase("beach")) {
+                    Intent intent = new Intent(this, SettingsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("garden")) {
+                    Intent intent = new Intent(this, SettingsActivity2.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("lady")) {
+                    Intent intent = new Intent(this, SettingsActivity3.class);
+                    startActivity(intent);
+                    return true;
+                }
+
             case R.id.action_search:
                 showParkingSpots();
                 return true;
@@ -347,7 +361,8 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void displayLocationHistory() {
-
+        Intent intent = new Intent(this, LocationDatabaseActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -539,3 +554,4 @@ public class MainActivity extends ActionBarActivity
     }
 
 }
+// Why won't you commit?!

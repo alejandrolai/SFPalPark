@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Not assigned"
+            android:text="No Location"
             android:id="@+id/productID"
             android:layout_marginTop="25dp"
             android:textColor="#333333" />
