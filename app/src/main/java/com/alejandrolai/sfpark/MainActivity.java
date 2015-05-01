@@ -333,12 +333,10 @@ public class MainActivity extends ActionBarActivity
         // check if there is enough spots in the list compared to the number of nearest spots to be returned
         if (numberReturn <= listOfSpots.getListSize()) {
 
-
             //copy into temporary list for sorting
             for (int i = 0; i < listOfSpots.getListSize(); i++) {
                 copy_parkings[i] = listOfSpots.getSpot(i);
             }
-
 
             // bubble sorting the list in ascending order
             boolean swapped = true;
