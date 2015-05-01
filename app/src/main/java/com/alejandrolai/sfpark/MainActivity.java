@@ -1,5 +1,6 @@
 package com.alejandrolai.sfpark;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -14,6 +15,7 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
+import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.AlertDialog;
@@ -163,8 +165,21 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     @Override
     protected void onResume() {
+
         super.onResume();
         setUpMapIfNeeded();
+
+        // Changes the color theme based on the current theme selected
+        if (theme.equalsIgnoreCase("beach")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#DD6600"));
+            mToolbar.setBackgroundColor(Color.parseColor("#0099CC"));
+        } else if (theme.equalsIgnoreCase("garden")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#006600"));
+            mToolbar.setBackgroundColor(Color.parseColor("#006600"));
+        } else if (theme.equalsIgnoreCase("lady")) {
+            parkMebutton.setBackgroundColor(Color.parseColor("#990000"));
+            mToolbar.setBackgroundColor(Color.parseColor("#990000"));
+        }
     }
 
     /**
@@ -356,33 +371,73 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_settings:
-                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
-                return true;
+                if (theme.equalsIgnoreCase("beach")) {
+                    Intent intent = new Intent(this, SettingsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("garden")) {
+                    Intent intent = new Intent(this, SettingsActivity2.class);
+                    startActivity(intent);
+                    return true;
+                } else if (theme.equalsIgnoreCase("lady")) {
+                    Intent intent = new Intent(this, SettingsActivity3.class);
+                    startActivity(intent);
+                    return true;
+                }
+
             case R.id.action_search:
-                showParkingSpots();
+                goToList();
                 return true;
+
             case R.id.action_history:
-                displayLocationHistory();
+                Intent intent = new Intent(this, LocationDatabaseActivity.class);
+                startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void sendToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
+        /**
+         * XVIII. Sends the user to the store location.
+         *
+         * @param view
+         */
     public void goToStoreLocation(View view) {
+
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         //StoreLocation SL = new StoreLocation(context);
+
     }
 
+    /**
+     * XIV. Go to the list.
+     */
+    public void goToList() {
+
+        if (location != null) {
+            getData(getLatitude(), getLongitude());
+        } else {
+            Toast.makeText(this, "no location 1", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    /**
+     *  XIX. Displays the location history.
+     */
     public void displayLocationHistory() {
 
+        Intent intent = new Intent(this, LocationDatabaseActivity.class);
+        startActivity(intent);
+
     }
+
 
     /**
      * This method is used for the Park Me button, when called, opens up the
@@ -479,7 +534,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
             addLine(startLatLng,endLatLng);
-            addMarker(streetName,rate, rateQual, startLatitude,startLongitude);
+            addMarker(streetName,rate, rateQual, startLatitude, startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -487,6 +542,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+
+            // Added By Ihsan on 4/30/15
+
+
+
         }
 
     }
@@ -563,6 +625,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
+    /**
+     * Sets the color them of the maps page
+     *
+     * @param theTheme
+     */
     public static void setTheme(String theTheme) {
         theme = theTheme;
     }
