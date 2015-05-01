@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Park Me!"
             android:id="@+id/parkMebutton"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|left"
             android:background="#DD6600"
             android:alpha="50"
             android:onClick="goToReminder"

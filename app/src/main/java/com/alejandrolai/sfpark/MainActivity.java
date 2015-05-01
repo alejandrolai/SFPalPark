@@ -1,6 +1,5 @@
 package com.alejandrolai.sfpark;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,7 +40,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -50,15 +48,14 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity implements LocationListener {
+public class MainActivity extends ActionBarActivity
+        implements LocationListener {
 
     private static String theme = "beach";
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    LinkedHashMap map = new LinkedHashMap();
 
     private Toolbar mToolbar;
     Location location;
@@ -282,40 +279,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     /**
-     * Prompt user to change location settings
-     */
-    public void shareToMap(final String location) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-        //Setting Dialog Title
-        alertDialog.setTitle("Share to Google Maps?");
-
-        //On Pressing Setting button
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Uri uri = Uri.parse("geo:0,0?q=" + location);
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
-    }
-
-    /**
      *
-     * @param startLatitude
-     * @param startLongitude
+     * @param startLatitude starting latitude of block
+     * @param startLongitude starting longitude of block
      */
     private void addMarker(String streetName, double rate, String rateQual, double startLatitude, double startLongitude) {
 
@@ -327,7 +293,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     public void showParkingSpots() {
-        getData(getLatitude(),getLongitude());
+        getData();
     }
 
     /**
@@ -464,8 +430,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         ArrayList<ParkingSpot> list = nearSpots.getList();
 
-        Toast.makeText(this,"Found: " + list.size(),Toast.LENGTH_SHORT).show();
-
         for (ParkingSpot parkingSpot : list) {
             String streetName = parkingSpot.getStreetName();
             double startLatitude = parkingSpot.getStartLatitude();
@@ -491,13 +455,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     }
 
-    public void getData(double latitude, double longitude) {
-
-        map.put("lat", latitude);
-        map.put("long", longitude);
-        map.put("radius", "4");
-        map.put("uom", "mile");
-        map.put("response", "json");
+    public void getData() {
 
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
@@ -536,23 +494,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
-    private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
+    private void retrieveData(final ParkingSpotList parkingSpotList)
+            throws InterruptedException, ExecutionException, TimeoutException {
+
+        final int numOfParkingSpots = 10;
         if (parkingSpotList != null) {
             AsyncTask<Void, Void, ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
                 protected ParkingSpotList doInBackground(Void... params) {
-                    // here the list of parking spots is returned
                     return parkingSpotList;
                 }
 
                 @Override
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
-                    // and here is where you can use it
-                    // here first is passed to a local variable (mParkingSpotList)
-                    // then it is set passed
                     mParkingSpotList = parkingSpotList;
-                    getNearestParkingSpots(10,mParkingSpotList);
+                    getNearestParkingSpots(numOfParkingSpots,mParkingSpotList);
 
                 }
             };
