@@ -1,7 +1,5 @@
 package com.alejandrolai.sfpark;
 
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +13,6 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
-import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.AlertDialog;
@@ -43,7 +40,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -52,15 +48,14 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity implements LocationListener {
+public class MainActivity extends ActionBarActivity
+        implements LocationListener {
 
     private static String theme = "beach";
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    LinkedHashMap map = new LinkedHashMap();
 
     private Toolbar mToolbar;
     Location location;
@@ -165,21 +160,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     @Override
     protected void onResume() {
-
         super.onResume();
         setUpMapIfNeeded();
-
-        // Changes the color theme based on the current theme selected
-        if (theme.equalsIgnoreCase("beach")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#DD6600"));
-            mToolbar.setBackgroundColor(Color.parseColor("#0099CC"));
-        } else if (theme.equalsIgnoreCase("garden")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#006600"));
-            mToolbar.setBackgroundColor(Color.parseColor("#006600"));
-        } else if (theme.equalsIgnoreCase("lady")) {
-            parkMebutton.setBackgroundColor(Color.parseColor("#990000"));
-            mToolbar.setBackgroundColor(Color.parseColor("#990000"));
-        }
     }
 
     /**
@@ -297,40 +279,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     /**
-     * Prompt user to change location settings
-     */
-    public void shareToMap(final String location) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-        //Setting Dialog Title
-        alertDialog.setTitle("Share to Google Maps?");
-
-        //On Pressing Setting button
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Uri uri = Uri.parse("geo:0,0?q=" + location);
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
-    }
-
-    /**
      *
-     * @param startLatitude
-     * @param startLongitude
+     * @param startLatitude starting latitude of block
+     * @param startLongitude starting longitude of block
      */
     private void addMarker(String streetName, double rate, String rateQual, double startLatitude, double startLongitude) {
 
@@ -342,7 +293,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     public void showParkingSpots() {
-        getData(getLatitude(),getLongitude());
+        getData();
     }
 
     /**
@@ -371,74 +322,33 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-
-            // Chooses the settings' color theme based on the current theme
             case R.id.action_settings:
-                if (theme.equalsIgnoreCase("beach")) {
-                    Intent intent = new Intent(this, SettingsActivity.class);
-                    startActivity(intent);
-                    return true;
-                } else if (theme.equalsIgnoreCase("garden")) {
-                    Intent intent = new Intent(this, SettingsActivity2.class);
-                    startActivity(intent);
-                    return true;
-                } else if (theme.equalsIgnoreCase("lady")) {
-                    Intent intent = new Intent(this, SettingsActivity3.class);
-                    startActivity(intent);
-                    return true;
-                }
-
+                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.action_search:
-                goToList();
+                showParkingSpots();
                 return true;
-
             case R.id.action_history:
-                Intent intent = new Intent(this, LocationDatabaseActivity.class);
-                startActivity(intent);
+                displayLocationHistory();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public void sendToMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
-        /**
-         * XVIII. Sends the user to the store location.
-         *
-         * @param view
-         */
     public void goToStoreLocation(View view) {
-
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         //StoreLocation SL = new StoreLocation(context);
-
     }
 
-    /**
-     * XIV. Go to the list.
-     */
-    public void goToList() {
-
-        if (location != null) {
-            getData(getLatitude(), getLongitude());
-        } else {
-            Toast.makeText(this, "no location 1", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-
-    /**
-     *  XIX. Displays the location history in the Location Database Activity.
-     */
     public void displayLocationHistory() {
 
-        Intent intent = new Intent(this, LocationDatabaseActivity.class);
-        startActivity(intent);
-
     }
-
 
     /**
      * This method is used for the Park Me button, when called, opens up the
@@ -520,8 +430,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         ArrayList<ParkingSpot> list = nearSpots.getList();
 
-        Toast.makeText(this,"Found: " + list.size(),Toast.LENGTH_SHORT).show();
-
         for (ParkingSpot parkingSpot : list) {
             String streetName = parkingSpot.getStreetName();
             double startLatitude = parkingSpot.getStartLatitude();
@@ -535,7 +443,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
             addLine(startLatLng,endLatLng);
-            addMarker(streetName,rate, rateQual, startLatitude, startLongitude);
+            addMarker(streetName,rate, rateQual, startLatitude,startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -543,18 +451,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
         }
 
     }
 
-    public void getData(double latitude, double longitude) {
-
-        map.put("lat", latitude);
-        map.put("long", longitude);
-        map.put("radius", "4");
-        map.put("uom", "mile");
-        map.put("response", "json");
+    public void getData() {
 
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
@@ -593,23 +494,22 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
-    private void retrieveData(final ParkingSpotList parkingSpotList) throws InterruptedException, ExecutionException, TimeoutException {
+    private void retrieveData(final ParkingSpotList parkingSpotList)
+            throws InterruptedException, ExecutionException, TimeoutException {
+
+        final int numOfParkingSpots = 10;
         if (parkingSpotList != null) {
             AsyncTask<Void, Void, ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
                 protected ParkingSpotList doInBackground(Void... params) {
-                    // here the list of parking spots is returned
                     return parkingSpotList;
                 }
 
                 @Override
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
-                    // and here is where you can use it
-                    // here first is passed to a local variable (mParkingSpotList)
-                    // then it is set passed
                     mParkingSpotList = parkingSpotList;
-                    getNearestParkingSpots(10,mParkingSpotList);
+                    getNearestParkingSpots(numOfParkingSpots,mParkingSpotList);
 
                 }
             };
@@ -620,11 +520,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
     }
 
-    /**
-     * Sets the color them of the maps page
-     *
-     * @param theTheme
-     */
     public static void setTheme(String theTheme) {
         theme = theTheme;
     }

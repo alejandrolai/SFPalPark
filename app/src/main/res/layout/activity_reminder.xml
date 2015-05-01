@@ -13,6 +13,8 @@
     android:background="#EEEEEE"
     android:weightSum="1">
 
+
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="30dp"
@@ -68,10 +70,11 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp" >
+            android:layout_marginTop="0dp"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="125dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/reminder_entertime"
@@ -79,44 +82,65 @@
                 android:textColor="#333333" />
 
             <EditText
-                android:layout_width="75dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:inputType="time"
+                android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText"
-                android:text="@string/reminder_inputtime"
-                android:textColor="#009900" />
+                android:id="@+id/hour" />
 
-            <RadioButton
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reminder_ambutton"
-                android:id="@+id/radioButton"
-                android:textColor="#009900" />
+                android:id="@+id/editText2"
+                android:text="hour(s)"
+                android:textColor="#ffff890c" />
 
-            <RadioButton
-                android:layout_width="fill_parent"
+            <EditText
+                android:layout_width="9dp"
                 android:layout_height="wrap_content"
-                android:text="@string/reminder_pmbutton"
-                android:id="@+id/radioButton2"
-                android:textColor="#009900" />
+                android:id="@+id/editText5"
+                android:text=":" />
+
+            <EditText
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minute"
+                android:layout_weight="0.15" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText4"
+                android:text="minute(s)"
+                android:textColor="#ffff9e04" />
+
         </TableRow>
 
     </LinearLayout>
 
-    <android.inputmethodservice.ExtractEditText
-        android:layout_width="336dp"
+    <Button
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
-        android:text="Reminder Notes"
-        android:id="@+id/extractEditText"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#333333" />
+        android:text="Stop"
+        android:id="@+id/buttonStop"
+        android:layout_gravity="right" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remind Me!"
-        android:id="@+id/button2"
-        android:layout_gravity="right" />
+        android:text="Start"
+        android:id="@+id/buttonStart"/>
+
+    <TextView
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_above = "@+id/b"
+        android:text="New Text"
+        android:id="@+id/viewTime"
+        android:layout_weight="0.60"
+        android:textSize="50sp"
+        android:textColor="#ff0f1215" />
 
 </LinearLayout>

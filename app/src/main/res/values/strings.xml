@@ -57,6 +57,7 @@
     <string name="themes_title">Themes</string>
     <string name="title_activity_settings_activity3">SettingsActivity3</string>
     <string name="can_not_get_location">Could not get your location</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
 
     <string name="location_database_activity">Location Database Activity</string>
     <string name="park_location">Park Location</string>
