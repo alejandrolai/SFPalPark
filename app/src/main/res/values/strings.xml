@@ -70,5 +70,10 @@
     <string name="product">Park ID:</string>
     <string name="productID"></string>
     <string name="hey">Just commit already!</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_connection_available">No connection available</string>
+    <string name="turn_on_wifi_or_data_services">Turn on wifi or data services</string>
+    <string name="activate_location_services">Activate location services</string>
+    <string name="location_services_not_activated">Location services not activated</string>
 
 </resources>

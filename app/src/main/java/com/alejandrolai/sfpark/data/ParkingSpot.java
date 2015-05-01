@@ -24,6 +24,8 @@ public class ParkingSpot {
     private double endLongitude;
     private double endLatitude;
 
+    private String endTime;
+
     private double rate;
     // per hour, street sweep, no charge
     private String rateQualifier;
@@ -104,6 +106,14 @@ public class ParkingSpot {
 
     public void setRateQualifier(String rateQualifier) {
         this.rateQualifier = rateQualifier;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     /**

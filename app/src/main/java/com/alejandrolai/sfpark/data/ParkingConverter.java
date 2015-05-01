@@ -25,7 +25,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
         Calendar now = Calendar.getInstance();
         int hour = now.get(Calendar.HOUR);
         int minutes = now.get(Calendar.MINUTE);
-        int meridian = now.get(Calendar.AM_PM);
+        int meridian = now.get(Calendar.AM_PM); // 0 if am, 1 if pm
         ParkingSpotList parkingSpotList = new ParkingSpotList();
 
         if (json.isJsonObject()) {
@@ -74,9 +74,12 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                         JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
                         //for (int j = 0;j<prices.size();j++){
                             JsonObject pricesObject = prices.get(1).getAsJsonObject();
-                            if (!pricesObject.get("RATE").isJsonNull() && !pricesObject.get("RQ").isJsonNull()) {
+                            if (!pricesObject.get("RATE").isJsonNull() &&
+                                    !pricesObject.get("RQ").isJsonNull() &&
+                                    !pricesObject.get("END").isJsonNull()) {
                                 parkingSpot.setRate(Double.parseDouble(pricesObject.get("RATE").getAsString()));
                                 parkingSpot.setRateQualifier(pricesObject.get("RQ").getAsString());
+                                parkingSpot.setEndTime(pricesObject.get("END").getAsString());
                                 /*
                                 String[] begTime = pricesObject.get("BEG").getAsString().split(" ");
                                 if (begTime[1] == "AM" && meridian == 0){

@@ -16,9 +16,7 @@ import com.alejandrolai.sfpark.data.Service;
 import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -26,7 +24,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.Settings;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -58,12 +55,13 @@ public class MainActivity extends ActionBarActivity
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
     Location location;
     double currentLatitude = 0;
     double currentLongitude = 0;
 
     Button parkMebutton;
+
+    AlertDialogs dialog = AlertDialogs.getInstance();
 
     ParkingSpotList mParkingSpotList;
 
@@ -72,7 +70,7 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -93,11 +91,12 @@ public class MainActivity extends ActionBarActivity
                 onLocationChanged(location);
             } else {
                 Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
-                showLocationSettingsAlert();
+                dialog.showLocationSettingsAlert(this);
+
             }
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
-            showInternetAlert();
+            dialog.showInternetAlert(this);
         }
 
     }
@@ -216,85 +215,27 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     * Prompt user to change location settings
-     */
-    public void showLocationSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-        //Setting Dialog Title
-        alertDialog.setTitle("Location services not activated");
-
-        //Setting Dialog Message
-        alertDialog.setMessage("Activate location services");
-
-        //On Pressing Setting button
-        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
-    }
-
-    /**
-     * Show a Dialog to prompt the user to change internet settings
-     */
-    public void showInternetAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-        //Setting Dialog Title
-        alertDialog.setTitle("No connection available");
-
-        //Setting Dialog Message
-        alertDialog.setMessage("Turn on wifi or data services");
-
-        //On Pressing Setting button
-        alertDialog.setPositiveButton("settings", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        alertDialog.setCancelable(false);
-        alertDialog.show();
-    }
-
-    /**
      *
      * @param startLatitude starting latitude of block
      * @param startLongitude starting longitude of block
      */
-    private void addMarker(String streetName, double rate, String rateQual, double startLatitude, double startLongitude) {
+    private void addMarker(String streetName, double rate, String rateQual,
+                           String endTime, double startLatitude, double startLongitude) {
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(startLatitude, startLongitude))
-                .draggable(true)
-                .title(startLatitude + "," + startLongitude)
-                .snippet(streetName + "\n" + rate + ", " + rateQual));
-    }
+        if (rateQual.equals("Per hour")) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(startLatitude, startLongitude))
+                    .draggable(true)
+                    .title(streetName)
+                    .snippet("$" + rate + " " + rateQual + " until " + endTime));
+        } else {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(startLatitude, startLongitude))
+                    .draggable(true)
+                    .title(streetName)
+                    .snippet(rateQual + " until " + endTime));
+        }
 
-    public void showParkingSpots() {
-        getData();
     }
 
     /**
@@ -340,10 +281,10 @@ public class MainActivity extends ActionBarActivity
                 }
 
             case R.id.action_search:
-                showParkingSpots();
+                getData();
                 return true;
             case R.id.action_history:
-                displayLocationHistory();
+                startActivity(new Intent(this, LocationDatabaseActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -358,11 +299,6 @@ public class MainActivity extends ActionBarActivity
     public void goToStoreLocation(View view) {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         //StoreLocation SL = new StoreLocation(context);
-    }
-
-    public void displayLocationHistory() {
-        Intent intent = new Intent(this, LocationDatabaseActivity.class);
-        startActivity(intent);
     }
 
     /**
@@ -452,13 +388,14 @@ public class MainActivity extends ActionBarActivity
             double endLatitude = parkingSpot.getEndLatitude();
             double endLongitude = parkingSpot.getEndLongitude();
             double rate = parkingSpot.getRate();
+            String endTime = parkingSpot.getEndTime();
             String rateQual = parkingSpot.getRateQualifier();
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
             addLine(startLatLng,endLatLng);
-            addMarker(streetName,rate, rateQual, startLatitude,startLongitude);
+            addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -546,12 +483,11 @@ public class MainActivity extends ActionBarActivity
         LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
         if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            showLocationSettingsAlert();
+            dialog.showLocationSettingsAlert(this);
         } else if (!isOnline()){
-            showInternetAlert();
+            dialog.showInternetAlert(this);
         }
 
     }
 
 }
-// Why won't you commit?!
