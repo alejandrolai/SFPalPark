@@ -430,7 +430,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
     /**
-     *  XIX. Displays the location history.
+     *  XIX. Displays the location history in the Location Database Activity.
      */
     public void displayLocationHistory() {
 

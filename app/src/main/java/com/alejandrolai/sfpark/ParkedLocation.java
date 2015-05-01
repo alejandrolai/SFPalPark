@@ -39,6 +39,7 @@ public class ParkedLocation {
     }
 
 
+    // Setters and Getters
 
     public void setID(int id) {
         this._id = id;

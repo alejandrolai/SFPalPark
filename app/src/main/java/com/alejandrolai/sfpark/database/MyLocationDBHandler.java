@@ -37,7 +37,12 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Creates a parked location database table with three columns:
+     * the id, x coordinate, and y coordinate.
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -60,7 +65,11 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Puts the x and y coordinate values into the database.
+     *
+     * @param parkedlocation
+     */
     public void addParkedLocation(ParkedLocation parkedlocation) {
 
         ContentValues values = new ContentValues();
@@ -76,7 +85,12 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Searches for the parked location based on a given x coordinate input value.
+     *
+     * @param input_x_location
+     * @return
+     */
     public ParkedLocation findLocation(float input_x_location) {
 
         String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_XLOCATION + " = \"" + input_x_location + "\"";
@@ -105,7 +119,12 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * Deletes a parked location based on the xa nd y coordinate input values.
+     *
+     * @param input_x_location
+     * @return
+     */
     public boolean deleteParkedLocation(Float input_x_location) {
 
         boolean result = false;

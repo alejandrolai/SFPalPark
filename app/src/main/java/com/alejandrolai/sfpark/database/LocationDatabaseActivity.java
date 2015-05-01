@@ -42,7 +42,12 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
-
+    /**
+     * Adds a new parked location when the x and y coordinates are entered,
+     * and the add location button is pressed.
+     *
+     * @param view
+     */
     public void newParkedLocation (View view) {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
@@ -61,7 +66,12 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
-
+    /**
+     * Searches for a parked location when an x-coordinate is entered
+     * and the get location button is pressed.
+     *
+     * @param view
+     */
     public void lookupParkedLocation (View view) {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
@@ -83,7 +93,12 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
-
+    /**
+     * Removes a saved parked location when both of the coordinates are entered
+     * and the delete location button is pressed.
+     *
+     * @param view
+     */
     public void removeParkedLocation (View view) {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
