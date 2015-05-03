@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ReminderActivity extends ActionBarActivity{
 
-    Button startButton, stopButton;
+    Button startButton, stopButton,setTimer;
     TextView textViewTime;
 
     @Override
@@ -32,18 +32,37 @@ public class ReminderActivity extends ActionBarActivity{
         // Adds buttons
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
+        setTimer = (Button) findViewById(R.id.setTimeButton);
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+    }
+
+    public void setTimerTime(View view){
+        //Get Hour and Minute from XML file
+        TextView hour = (EditText) findViewById(R.id.hour);
+        TextView minute = (EditText) findViewById(R.id.minute);
+
+        //MAKE SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
+        //NEED TO PUT AN IF STATEMENT IF TEXTVIEW IS NULL, make it zero
+        //NEED TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
+        //NEED TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
+        //ALSO NEED TO PUT VIBRATE AND ALARM WITH NOTES.
+
+        //Change Hour and Minute from TextView Object to Int
+        int hourInt = Integer.parseInt(hour.getText().toString());
+        int minuteInt = Integer.parseInt(minute.getText().toString());
 
         // Sets the text to the tested time. Need to Set text time to user input
-        textViewTime.setText("00:00:30");
+        textViewTime.setText(hourInt+":"+minuteInt+":00");
 
-        // Needs to set this timer to the time the user specifies
-        final CounterClass timer = new CounterClass(30000, 1000);
+        // Set this timer to the time the user specifies into milliseconds
+        long hourToMillisecs = hourInt*3600000;
+        long minuteToMillisecs = minuteInt*60000;
 
-        // Starts the timer with the Start Button
-        // Needs to fix bug that when timer is restarted, it continues from the previous time
+        long userInputTime = hourToMillisecs + minuteToMillisecs;
+        final CounterClass timer = new CounterClass(userInputTime, 1000);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
