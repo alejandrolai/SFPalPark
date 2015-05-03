@@ -1,4 +1,4 @@
-package com.alejandrolai.sfpark.database;
+package com.alejandrolai.sfpark;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,25 +8,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alejandrolai.sfpark.ParkedLocation;
-import com.alejandrolai.sfpark.R;
-
+import com.alejandrolai.sfpark.data.ParkedLocation;
+import com.alejandrolai.sfpark.database.MyLocationDBHandler;
 
 /**
  * Created by ihsan_taha on 4/30/15.
  */
 public class LocationDatabaseActivity extends ActionBarActivity {
 
-    // Data members
-    // Why wont you commit!?
     TextView idView;
     EditText xBox;
     EditText yBox;
 
 
 
-    // Data methods
-
+    /**
+     *
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,6 +40,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
 
     }
+
 
 
     /**
@@ -64,6 +65,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
         yBox.setText("");
 
     }
+
 
 
     /**
@@ -93,6 +95,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
+
     /**
      * Removes a saved parked location when both of the coordinates are entered
      * and the delete location button is pressed.
@@ -116,35 +119,6 @@ public class LocationDatabaseActivity extends ActionBarActivity {
             idView.setText("No Match Found");
         }
 
-    }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

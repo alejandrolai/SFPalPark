@@ -12,7 +12,6 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
-import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +42,6 @@ import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
 
-    // Data members
     private static String theme = "beach";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -53,8 +51,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     Button parkMebutton;
     ParkingSpotList mParkingSpotList;
     AlertDialogs dialog = AlertDialogs.getInstance();
-
-    // Data methods
 
 
 
@@ -127,6 +123,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
 
+
     /**
      * Gets the current latitude value.
      *
@@ -136,8 +133,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         return this.location.getLatitude();
-
     }
+
 
 
     /**
@@ -149,8 +146,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         return this.location.getLongitude();
-
     }
+
 
 
     // Provider and Status methods
@@ -168,6 +165,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
     }
+
 
 
     /**
@@ -244,7 +242,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
     /**
-     * Displays the street name, price, rate quality, and end time
+     * Displays the street name, price, rate qualifier, and end time
      * of the current selected pin on the map.
      *
      * @param startLatitude  starting latitude of block
@@ -343,7 +341,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
     /**
-     * Interacts with the items in the action bar.
+     * Handle action bar item clicks here. The action bar will
+     * automatically handle clicks on the Home/Up button, so long
+     * as you specify a parent activity in AndroidManifest.xml.
      *
      * @param item
      * @return
@@ -397,27 +397,29 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     /**
      * Added by Dolly 4/27/15
+     * Gets the nearest "numberReturn" parking spots.
      *
      * @param numberReturn - number of  nearest spots wanted (in our case pass 5)
      * @param listOfSpots  - list of Parking spots (in our case the whole sfpark list)
      */
     public void getNearestParkingSpots(int numberReturn, ParkingSpotList listOfSpots) {
 
-        // the list that  will contain numberReturn nearest spots (in our case 5 spots)
+        // The list that  will contain numberReturn nearest spots (in our case 5 spots)
         ParkingSpotList nearestParkingSpots = new ParkingSpotList();
         LatLng current_loc = new LatLng(this.getLatitude(), this.getLongitude());
-        //temporary list
+
+        // Temporary list
         ParkingSpot[] copy_parkings = new ParkingSpot[listOfSpots.getListSize()];
 
-        // check if there is enough spots in the list compared to the number of nearest spots to be returned
+        // Checks if there are enough spots in the list compared to the number of nearest spots to be returned
         if (numberReturn <= listOfSpots.getListSize()) {
 
-            //copy into temporary list for sorting
+            // Copies into temporary list for sorting
             for (int i = 0; i < listOfSpots.getListSize(); i++) {
                 copy_parkings[i] = listOfSpots.getSpot(i);
             }
 
-            // bubble sorting the list in ascending order
+            // Bubble sorts the list in ascending order
             boolean swapped = true;
             int j = 0;
             ParkingSpot tmp;
@@ -436,15 +438,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     }
                 }
             }
-            //copy the first numberReturn ( first 5) spots
 
+            // Copies the first numberReturn ( first 5) spots
             for (int i = 0; i < numberReturn; i++) {
                 nearestParkingSpots.addParkingSpot(copy_parkings[i]);
             }
 
         } else {
 
-            //add error message that  the list doesn't contain enough spots to return
+            // Adds error message that  the list doesn't contain enough spots to return
         }
         markNearSpots(nearestParkingSpots);
     }

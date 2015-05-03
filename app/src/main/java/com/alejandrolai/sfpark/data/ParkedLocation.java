@@ -1,70 +1,67 @@
-package com.alejandrolai.sfpark;
+package com.alejandrolai.sfpark.data;
+
 
 /**
  * Created by ihsan_taha on 4/30/15.
  */
 public class ParkedLocation {
 
-
-
-    // Data members
-    // Why won't you commit?!
-
     private int _id;
     private float _xlocation;
     private float _ylocation;
 
+
+
+    /**
+     * Default Constructor.
+     */
     public ParkedLocation() {
 
     }
 
 
 
-    // Data methods
+    /**
+     * Constructor.
+     *
+     * @param xloc
+     * @param yloc
+     */
+    public ParkedLocation(float xloc , float yloc) {
+        this._xlocation = xloc;
+        this._ylocation = yloc;
+    }
 
+
+
+    /**
+     * Constructor.
+     *
+     * @param id
+     * @param xloc
+     * @param yloc
+     */
     public ParkedLocation(int id, float xloc , float yloc) {
-
         this._id  = id;
         this._xlocation = xloc;
         this._ylocation = yloc;
-
     }
 
 
 
-    public ParkedLocation(float xloc , float yloc) {
-
-        this._xlocation = xloc;
-        this._ylocation = yloc;
-
-    }
-
-
-    // Setters and Getters
-
-    public void setID(int id) {
-        this._id = id;
-    }
-
-
+    // Setters
+    public void setID(int id) { this._id = id; }
 
     public void setXLocation (float xloc) { this._xlocation = xloc; }
-
-
 
     public void setYLocation (float yloc) { this._ylocation = yloc; }
 
 
 
-    public int getID() {
-        return this._id;
-    }
-
-
+    // Getters
+    public int getID() {return this._id;}
 
     public float getXLocation() { return this._xlocation; }
-
-
 
     public float getYLocation() { return this._ylocation; }
 

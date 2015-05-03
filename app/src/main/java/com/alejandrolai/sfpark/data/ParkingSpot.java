@@ -7,8 +7,6 @@ import com.google.maps.android.SphericalUtil;
 /**
  * Created by Alejandro on 4/8/15.
  */
-
-
 public class ParkingSpot {
 
     private String parkingType;
@@ -27,8 +25,11 @@ public class ParkingSpot {
     private String endTime;
 
     private double rate;
-    // per hour, street sweep, no charge
+
+    // Per hour, street sweep, no charge
     private String rateQualifier;
+
+
 
     public String getStreetName() {
         return streetName;
@@ -38,10 +39,7 @@ public class ParkingSpot {
         this.streetName = streetName;
     }
 
-    public String getParkingType() {
-
-        return parkingType;
-    }
+    public String getParkingType() { return parkingType; }
 
     public void setParkingType(String parkingType) {
         this.parkingType = parkingType;
@@ -51,14 +49,19 @@ public class ParkingSpot {
         return location;
     }
 
+
+
     public void setLocation(String location) {
         this.location = location;
 
-        //Added by dolly to extract latitude & longitude from string location and parse them to double
+        // Added by dolly to extract latitude & longitude from string
+        // location and parse them to double.
         String[] splittedLocation = location.split(",");
         this.latitude = Double.parseDouble(splittedLocation[0]);
         this.longitude = Double.parseDouble(splittedLocation[1]);
     }
+
+
 
     public double getStartLongitude() {
         return startLongitude;
@@ -116,9 +119,11 @@ public class ParkingSpot {
         this.endTime = endTime;
     }
 
+
+
     /**
-     * Added by Dolly 4/27/15
-     * A method that computes the distance of a parking spot from the current location
+     * Added by dolly 4/27/15
+     * A method that computes the distance of a parking spot from the current location.
      *
      * @param original_position - coordinates of current location
      * @return distance from current location
@@ -128,10 +133,13 @@ public class ParkingSpot {
         LatLng parking_spot_coord = new LatLng(this.latitude, this.longitude);
 
         return SphericalUtil.computeDistanceBetween(parking_spot_coord, original_position);
+
     }
 
+
+
     /**
-     * Added by Dolly 4/27/2015
+     * Added by dolly 4/27/2015
      *
      * @return LatLng object for the coordinates of the spot
      */
