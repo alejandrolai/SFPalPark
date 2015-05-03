@@ -15,12 +15,12 @@
 
     <TableRow
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="0dp">
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/menu_settings"
             android:id="@+id/menu_settings"

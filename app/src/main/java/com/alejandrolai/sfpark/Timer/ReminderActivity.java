@@ -19,7 +19,6 @@ import com.alejandrolai.sfpark.R;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 
-
 public class ReminderActivity extends ActionBarActivity{
 
     Button startButton, stopButton;
@@ -30,21 +29,21 @@ public class ReminderActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        //Add buttons
+        // Adds buttons
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
 
-        //View the time
+        // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
 
-        //Set the text to the tested time. Need to Set text time to user input
+        // Sets the text to the tested time. Need to Set text time to user input
         textViewTime.setText("00:00:30");
 
-        //Need to set this timer to the time the user specifies
+        // Needs to set this timer to the time the user specifies
         final CounterClass timer = new CounterClass(30000, 1000);
 
-        //Starts the timer with the Start Button
-        //Need to fix bug that when timer is restarted, it continues from the previous time
+        // Starts the timer with the Start Button
+        // Needs to fix bug that when timer is restarted, it continues from the previous time
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +51,7 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
-        //Stops the timer with the stop button.
+        //Stops the timer with the stop button
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +69,7 @@ public class ReminderActivity extends ActionBarActivity{
             super(millisInFuture, countDownInterval);
         }
 
-        //Counting down method of Timer
+        // Counting down method of Timer
         @Override
         public void onTick(long millisUntilFinished) {
             long millisecs = millisUntilFinished;
@@ -82,36 +81,15 @@ public class ReminderActivity extends ActionBarActivity{
             textViewTime.setText(tick);
         }
 
-        //When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
+        // When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
         @Override
         public void onFinish() {
             textViewTime.setText("Time is up!");
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reminder, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void createTimer(){
+    public void createTimer() {
         CountDownTimer countDownTimer;
         boolean timerHasStarted = false;
 
@@ -120,12 +98,6 @@ public class ReminderActivity extends ActionBarActivity{
         //long startTime =
         long interval = 1 * 1000;
 
-    }
-
-    public void backtoMaps(View view){
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

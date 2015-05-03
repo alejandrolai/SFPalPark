@@ -14,6 +14,8 @@ import android.widget.Toast;
  */
 public class SettingsActivity extends ActionBarActivity {
 
+    private String theme = MainActivity.getCurrentTheme();
+
 
 
     /**
@@ -101,5 +103,7 @@ public class SettingsActivity extends ActionBarActivity {
         toast.show();
 
         MainActivity.setTheme("lady");
+
     }
+
 }

@@ -45,7 +45,7 @@
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFCCCC"
+                android:background="#FF9999"
                 android:clickable="true"></TabWidget>
 
             <FrameLayout

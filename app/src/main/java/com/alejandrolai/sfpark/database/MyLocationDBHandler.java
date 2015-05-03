@@ -1,22 +1,17 @@
 package com.alejandrolai.sfpark.database;
 
-/**
- * Created by ihsan_taha on 4/30/15.
- */
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.alejandrolai.sfpark.ParkedLocation;
+import com.alejandrolai.sfpark.data.ParkedLocation;
 
+/**
+ * Created by ihsan_taha on 4/30/15.
+ */
 public class MyLocationDBHandler extends SQLiteOpenHelper {
-
-
-
-    // Data Members
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "parkedLocationDB.db";
@@ -26,16 +21,12 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_XLOCATION = "xlocation";
     private static final String COLUMN_YLOCATION = "ylocation";
 
-
-
-    // Data Methods
-    // Why won't you commit?!
-
     public MyLocationDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
 
     }
+
 
 
     /**
@@ -57,6 +48,13 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
 
 
+    /**
+     * Upgrades the database.
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -64,6 +62,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+
 
 
     /**
@@ -84,6 +83,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
+
 
 
     /**
@@ -118,6 +118,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
         return parkedlocation;
 
     }
+
 
 
     /**
