@@ -8,14 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
-
 import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
 import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -27,7 +25,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,48 +33,53 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity
-        implements LocationListener {
+public class MainActivity extends ActionBarActivity implements LocationListener {
 
+    // Data members
     private static String theme = "beach";
-
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    Location location;
     double currentLatitude = 0;
     double currentLongitude = 0;
-
+    Location location;
     Button parkMebutton;
-
+    ParkingSpotList mParkingSpotList;
     AlertDialogs dialog = AlertDialogs.getInstance();
 
-    ParkingSpotList mParkingSpotList;
+    // Data methods
 
+
+
+    /**
+     * Adds visual elements to the Main Activity upon its creation.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Adds a tool bar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        // Adds a park me button
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
 
+
+        // Adds the map, and handles location service issues
         setUpMapIfNeeded();
 
         if (isOnline()) {
@@ -101,6 +103,13 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+
+    /**
+     * Updates the camera view on the map.
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng;
@@ -118,6 +127,11 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    /**
+     * Gets the current latitude value.
+     *
+     * @return
+     */
     public double getLatitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -125,6 +139,12 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+    /**
+     * Gets the current longitude value.
+     *
+     * @return
+     */
     public double getLongitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -133,6 +153,7 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    // Provider and Status methods
     @Override
     public void onProviderDisabled(String provider) {
         // TODO Auto-generated method stub
@@ -148,6 +169,12 @@ public class MainActivity extends ActionBarActivity
         // TODO Auto-generated method stub
     }
 
+
+    /**
+     * Checks the Google Play services availability, and handles nonavailability issues.
+     *
+     * @return
+     */
     private boolean isGooglePlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (ConnectionResult.SUCCESS == status) {
@@ -158,11 +185,7 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
+
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -192,6 +215,8 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
     /**
      * This is where we can add markers or lines, add listeners or move the camera.
      * <p/>
@@ -202,8 +227,10 @@ public class MainActivity extends ActionBarActivity
         mMap.setMyLocationEnabled(true);
     }
 
+
+
     /**
-     * Check if there internet connection
+     * Checks if there is internet connection.
      *
      * @return true if there is a connection to the internet
      */
@@ -214,9 +241,13 @@ public class MainActivity extends ActionBarActivity
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+
+
     /**
+     * Displays the street name, price, rate quality, and end time
+     * of the current selected pin on the map.
      *
-     * @param startLatitude starting latitude of block
+     * @param startLatitude  starting latitude of block
      * @param startLongitude starting longitude of block
      */
     private void addMarker(String streetName, double rate, String rateQual,
@@ -239,8 +270,10 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+
     /**
-     * Adds a line to the map
+     * Adds a line to the map.
      *
      * @param startLatLng start location of block
      * @param endLatLng   end location of block
@@ -262,15 +295,59 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+
+    /**
+     * Sets the map upon resuming the Activity.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+    }
+
+
+
+    /**
+     * ? upon restarting the Activity.
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            dialog.showLocationSettingsAlert(this);
+        } else if (!isOnline()) {
+            dialog.showInternetAlert(this);
+        }
+
+    }
+
+
+
+    /**
+     * Inflates the menu; this adds items to the action bar if it is present.
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        // getMenuInflater().inflate(R.menu.menu_about, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
+
+
+    /**
+     * Interacts with the items in the action bar.
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -290,7 +367,6 @@ public class MainActivity extends ActionBarActivity
                     startActivity(intent);
                     return true;
                 }
-
             case R.id.action_search:
                 getData();
                 return true;
@@ -302,19 +378,10 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    public void sendToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
-    public void goToStoreLocation(View view) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        //StoreLocation SL = new StoreLocation(context);
-    }
 
     /**
-     * This method is used for the Park Me button, when called, opens up the
-     * reminder Activity
+     * Sends the user to the Reminder Activity
      *
      * @param view button view
      */
@@ -325,6 +392,7 @@ public class MainActivity extends ActionBarActivity
         Intent intent = new Intent(this, ReminderActivity.class);
         startActivity(intent);
     }
+
 
 
     /**
@@ -381,8 +449,11 @@ public class MainActivity extends ActionBarActivity
         markNearSpots(nearestParkingSpots);
     }
 
+
+
     /**
-     * A method that iterates add marker method and pass the coordinates from the nearestparkingspot list
+     * A method that iterates  the add marker method and passes the coordinates from the
+     * nearestparkingspot list.
      *
      * @param nearSpots
      */
@@ -400,11 +471,11 @@ public class MainActivity extends ActionBarActivity
             String endTime = parkingSpot.getEndTime();
             String rateQual = parkingSpot.getRateQualifier();
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
-            LatLng endLatLng = new LatLng(endLatitude,endLongitude);
+            LatLng endLatLng = new LatLng(endLatitude, endLongitude);
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
 
-            addLine(startLatLng,endLatLng, rate);
-            addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
+            addLine(startLatLng, endLatLng, rate);
+            addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -416,12 +487,15 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+
+    /**
+     * Calls getParkingSpots() and tests connection to Sfpark,and retrieves on success.
+     */
     public void getData() {
 
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
-            // Call getParkingSpots() and test connection to Sfpark,
-            // on succcess retrieve
             Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
@@ -455,6 +529,16 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
+    /**
+     * ?
+     *
+     * @param parkingSpotList
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws TimeoutException
+     */
     private void retrieveData(final ParkingSpotList parkingSpotList)
             throws InterruptedException, ExecutionException, TimeoutException {
 
@@ -470,7 +554,7 @@ public class MainActivity extends ActionBarActivity
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
-                    getNearestParkingSpots(numOfParkingSpots,mParkingSpotList);
+                    getNearestParkingSpots(numOfParkingSpots, mParkingSpotList);
 
                 }
             };
@@ -481,22 +565,30 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
+    /**
+     * Sets the color theme of the app.
+     *
+     * @param theTheme
+     */
     public static void setTheme(String theTheme) {
+
         theme = theTheme;
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
 
-        LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            dialog.showLocationSettingsAlert(this);
-        } else if (!isOnline()){
-            dialog.showInternetAlert(this);
-        }
-
+    /**
+     * UNDER CONSTRUCTION
+     *
+     * @param view
+     */
+    public void goToStoreLocation(View view) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        //StoreLocation SL = new StoreLocation(context);
     }
+
+
 
 }
