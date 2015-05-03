@@ -50,6 +50,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     Location location;
     Button parkMebutton;
     ParkingSpotList mParkingSpotList;
+    Toolbar mToolbar;
     AlertDialogs dialog = AlertDialogs.getInstance();
 
 
@@ -65,7 +66,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         setContentView(R.layout.activity_main);
 
         // Adds a tool bar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -301,6 +302,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        setColorTheme();
     }
 
 
@@ -575,8 +577,36 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
      * @param theTheme
      */
     public static void setTheme(String theTheme) {
-
         theme = theTheme;
+    }
+
+
+
+    /**
+     * Gets the current color theme.
+     */
+    public static String getCurrentTheme() {
+        return theme;
+    }
+
+
+
+    /**
+     * Changes the color theme according to the current theme.
+     */
+    public void setColorTheme() {
+
+        if (theme.equals("beach")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+        } else if (theme.equals("garden")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+        } else if (theme.equals("lady")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.lady_red));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.lady_red));
+        }
+
     }
 
 
@@ -590,7 +620,5 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         //StoreLocation SL = new StoreLocation(context);
     }
-
-
 
 }
