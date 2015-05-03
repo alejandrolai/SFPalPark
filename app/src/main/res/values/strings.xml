@@ -58,14 +58,16 @@
     <string name="location_database_activity">Location Database Activity</string>
     <string name="park_location">Park Location</string>
     <string name="set_parked_location">Set Parked Location:</string>
+    <string name="choose_location_id">Choose Location ID:</string>
     <string name="enter_x_position">Enter X Coordinate:</string>
     <string name="enter_y_position">Enter Y Coordinate:</string>
+    <string name="or">OR</string>
+    <string name="use_location_button">Use Current Location</string>
     <string name="set_location_button">Set Location</string>
     <string name="get_location_button">Get Location</string>
     <string name="delete_location_button">Delete Location</string>
     <string name="product">Park ID:</string>
     <string name="productID"></string>
-    <string name="hey">Just commit already!</string>
     <string name="cancel">Cancel</string>
     <string name="no_connection_available">No connection available</string>
     <string name="turn_on_wifi_or_data_services">Turn on wifi or data services</string>
