@@ -1,15 +1,23 @@
 package com.alejandrolai.sfpark.data;
 
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+
+
 /**
  * Created by ihsan_taha on 4/30/15.
  */
-public class ParkedLocation {
+public class ParkedLocation extends ActionBarActivity implements LocationListener {
 
     private int _id;
     private float _locationid;
     private float _xlocation;
     private float _ylocation;
+    Location location;
 
 
 
@@ -74,4 +82,39 @@ public class ParkedLocation {
 
     public float getYLocation() { return this._ylocation; }
 
+
+    public double getLatitude() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        return this.location.getLatitude();
+    }
+
+    public double getLongitude() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        return this.location.getLongitude();
+    }
+
+
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }

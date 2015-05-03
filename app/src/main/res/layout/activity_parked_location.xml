@@ -224,4 +224,25 @@
         android:onClick="removeParkedLocation"
         android:nestedScrollingEnabled="false" />
 
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"></TableRow>
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="Set Current Location"
+        android:id="@+id/current_location_button"
+        android:layout_marginLeft="0dp"
+        android:background="#0099DD"
+        android:padding="5dp"
+        android:singleLine="false"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:onClick="setCurrentLocation"
+        android:nestedScrollingEnabled="false" />
+
+
 </LinearLayout>
