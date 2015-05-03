@@ -46,7 +46,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
 
     /**
-     * Adds a new parked location when the x and y coordinates are entered,
+     * Adds a new parked location when the location id, x, and y coordinates are entered,
      * and the add location button is pressed.
      *
      * @param view
