@@ -223,9 +223,8 @@ public class MainActivity extends ActionBarActivity
      * @param startLatitude starting latitude of block
      * @param startLongitude starting longitude of block
      */
-    private void addMarker(String streetName,/* double rate, String rateQual,
-                           String endTime,*/ double startLatitude, double startLongitude) {
-        /*
+    private void addMarker(String streetName, double rate, String rateQual,
+                           String endTime, double startLatitude, double startLongitude) {
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
 
@@ -240,12 +239,6 @@ public class MainActivity extends ActionBarActivity
                     .title(streetName)
                     .snippet(rateQual + " until " + endTime));
         }
-        */
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(startLatitude, startLongitude))
-                .draggable(true)
-                .title(streetName));
 
     }
 
@@ -255,9 +248,9 @@ public class MainActivity extends ActionBarActivity
      * @param startLatLng start location of block
      * @param endLatLng   end location of block
      */
-    private void addLine(LatLng startLatLng, LatLng endLatLng/*, double rate*/) {
+    private void addLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color = getResources().getColor(R.color.black);
-        /*
+
         if (rate <= 1) {
             color = getResources().getColor(R.color.green_500);
         } else if (rate > 1 && rate <= 2) {
@@ -265,7 +258,6 @@ public class MainActivity extends ActionBarActivity
         } else if (rate > 2) {
             color = getResources().getColor(R.color.red_500);
         }
-        */
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .color(color)
                 .add(startLatLng)
@@ -319,7 +311,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void goToStoreLocation(View view) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         //StoreLocation SL = new StoreLocation(context);
     }
 
@@ -330,8 +321,6 @@ public class MainActivity extends ActionBarActivity
      * @param view button view
      */
     public void goToReminder(View view) {
-
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, ReminderActivity.class);
         startActivity(intent);
@@ -409,15 +398,15 @@ public class MainActivity extends ActionBarActivity
             double endLongitude = parkingSpot.getEndLongitude();
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
             LatLng endLatLng = new LatLng(endLatitude,endLongitude);
-            /*
+
             double rate = parkingSpot.getRate();
             String endTime = parkingSpot.getEndTime();
             String rateQual = parkingSpot.getRateQualifier();
 
             Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
-            */
-            addLine(startLatLng,endLatLng/*, rate*/);
-            addMarker(streetName,/*rate, rateQual, endTime,*/ startLatitude, startLongitude);
+
+            addLine(startLatLng,endLatLng, rate);
+            addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
@@ -517,8 +506,8 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     *  Added by Alejandro
-     *  Starts LocationDatabaseActivity and puts longitude and latitude
+     *  Added by Alejandro.
+     *  Starts LocationDatabaseActivity and puts longitude and latitude.
      */
     private void startLocationDatabaseHistory(){
         Intent intent = new Intent(this, LocationDatabaseActivity.class);

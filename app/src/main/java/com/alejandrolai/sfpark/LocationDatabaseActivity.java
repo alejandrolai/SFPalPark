@@ -41,7 +41,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_parked_location);
 
-        // Added by Alejandro
+        // Added by Alejandro.
         Intent intent = getIntent();
         if (intent != null) {
             longitude = intent.getDoubleExtra("longitude", 0);
