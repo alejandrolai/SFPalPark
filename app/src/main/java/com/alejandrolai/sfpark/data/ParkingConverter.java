@@ -8,6 +8,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 
 import java.lang.reflect.Type;
 import java.util.Calendar;
@@ -67,28 +68,31 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                     } else {
                         Log.e("ParkingConverter", "No parking spots");
                     }
-                    /*
-                    if (dataObject.getAsJsonObject("RATES").isJsonObject()){
-                        /*
-                        JsonObject rates = dataObject.getAsJsonObject("RATES");
-                        if (rates.getAsJsonObject("RS").isJsonObject() || rates.getAsJsonArray("RS").isJsonArray()){
-                            JsonObject rt = rates.getAsJsonObject("RS");
-                            Log.i(TAG,"object or array");
 
-                            JsonObject object = rt.get(1).getAsJsonObject();
-                            parkingSpot.setRate(Double.parseDouble(object.get("RATE").getAsString()));
-                            parkingSpot.setRateQualifier("Per hour");
-                            parkingSpot.setEndTime("10:00 AM");
 
-                        }else {
-                            Log.e(TAG,"object");
-                            Log.e(TAG,"array");
+                    if (dataObject.getAsJsonObject("RATES").getAsJsonArray("RS").isJsonArray()){
+                        JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
+                        //for (int j = 0;j<prices.size();j++){
+                        JsonObject pricesObject = prices.get(1).getAsJsonObject();
+                        if (!pricesObject.get("RATE").isJsonNull() &&
+                                !pricesObject.get("RQ").isJsonNull() &&
+                                !pricesObject.get("END").isJsonNull()) {
+                            parkingSpot.setRate(Double.parseDouble(pricesObject.get("RATE").getAsString()));
+                            parkingSpot.setRateQualifier(pricesObject.get("RQ").getAsString());
+                            parkingSpot.setEndTime(pricesObject.get("END").getAsString());
+                                /*
+                                String[] begTime = pricesObject.get("BEG").getAsString().split(" ");
+                                if (begTime[1] == "AM" && meridian == 0){
+                                } else if (begTime[1] == "PM" && meridian == 1) {
+                                }
+                                */
                         }
-
-                    } else {
-                        Log.e(TAG,"no array here");
+                        //}
                     }
-                    */
+                    if (parkingSpot.getParkingType() != "") {
+                        parkingSpotList.addParkingSpot(parkingSpot);
+                    }
+
 
                     parkingSpotList.addParkingSpot(parkingSpot);
                 }

@@ -1,6 +1,7 @@
 package com.alejandrolai.sfpark.Timer;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -8,10 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
@@ -21,18 +25,23 @@ import java.util.concurrent.TimeUnit;
 
 public class ReminderActivity extends ActionBarActivity{
 
-    Button startButton, stopButton,setTimer;
+    Button startButton, stopButton,setTimer, resetTimer;
     TextView textViewTime;
+    Vibrator v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
+        //Add a vibrator
+        v =(Vibrator) getSystemService(VIBRATOR_SERVICE);
+
         // Adds buttons
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
         setTimer = (Button) findViewById(R.id.setTimeButton);
+        resetTimer = (Button) findViewById(R.id.buttonReset);
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
@@ -53,8 +62,13 @@ public class ReminderActivity extends ActionBarActivity{
         int hourInt = Integer.parseInt(hour.getText().toString());
         int minuteInt = Integer.parseInt(minute.getText().toString());
 
+
+
         // Sets the text to the tested time. Need to Set text time to user input
         textViewTime.setText(hourInt+":"+minuteInt+":00");
+
+        //Set Start button text to start
+        //startButton.setText("Start");
 
         // Set this timer to the time the user specifies into milliseconds
         long hourToMillisecs = hourInt*3600000;
@@ -63,9 +77,19 @@ public class ReminderActivity extends ActionBarActivity{
         long userInputTime = hourToMillisecs + minuteToMillisecs;
         final CounterClass timer = new CounterClass(userInputTime, 1000);
 
+        resetTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startButton.setText("Start");
+                textViewTime.setText("00:00:00");
+                timer.cancel();
+            }
+        });
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startButton.setText("Start");
                 timer.start();
             }
         });
@@ -74,9 +98,11 @@ public class ReminderActivity extends ActionBarActivity{
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //stopButton.setText("Continue");
                 timer.cancel();
             }
         });
+
     }
 
     //@TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -103,7 +129,11 @@ public class ReminderActivity extends ActionBarActivity{
         // When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
         @Override
         public void onFinish() {
-            textViewTime.setText("Time is up!");
+            v.vibrate(2000);
+
+            //I want this to be a dialog.
+            textViewTime.setText("Time is up! Return to Parking Spot!");
+
         }
     }
 

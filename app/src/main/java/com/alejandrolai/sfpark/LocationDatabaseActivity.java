@@ -1,6 +1,7 @@
 package com.alejandrolai.sfpark;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,9 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     EditText xBox;
     EditText yBox;
 
+    double longitude;
+    double latitude;
+
     ParkingSpot currentSpot;
 
 
@@ -36,6 +40,14 @@ public class LocationDatabaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_parked_location);
+
+        // Added by Alejandro.
+        Intent intent = getIntent();
+        if (intent != null) {
+            longitude = intent.getDoubleExtra("longitude", 0);
+            latitude = intent.getDoubleExtra("latitude",0);
+
+        }
 
         idView = (TextView) findViewById(R.id.productID);
         locBox = (EditText) findViewById(R.id.input_location_id);
@@ -139,8 +151,8 @@ public class LocationDatabaseActivity extends ActionBarActivity {
      */
     public void useCurrentLocation(View view) {
 
-        double xloc = MainActivity.latitudeForParking;
-        double yloc = MainActivity.longitudeForParking;
+        double xloc = latitude;
+        double yloc = longitude;
         float xlo = (float) xloc;
         float ylo = (float) yloc;
 
