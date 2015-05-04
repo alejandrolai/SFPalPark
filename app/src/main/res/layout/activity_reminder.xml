@@ -122,7 +122,6 @@
         </TableRow>
 
     </LinearLayout>
-
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
