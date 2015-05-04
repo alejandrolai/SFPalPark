@@ -64,6 +64,12 @@ public class MainActivity extends ActionBarActivity
 
     ParkingSpotList mParkingSpotList;
 
+    static ParkingSpot currentSpot;
+
+    // Added By Ihsan Taha on 5/3/15
+    static double latitudeForParking;
+    static double longitudeForParking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +130,32 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+
+    /**
+     * Added By Ihsan Taha on 5/3/15
+     *
+     * Adds the current latitude to help save the current parking location
+     * in LocationDatabaseActivity's "Use Current Location" button;
+     */
+    public void setLatitudeForParking() {
+        latitudeForParking = getLatitude();
+    }
+
+
+
+    /**
+     * Added By Ihsan Taha on 5/3/15
+     *
+     * Adds the current longitude to help save the current parking location
+     * in LocationDatabaseActivity's "Use Current Location" button;
+     */
+    public void setLongitudeForParking() {
+        longitudeForParking = getLongitude();
+    }
+
+
+
     public double getLongitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -161,6 +193,10 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+
+        // Added By Ihsan Taha on 5/3/15
+        setLatitudeForParking();
+        setLongitudeForParking();
     }
 
     /**
@@ -505,6 +541,10 @@ public class MainActivity extends ActionBarActivity
             dialog.showInternetAlert(this);
         }
 
+    }
+
+    public static String getCurrentTheme() {
+        return theme;
     }
 
 }

@@ -139,23 +139,16 @@ public class LocationDatabaseActivity extends ActionBarActivity {
      */
     public void useCurrentLocation(View view) {
 
-        //double xloc = currentSpot.getStartLatitude();
-        //double yloc = currentSpot.getStartLongitude();
-        //float xlo = (float) xloc;
-        //float ylo = (float) yloc;
+        double xloc = MainActivity.latitudeForParking;
+        double yloc = MainActivity.longitudeForParking;
+        float xlo = (float) xloc;
+        float ylo = (float) yloc;
 
-        float xlo = 35;
-        float ylo = 40;
+        //float xlo = 35;
+        //float ylo = 40;
 
         xBox.setText(String.valueOf(xlo));
         yBox.setText(String.valueOf(ylo));
-
-        Context context = getApplicationContext();
-        CharSequence text = "Smoke Test!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
     }
 
