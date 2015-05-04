@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ReminderActivity extends ActionBarActivity{
 
-    Button startButton, stopButton,setTimer;
+    Button startButton, stopButton,setTimer, resetTimer;
     TextView textViewTime;
 
     @Override
@@ -33,6 +33,7 @@ public class ReminderActivity extends ActionBarActivity{
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
         setTimer = (Button) findViewById(R.id.setTimeButton);
+        resetTimer = (Button) findViewById(R.id.buttonReset);
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
@@ -63,6 +64,14 @@ public class ReminderActivity extends ActionBarActivity{
         long userInputTime = hourToMillisecs + minuteToMillisecs;
         final CounterClass timer = new CounterClass(userInputTime, 1000);
 
+        resetTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textViewTime.setText("00:00:00");
+                timer.cancel();
+            }
+        });
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +86,7 @@ public class ReminderActivity extends ActionBarActivity{
                 timer.cancel();
             }
         });
+
     }
 
     //@TargetApi(Build.VERSION_CODES.GINGERBREAD)
