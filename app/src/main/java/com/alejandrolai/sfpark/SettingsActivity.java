@@ -17,7 +17,6 @@ public class SettingsActivity extends ActionBarActivity {
     private String theme = MainActivity.getCurrentTheme();
 
 
-
     /**
      * Creates a tab menu with the Settings' features.
      *

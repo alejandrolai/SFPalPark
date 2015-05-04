@@ -66,10 +66,6 @@ public class MainActivity extends ActionBarActivity
 
     static ParkingSpot currentSpot;
 
-    // Added By Ihsan Taha on 5/3/15
-    static double latitudeForParking;
-    static double longitudeForParking;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,31 +129,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
-    /**
-     * Added By Ihsan Taha on 5/3/15
-     *
-     * Adds the current latitude to help save the current parking location
-     * in LocationDatabaseActivity's "Use Current Location" button;
-     */
-    public void setLatitudeForParking() {
-        latitudeForParking = getLatitude();
-    }
-
-
-
-    /**
-     * Added By Ihsan Taha on 5/3/15
-     *
-     * Adds the current longitude to help save the current parking location
-     * in LocationDatabaseActivity's "Use Current Location" button;
-     */
-    public void setLongitudeForParking() {
-        longitudeForParking = getLongitude();
-    }
-
-
-
     public double getLongitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -195,10 +166,6 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-
-        // Added By Ihsan Taha on 5/3/15
-        setLatitudeForParking();
-        setLongitudeForParking();
     }
 
     /**
@@ -339,7 +306,7 @@ public class MainActivity extends ActionBarActivity
                 getData();
                 return true;
             case R.id.action_history:
-                startActivity(new Intent(this, LocationDatabaseActivity.class));
+                startLocationDatabaseHistory();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -547,6 +514,21 @@ public class MainActivity extends ActionBarActivity
 
     public static String getCurrentTheme() {
         return theme;
+    }
+
+    /**
+     *  Added by Alejandro
+     *  Starts LocationDatabaseActivity and puts longitude and latitude
+     */
+    private void startLocationDatabaseHistory(){
+        Intent intent = new Intent(this, LocationDatabaseActivity.class);
+
+        double latitude = getLatitude();
+        double longitude = getLongitude();
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude",longitude);
+
+        startActivity(intent);
     }
 
 }
