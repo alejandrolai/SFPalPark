@@ -1,7 +1,5 @@
 package com.alejandrolai.sfpark.data;
 
-import com.alejandrolai.sfpark.data.ParkingConverter;
-import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,12 +18,6 @@ public class Service {
 
     private static SFParkService sfParkService = null;
 
-
-    /**
-     * ?
-     *
-     * @return
-     */
     public static SFParkService getService(){
 
         if (sfParkService == null) {
@@ -46,11 +38,6 @@ public class Service {
         return sfParkService;
     }
 
-
-    /**
-     * ?
-     *
-     */
     public interface SFParkService {
 
         @GET("/sfpark/rest/availabilityservice?response=json&pricing=yes")

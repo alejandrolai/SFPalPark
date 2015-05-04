@@ -1,14 +1,15 @@
 package com.alejandrolai.sfpark;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alejandrolai.sfpark.data.ParkedLocation;
+import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.database.MyLocationDBHandler;
 
 /**
@@ -17,9 +18,11 @@ import com.alejandrolai.sfpark.database.MyLocationDBHandler;
 public class LocationDatabaseActivity extends ActionBarActivity {
 
     TextView idView;
+    EditText locBox;
     EditText xBox;
     EditText yBox;
 
+    ParkingSpot currentSpot;
 
 
     /**
@@ -35,6 +38,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
         setContentView(R.layout.activity_parked_location);
 
         idView = (TextView) findViewById(R.id.productID);
+        locBox = (EditText) findViewById(R.id.input_location_id);
         xBox = (EditText) findViewById(R.id.input_x_location);
         yBox = (EditText) findViewById(R.id.input_y_location);
 
@@ -53,16 +57,17 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        int loc_id = 1;
+        float locationid = Float.parseFloat(locBox.getText().toString());
 
         float xlocation = Float.parseFloat(xBox.getText().toString());
 
         float ylocation = Float.parseFloat(yBox.getText().toString());
 
-        ParkedLocation parkedlocation = new ParkedLocation(loc_id, xlocation, ylocation);
+        ParkedLocation parkedlocation = new ParkedLocation(locationid, xlocation, ylocation);
 
         dbHandler.addParkedLocation(parkedlocation);
 
+        locBox.setText("");
         xBox.setText("");
         yBox.setText("");
 
@@ -80,11 +85,15 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        ParkedLocation parkedlocation = dbHandler.findLocation(Float.parseFloat(xBox.getText().toString()));
+        ParkedLocation parkedlocation = dbHandler.findLocation(Integer.parseInt(locBox.getText().toString()));
 
         if (parkedlocation != null) {
 
             idView.setText(String.valueOf(parkedlocation.getID()));
+
+            locBox.setText(String.valueOf(parkedlocation.getLocationID()));
+
+            xBox.setText(String.valueOf(parkedlocation.getXLocation()));
 
             yBox.setText(String.valueOf(parkedlocation.getYLocation()));
 
@@ -108,11 +117,12 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        boolean result = dbHandler.deleteParkedLocation(Float.parseFloat(xBox.getText().toString()));
+        boolean result = dbHandler.deleteParkedLocation(Float.parseFloat(locBox.getText().toString()));
 
         if (result) {
 
             idView.setText("Record Deleted");
+            locBox.setText("");
             xBox.setText("");
             yBox.setText("");
 
@@ -124,20 +134,22 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
-   /* public void setCurrentLocation (View view) {
+    /**
+     * Automatically inserts current location into the x and y fields.
+     */
+    public void useCurrentLocation(View view) {
 
-        MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
+        double xloc = MainActivity.latitudeForParking;
+        double yloc = MainActivity.longitudeForParking;
+        float xlo = (float) xloc;
+        float ylo = (float) yloc;
 
-        float xlocation = Float.parseFloat(xBox.getText().toString());
+        //float xlo = 35;
+        //float ylo = 40;
 
-        float ylocation = Float.parseFloat(yBox.getText().toString());
+        xBox.setText(String.valueOf(xlo));
+        yBox.setText(String.valueOf(ylo));
 
-        ParkedLocation parkedlocation = new ParkedLocation(xlocation, ylocation);
+    }
 
-       dbHandler.addCurrentLocation(parkedlocation);
-
-        xBox.setText("");
-        yBox.setText("");
-
-    }*/
 }

@@ -175,7 +175,9 @@
             android:text="Use Current Location"
             android:id="@+id/use_location_button"
             android:gravity="center"
-            android:background="#DD6600" />
+            android:background="#DD6600"
+            android:onClick="useCurrentLocation"
+            android:nestedScrollingEnabled="true" />
     </TableRow>
 
     <TableRow

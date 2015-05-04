@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Alejandro on 4/8/15.
  */
+
 public class ParkingSpotList {
 
     ArrayList<ParkingSpot> list;
@@ -17,7 +18,9 @@ public class ParkingSpotList {
         return list;
     }
 
-    public int getListSize(){ return list.size(); }
+    public int getListSize(){
+        return list.size();
+    }
 
     public void addParkingSpot(ParkingSpot newParkingSpot) {
         list.add(newParkingSpot);
