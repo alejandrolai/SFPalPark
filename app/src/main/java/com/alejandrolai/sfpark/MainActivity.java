@@ -13,7 +13,6 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
-import com.alejandrolai.sfpark.database.LocationDatabaseActivity;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.content.Context;

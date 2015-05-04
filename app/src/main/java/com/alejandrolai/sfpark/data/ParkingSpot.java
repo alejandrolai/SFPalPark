@@ -30,7 +30,6 @@ public class ParkingSpot {
     private String rateQualifier;
 
 
-
     public String getStreetName() {
         return streetName;
     }
@@ -54,7 +53,7 @@ public class ParkingSpot {
     public void setLocation(String location) {
         this.location = location;
 
-        // Added by dolly to extract latitude & longitude from string
+        // Added by Dolly to extract latitude & longitude from string
         // location and parse them to double.
         String[] splittedLocation = location.split(",");
         this.latitude = Double.parseDouble(splittedLocation[0]);
@@ -122,7 +121,7 @@ public class ParkingSpot {
 
 
     /**
-     * Added by dolly 4/27/15
+     * Added by Dolly 4/27/15
      * A method that computes the distance of a parking spot from the current location.
      *
      * @param original_position - coordinates of current location
@@ -139,7 +138,7 @@ public class ParkingSpot {
 
 
     /**
-     * Added by dolly 4/27/2015
+     * Added by Dolly 4/27/2015
      *
      * @return LatLng object for the coordinates of the spot
      */
