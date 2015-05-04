@@ -186,7 +186,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Notes:"
-        android:textColor="#333333" />
+        android:textColor="#ff0d0e33" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="60dp"
