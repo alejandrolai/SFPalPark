@@ -20,6 +20,12 @@ public class Service {
 
     private static SFParkService sfParkService = null;
 
+
+    /**
+     * ?
+     *
+     * @return
+     */
     public static SFParkService getService(){
 
         if (sfParkService == null) {
@@ -40,6 +46,11 @@ public class Service {
         return sfParkService;
     }
 
+
+    /**
+     * ?
+     *
+     */
     public interface SFParkService {
 
         @GET("/sfpark/rest/availabilityservice?response=json&pricing=yes")
@@ -48,4 +59,5 @@ public class Service {
         @GET("/sfpark/rest/availabilityservice")
         void getParkingSpots(@QueryMap Map<String, String> options, Callback<ParkingSpotList> callback);
     }
+
 }

@@ -291,4 +291,13 @@
 
     <color name="color_blind_primary">#3182bd</color>
     <color name="color_blind_primary_dark">#08519c</color>
+
+    <!-- Added by ihsan_taha 5/2/2015 -->
+    <color name="beach_orange">#DD6600</color>
+    <color name="beach_blue">#0099CC</color>
+    <color name="garden_foilage">#009900</color>
+    <color name="garden_plant">#66CC00</color>
+    <color name="lady_red">#990000</color>
+    <color name="lady_pink">#FF9999</color>
+
 </resources>

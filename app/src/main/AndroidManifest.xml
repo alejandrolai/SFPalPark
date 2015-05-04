@@ -55,7 +55,7 @@
             android:label="@string/title_activity_settings_activity3" >
         </activity>
         <activity
-            android:name=".database.LocationDatabaseActivity"
+            android:name=".LocationDatabaseActivity"
             android:label="@string/location_database_activity" >
         </activity>
         <!-- Commit! -->

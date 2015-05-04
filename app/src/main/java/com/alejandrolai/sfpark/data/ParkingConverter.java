@@ -14,6 +14,16 @@ import java.util.Calendar;
 
 public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
 
+
+    /**
+     * ?
+     *
+     * @param json
+     * @param typeOfT
+     * @param context
+     * @return
+     * @throws JsonParseException
+     */
     @Override
     public ParkingSpotList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 

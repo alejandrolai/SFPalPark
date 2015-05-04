@@ -19,10 +19,9 @@ import com.alejandrolai.sfpark.R;
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 
-
 public class ReminderActivity extends ActionBarActivity{
 
-    Button startButton, stopButton;
+    Button startButton, stopButton,setTimer;
     TextView textViewTime;
 
     @Override
@@ -30,21 +29,40 @@ public class ReminderActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        //Add buttons
+        // Adds buttons
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
+        setTimer = (Button) findViewById(R.id.setTimeButton);
 
-        //View the time
+        // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+    }
 
-        //Set the text to the tested time. Need to Set text time to user input
-        textViewTime.setText("00:00:30");
+    public void setTimerTime(View view){
+        //Get Hour and Minute from XML file
+        TextView hour = (EditText) findViewById(R.id.hour);
+        TextView minute = (EditText) findViewById(R.id.minute);
 
-        //Need to set this timer to the time the user specifies
-        final CounterClass timer = new CounterClass(30000, 1000);
+        //MAKE SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
+        //NEED TO PUT AN IF STATEMENT IF TEXTVIEW IS NULL, make it zero
+        //NEED TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
+        //NEED TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
+        //ALSO NEED TO PUT VIBRATE AND ALARM WITH NOTES.
 
-        //Starts the timer with the Start Button
-        //Need to fix bug that when timer is restarted, it continues from the previous time
+        //Change Hour and Minute from TextView Object to Int
+        int hourInt = Integer.parseInt(hour.getText().toString());
+        int minuteInt = Integer.parseInt(minute.getText().toString());
+
+        // Sets the text to the tested time. Need to Set text time to user input
+        textViewTime.setText(hourInt+":"+minuteInt+":00");
+
+        // Set this timer to the time the user specifies into milliseconds
+        long hourToMillisecs = hourInt*3600000;
+        long minuteToMillisecs = minuteInt*60000;
+
+        long userInputTime = hourToMillisecs + minuteToMillisecs;
+        final CounterClass timer = new CounterClass(userInputTime, 1000);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +70,7 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
-        //Stops the timer with the stop button.
+        //Stops the timer with the stop button
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +88,7 @@ public class ReminderActivity extends ActionBarActivity{
             super(millisInFuture, countDownInterval);
         }
 
-        //Counting down method of Timer
+        // Counting down method of Timer
         @Override
         public void onTick(long millisUntilFinished) {
             long millisecs = millisUntilFinished;
@@ -82,36 +100,15 @@ public class ReminderActivity extends ActionBarActivity{
             textViewTime.setText(tick);
         }
 
-        //When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
+        // When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
         @Override
         public void onFinish() {
             textViewTime.setText("Time is up!");
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reminder, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void createTimer(){
+    public void createTimer() {
         CountDownTimer countDownTimer;
         boolean timerHasStarted = false;
 
@@ -120,12 +117,6 @@ public class ReminderActivity extends ActionBarActivity{
         //long startTime =
         long interval = 1 * 1000;
 
-    }
-
-    public void backtoMaps(View view){
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

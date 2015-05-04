@@ -23,6 +23,6 @@ public class ParkingSpotList {
         list.add(newParkingSpot);
     }
 
-
     public ParkingSpot getSpot(int i){ return list.get(i);}
+
 }

@@ -9,9 +9,18 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-
+/**
+ * Created by ihsan_taha on 4/30/15.
+ */
 public class SettingsActivity3 extends ActionBarActivity {
 
+
+
+    /**
+     * Creates a tab menu with the Settings' features.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,28 +47,12 @@ public class SettingsActivity3 extends ActionBarActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Changes the color theme to "beach".
+     *
+     * @param view
+     */
     public void sendToBeach(View view) {
 
         Context context = getApplicationContext();
@@ -72,6 +65,13 @@ public class SettingsActivity3 extends ActionBarActivity {
         MainActivity.setTheme("beach");
     }
 
+
+
+    /**
+     * Changes the color theme to "garden".
+     *
+     * @param view
+     */
     public void sendToGarden(View view) {
 
         Context context = getApplicationContext();
@@ -84,6 +84,13 @@ public class SettingsActivity3 extends ActionBarActivity {
         MainActivity.setTheme("garden");
     }
 
+
+
+    /**
+     * Changes the color theme to "lady".
+     *
+     * @param view
+     */
     public void sendToLady(View view) {
 
         Context context = getApplicationContext();
@@ -95,4 +102,5 @@ public class SettingsActivity3 extends ActionBarActivity {
 
         MainActivity.setTheme("lady");
     }
+
 }

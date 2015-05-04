@@ -1,4 +1,4 @@
-package com.alejandrolai.sfpark.database;
+package com.alejandrolai.sfpark;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,25 +8,26 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alejandrolai.sfpark.ParkedLocation;
-import com.alejandrolai.sfpark.R;
-
+import com.alejandrolai.sfpark.data.ParkedLocation;
+import com.alejandrolai.sfpark.database.MyLocationDBHandler;
 
 /**
  * Created by ihsan_taha on 4/30/15.
  */
 public class LocationDatabaseActivity extends ActionBarActivity {
 
-    // Data members
-    // Why wont you commit!?
     TextView idView;
+    EditText locBox;
     EditText xBox;
     EditText yBox;
 
 
 
-    // Data methods
-
+    /**
+     *
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +36,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
         setContentView(R.layout.activity_parked_location);
 
         idView = (TextView) findViewById(R.id.productID);
+        locBox = (EditText) findViewById(R.id.input_location_id);
         xBox = (EditText) findViewById(R.id.input_x_location);
         yBox = (EditText) findViewById(R.id.input_y_location);
 
@@ -42,8 +44,9 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
+
     /**
-     * Adds a new parked location when the x and y coordinates are entered,
+     * Adds a new parked location when the location id, x, and y coordinates are entered,
      * and the add location button is pressed.
      *
      * @param view
@@ -52,18 +55,22 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
+        float locationid = Float.parseFloat(locBox.getText().toString());
+
         float xlocation = Float.parseFloat(xBox.getText().toString());
 
         float ylocation = Float.parseFloat(yBox.getText().toString());
 
-        ParkedLocation parkedlocation = new ParkedLocation(xlocation, ylocation);
+        ParkedLocation parkedlocation = new ParkedLocation(locationid, xlocation, ylocation);
 
         dbHandler.addParkedLocation(parkedlocation);
 
+        locBox.setText("");
         xBox.setText("");
         yBox.setText("");
 
     }
+
 
 
     /**
@@ -76,11 +83,15 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        ParkedLocation parkedlocation = dbHandler.findLocation(Float.parseFloat(xBox.getText().toString()));
+        ParkedLocation parkedlocation = dbHandler.findLocation(Integer.parseInt(locBox.getText().toString()));
 
         if (parkedlocation != null) {
 
             idView.setText(String.valueOf(parkedlocation.getID()));
+
+            locBox.setText(String.valueOf(parkedlocation.getLocationID()));
+
+            xBox.setText(String.valueOf(parkedlocation.getXLocation()));
 
             yBox.setText(String.valueOf(parkedlocation.getYLocation()));
 
@@ -93,6 +104,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     }
 
 
+
     /**
      * Removes a saved parked location when both of the coordinates are entered
      * and the delete location button is pressed.
@@ -103,11 +115,12 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        boolean result = dbHandler.deleteParkedLocation(Float.parseFloat(xBox.getText().toString()));
+        boolean result = dbHandler.deleteParkedLocation(Float.parseFloat(locBox.getText().toString()));
 
         if (result) {
 
             idView.setText("Record Deleted");
+            locBox.setText("");
             xBox.setText("");
             yBox.setText("");
 
@@ -116,35 +129,6 @@ public class LocationDatabaseActivity extends ActionBarActivity {
             idView.setText("No Match Found");
         }
 
-    }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

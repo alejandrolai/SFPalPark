@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">SF ParkPal</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="connection_error">Error loading data. Check network connection and try again.</string>
-    <string name="action_refresh">Refresh</string>
+    <!-- <string name="action_refresh">Refresh</string> -->
     <string name="settings">Settings</string>
     <string name="error_connecting">Could not connect to SFPark</string>
     <string name="retrieving_data">Retrieving data</string>
     <string name="title_activity_list">ListActivity</string>
-
 
     <string name="about_title">About SF Park Pal</string>
     <string name="about_creators">Created By:</string>
@@ -24,8 +22,6 @@
     <string name="about_leaderemail">dpmartin@mail.sfsu.edu</string>
     <string name="about_phone">Phone:</string>
     <string name="about_phonenumber">415-265-3692</string>
-
-    <string name="action_back">Back</string>
 
     <string name="title_activity_about">Menu</string>
     <string name="title_activity_settings">SettingsActivity</string>
@@ -62,14 +58,16 @@
     <string name="location_database_activity">Location Database Activity</string>
     <string name="park_location">Park Location</string>
     <string name="set_parked_location">Set Parked Location:</string>
+    <string name="choose_location_id">Choose Location ID:</string>
     <string name="enter_x_position">Enter X Coordinate:</string>
     <string name="enter_y_position">Enter Y Coordinate:</string>
+    <string name="or">OR</string>
+    <string name="use_location_button">Use Current Location</string>
     <string name="set_location_button">Set Location</string>
     <string name="get_location_button">Get Location</string>
     <string name="delete_location_button">Delete Location</string>
     <string name="product">Park ID:</string>
     <string name="productID"></string>
-    <string name="hey">Just commit already!</string>
     <string name="cancel">Cancel</string>
     <string name="no_connection_available">No connection available</string>
     <string name="turn_on_wifi_or_data_services">Turn on wifi or data services</string>
