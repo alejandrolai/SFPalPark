@@ -1,14 +1,15 @@
 package com.alejandrolai.sfpark;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alejandrolai.sfpark.data.ParkedLocation;
+import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.database.MyLocationDBHandler;
 
 /**
@@ -21,6 +22,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
     EditText xBox;
     EditText yBox;
 
+    ParkingSpot currentSpot;
 
 
     /**
@@ -128,6 +130,32 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
             idView.setText("No Match Found");
         }
+
+    }
+
+
+    /**
+     * Automatically inserts current location into the x and y fields.
+     */
+    public void useCurrentLocation(View view) {
+
+        //double xloc = currentSpot.getStartLatitude();
+        //double yloc = currentSpot.getStartLongitude();
+        //float xlo = (float) xloc;
+        //float ylo = (float) yloc;
+
+        float xlo = 35;
+        float ylo = 40;
+
+        xBox.setText(String.valueOf(xlo));
+        yBox.setText(String.valueOf(ylo));
+
+        Context context = getApplicationContext();
+        CharSequence text = "Smoke Test!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
     }
 
