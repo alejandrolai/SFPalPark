@@ -33,10 +33,18 @@ public class ParkedLocation extends ActionBarActivity implements LocationListene
     /**
      * Constructor.
      *
-     * @param locID
+     * @param
      * @param xloc
      * @param yloc
      */
+
+    public ParkedLocation( float xloc , float yloc) {
+        //this._locationid = locID;
+        this._xlocation = xloc;
+        this._ylocation = yloc;
+    }
+
+
     public ParkedLocation(float locID, float xloc , float yloc) {
         this._locationid = locID;
         this._xlocation = xloc;

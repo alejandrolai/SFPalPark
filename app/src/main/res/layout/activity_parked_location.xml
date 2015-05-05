@@ -62,7 +62,7 @@
             android:textColor="#333333" />
     </TableRow>
 
-    <TableRow
+ <!--  <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -157,7 +157,7 @@
             android:textIsSelectable="false"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp" />
-    </TableRow>
+    </TableRow>-->
 
     <TableRow
         android:layout_width="fill_parent"
@@ -172,12 +172,11 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="225dp"
             android:layout_height="30dp"
-            android:text="Use Current Location"
+            android:text="Click here to save current location as Parked location"
+            android:onClick="useCurrentLocation"
             android:id="@+id/use_location_button"
             android:gravity="center"
-            android:background="#DD6600"
-            android:onClick="useCurrentLocation"
-            android:nestedScrollingEnabled="true" />
+            android:background="#DD6600" />
     </TableRow>
 
     <TableRow
@@ -227,24 +226,7 @@
         android:nestedScrollingEnabled="false" />
 
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></TableRow>
 
-    <Button
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:text="Set Current Location"
-        android:id="@+id/current_location_button"
-        android:layout_marginLeft="0dp"
-        android:background="#0099DD"
-        android:padding="5dp"
-        android:singleLine="false"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:onClick="setCurrentLocation"
-        android:nestedScrollingEnabled="false" />
 
 
 </LinearLayout>

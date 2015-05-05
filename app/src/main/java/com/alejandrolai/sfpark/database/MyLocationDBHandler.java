@@ -5,8 +5,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.alejandrolai.sfpark.data.ParkedLocation;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by ihsan_taha on 4/30/15.
@@ -18,14 +23,15 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     private static final String TABLE_PARKED_LOCATION = "parked_location";
 
     private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_LOCATIONID = "locationid";
+  //  private static final String COLUMN_LOCATIONID = "locationid";
     private static final String COLUMN_XLOCATION = "xlocation";
     private static final String COLUMN_YLOCATION = "ylocation";
+    public static final String COLUMN_currenttime = "currentime";
 
     public MyLocationDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-
+        //context.deleteDatabase(DATABASE_NAME);
     }
 
 
@@ -39,9 +45,11 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+
+
         String CREATE_PARKEDLOCATION_TABLE = "CREATE TABLE " +
                 TABLE_PARKED_LOCATION + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_LOCATIONID + " FLOAT," + COLUMN_XLOCATION + " FLOAT," + COLUMN_YLOCATION
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_currenttime + " INTEGER," + COLUMN_XLOCATION + " FLOAT," + COLUMN_YLOCATION
                 + " FLOAT" + ")";
         db.execSQL(CREATE_PARKEDLOCATION_TABLE);
 
@@ -64,6 +72,13 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
     }
 
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
 
 
     /**
@@ -73,9 +88,15 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
      */
     public void addParkedLocation(ParkedLocation parkedlocation) {
 
+
+
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_LOCATIONID, parkedlocation.getLocationID());
+
+
+
+        values.put(COLUMN_currenttime, getDateTime());
+       // values.put(COLUMN_LOCATIONID, parkedlocation.getLocationID());
         values.put(COLUMN_XLOCATION, parkedlocation.getXLocation());
         values.put(COLUMN_YLOCATION, parkedlocation.getYLocation());
 
@@ -96,7 +117,10 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
      */
     public ParkedLocation findLocation(float input_location_id) {
 
-        String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_LOCATIONID + " = \"" + input_location_id + "\"";
+        //String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_LOCATIONID + " = \"" + input_location_id + "\"";
+
+        String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " order by  " + COLUMN_currenttime + "";
+
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -134,7 +158,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
         boolean result = false;
 
-        String query = "Select * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_LOCATIONID + " =  \"" + input_location_id + "\"";
+        String query = "Select * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_currenttime + " =  \"" + input_location_id + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 

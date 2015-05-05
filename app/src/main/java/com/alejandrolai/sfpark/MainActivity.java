@@ -81,6 +81,13 @@ public class MainActivity extends ActionBarActivity
 
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
 
+        this.findViewById(R.id.parkMebutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLocationDatabaseHistory();
+            }
+        });
+
         setUpMapIfNeeded();
 
         if (isOnline()) {
@@ -510,6 +517,10 @@ public class MainActivity extends ActionBarActivity
      *  Starts LocationDatabaseActivity and puts longitude and latitude.
      */
     private void startLocationDatabaseHistory(){
+
+        Toast.makeText(getApplicationContext(), "Inside startLocationDatabaseHistory.",
+                Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(this, LocationDatabaseActivity.class);
 
         double latitude = getLatitude();
@@ -518,6 +529,7 @@ public class MainActivity extends ActionBarActivity
         intent.putExtra("longitude",longitude);
 
         startActivity(intent);
+       //useCurrentLocation();
     }
 
 }
