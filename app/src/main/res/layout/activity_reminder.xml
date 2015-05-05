@@ -91,6 +91,7 @@
                 android:id="@+id/hour"
                 android:layout_weight="0.15"
                 android:textColor="#ff0f1215"
+                android:text="00"
                 android:background="@drawable/inputborder"/>
 
             <TextView
@@ -116,6 +117,7 @@
                 android:layout_weight="0.15"
                 android:autoText="false"
                 android:textColor="#ff0f1215"
+                android:text = "00"
                 android:background="@drawable/inputborder"/>
 
             <TextView
