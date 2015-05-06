@@ -137,16 +137,16 @@ public class LocationDatabaseActivity extends ActionBarActivity {
      *
      * @param view
      */
-   /* public void removeParkedLocation (View view) {
+   public void removeParkedLocation (View view) {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        boolean result = dbHandler.deleteParkedLocation(Float.parseFloat(locBox.getText().toString()));
+        boolean result = dbHandler.deleteParkedLocation();
 
         if (result) {
 
             idView.setText("Record Deleted");
-            locBox.setText("");
+            //locBox.setText("");
             xBox.setText("");
             yBox.setText("");
 
@@ -155,7 +155,7 @@ public class LocationDatabaseActivity extends ActionBarActivity {
             idView.setText("No Match Found");
         }
 
-    }*/
+    }
 
 
     /**

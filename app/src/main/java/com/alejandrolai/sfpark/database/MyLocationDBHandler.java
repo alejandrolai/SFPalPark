@@ -151,28 +151,34 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     /**
      * Deletes a parked location based on the location id, x, and y coordinate input values.
      *
-     * @param input_location_id
+     * @param //input_location_id
      * @return
      */
-    public boolean deleteParkedLocation(float input_location_id) {
+    public boolean deleteParkedLocation() {
 
-        boolean result = false;
+        boolean result = true;
 
-        String query = "Select * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_currenttime + " =  \"" + input_location_id + "\"";
+       // String query = "Select * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_currenttime + " =  \"" + input_location_id + "\"";
+     //  String query = "Select * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_XLOCATION + " =  \"" + input_x_location + "\"";
+
+
+        String query = "Delete from " + TABLE_PARKED_LOCATION + "";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery(query, null);
+       // Cursor cursor = db.rawQuery(query, null);
 
         ParkedLocation parkedlocation = new ParkedLocation();
 
-        if (cursor.moveToFirst()) {
+
+        db.execSQL(query);
+        /*if (cursor.moveToFirst()) {
             parkedlocation.setID(Integer.parseInt(cursor.getString(0)));
             db.delete(TABLE_PARKED_LOCATION, COLUMN_ID + " = ?",
                     new String[] { String.valueOf(parkedlocation.getID()) });
             cursor.close();
             result = true;
-        }
+        }*/
         db.close();
         return result;
     }
