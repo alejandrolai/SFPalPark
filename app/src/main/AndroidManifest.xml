@@ -15,7 +15,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/applogo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -37,7 +37,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAsKb5zNCqShfZ5m6O-ARAntQypV-8qgH4" />
+            android:value="" />
 
         <activity
             android:name=".SettingsActivity"
