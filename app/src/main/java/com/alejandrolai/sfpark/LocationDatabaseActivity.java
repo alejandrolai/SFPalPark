@@ -51,8 +51,8 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         idView = (TextView) findViewById(R.id.productID);
         //locBox = (EditText) findViewById(R.id.input_location_id);
-       // xBox = (EditText) findViewById(R.id.input_x_location);
-        //yBox = (EditText) findViewById(R.id.input_y_location);
+       xBox = (EditText) findViewById(R.id.input_x_location);
+       yBox = (EditText) findViewById(R.id.input_y_location);
 
 
     }
@@ -95,31 +95,39 @@ public class LocationDatabaseActivity extends ActionBarActivity {
      *
      * @param view
      */
-  /*  public void lookupParkedLocation (View view) {
+   public void lookupParkedLocation (View view) {
 
         MyLocationDBHandler dbHandler = new MyLocationDBHandler(this, null, null, 1);
 
-        ParkedLocation parkedlocation = dbHandler.findLocation(Integer.parseInt(locBox.getText().toString()));
+        ParkedLocation parkedlocation = dbHandler.findLocation();
 
+       Toast.makeText(getApplicationContext(), "Retrieving your data .",
+               Toast.LENGTH_SHORT).show();
 
 
         if (parkedlocation != null) {
 
             idView.setText(String.valueOf(parkedlocation.getID()));
 
-            locBox.setText(String.valueOf(parkedlocation.getLocationID()));
+          //  locBox.setText(String.valueOf(parkedlocation.getLocationID()));
 
             xBox.setText(String.valueOf(parkedlocation.getXLocation()));
 
             yBox.setText(String.valueOf(parkedlocation.getYLocation()));
 
+            Toast.makeText(getApplicationContext(), "Parking spot not null.",
+                    Toast.LENGTH_SHORT).show();
+
         } else {
+
+            Toast.makeText(getApplicationContext(), "Parking spot is null.",
+                    Toast.LENGTH_SHORT).show();
 
             idView.setText("No Match Found");
 
         }
 
-    }/*
+    }
 
 
 

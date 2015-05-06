@@ -112,14 +112,14 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     /**
      * Searches for the parked location based on a given location id input value.
      *
-     * @param input_location_id
+     * @param //input_location_id
      * @return
      */
-    public ParkedLocation findLocation(float input_location_id) {
+    public ParkedLocation findLocation() {
 
         //String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " WHERE " + COLUMN_LOCATIONID + " = \"" + input_location_id + "\"";
 
-        String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " order by  " + COLUMN_currenttime + "";
+        String query = "SELECT * FROM " + TABLE_PARKED_LOCATION + " order by " + COLUMN_currenttime + " desc";
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -132,7 +132,7 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
 
             cursor.moveToFirst();
             parkedlocation.setID(Integer.parseInt(cursor.getString(0)));
-            parkedlocation.setLocationID(Float.parseFloat(cursor.getString(1)));
+           // parkedlocation.setLocationID(Float.parseFloat(cursor.getString(1)));
             parkedlocation.setXLocation(Float.parseFloat(cursor.getString(2)));
             parkedlocation.setYLocation(Float.parseFloat(cursor.getString(3)));
             cursor.close();

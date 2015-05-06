@@ -17,6 +17,7 @@ public class ParkedLocation extends ActionBarActivity implements LocationListene
     private float _locationid;
     private float _xlocation;
     private float _ylocation;
+    private
     Location location;
 
 

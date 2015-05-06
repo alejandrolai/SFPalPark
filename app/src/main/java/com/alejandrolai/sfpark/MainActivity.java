@@ -297,8 +297,8 @@ public class MainActivity extends ActionBarActivity
             case R.id.action_history:
                 startLocationDatabaseHistory();
                 return true;
-            case R.id.action_preferences:
-                startActivity(new Intent(this,PreferencesActivity.class));
+           // case R.id.action_preferences:
+             //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
