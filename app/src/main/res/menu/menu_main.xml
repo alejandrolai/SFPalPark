@@ -21,12 +21,12 @@
         android:title="Parking History"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_preferences"
+    <!--<item android:id="@+id/action_preferences"
         android:orderInCategory="1"
         android:title="Preferences"
         app:showAsAction="never"/>
 
-    <!-- <item
+     <item
     android:id="@+id/action_refresh"
     android:orderInCategory="50"
     android:title="Refresh"

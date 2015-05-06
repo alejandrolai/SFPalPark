@@ -29,7 +29,6 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
     ParkingSpot currentSpot;
 
-
     /**
      *
      *

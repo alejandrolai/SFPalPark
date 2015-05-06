@@ -542,7 +542,7 @@ public class MainActivity extends ActionBarActivity
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numOfParkingSpots = pickedNumber.getValue();
+                numOfParkingSpots = pickedNumber.getValue() * 2;
                 dialog.dismiss();
                 getRespone();
             }
