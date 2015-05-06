@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:key="num_of_parking_spots"
-        android:title="Number of parking spots to show"
-        android:summary="How many parking spots to show by default"
-        android:defaultValue="5"/>
-
+    <CheckBoxPreference
+        android:key="locationg_logging"
+        android:title="Enables logging of location"
+        android:defaultValue="true" />
 
 </PreferenceScreen>
