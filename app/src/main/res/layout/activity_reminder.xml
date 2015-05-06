@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".SettingsActivity"
     android:orientation="vertical"
     android:id="@+id/menu"
@@ -15,186 +11,186 @@
     android:weightSum="1">
 
 
+    <include
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/reminder_title"
-        android:id="@+id/menu_settings"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#DDDDDD"
-        android:gravity="center"
-        android:background="#DD6600"
-        android:autoText="false" />
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:focusableInTouchMode="true"
-        android:clickable="true"
-        android:layout_gravity="center"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Set Reminder: "
-            android:id="@+id/textView4"
-            android:textColor="#DD6600"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp" />
-
-        <TableRow
+        android:padding="16dp">
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
-
-            <TextView
-                android:layout_width="127dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/reminder_currenttime"
-                android:id="@+id/textView5"
-                android:textColor="#333333" />
-
-            <TextClock
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textClock"
-                android:textColor="#000099" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:layout_gravity="center"
             android:weightSum="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Enter Time: "
-                android:id="@+id/textView6"
-                android:textColor="#333333" />
+                android:text="Set Reminder: "
+                android:id="@+id/textView4"
+                android:textColor="#DD6600"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp" />
 
-            <EditText
-                android:layout_width="20dp"
+            <TableRow
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/hour"
-                android:layout_weight="0.15"
-                android:textColor="#ff0f1215"
-                android:text="00"
-                android:background="@drawable/inputborder"/>
+                android:layout_marginTop="10dp" >
 
-            <TextView
+                <TextView
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/reminder_currenttime"
+                    android:id="@+id/textView5"
+                    android:textColor="#333333" />
+
+                <TextClock
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textClock"
+                    android:textColor="#000099" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Enter Time: "
+                    android:id="@+id/textView6"
+                    android:textColor="#333333" />
+
+                <EditText
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/hour"
+                    android:layout_weight="0.15"
+                    android:textColor="#ff0f1215"
+                    android:text="00"
+                    android:background="@drawable/inputborder"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText2"
+                    android:text="hour(s)"
+                    android:textColor="#ffff890c" />
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText5"
+                    android:text=" : "
+                    android:textColor="#ffff890c" />
+
+                <EditText
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/minute"
+                    android:layout_weight="0.15"
+                    android:autoText="false"
+                    android:textColor="#ff0f1215"
+                    android:text = "00"
+                    android:background="@drawable/inputborder"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText4"
+                    android:text="minute(s)"
+                    android:textColor="#ffff9e04" />
+
+            </TableRow>
+
+        </LinearLayout>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Timer"
+            android:id="@+id/setTimeButton"
+            android:onClick="setTimerTime"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2"
-                android:text="hour(s)"
-                android:textColor="#ffff890c" />
+                android:text="Start"
+                android:id="@+id/buttonStart"
+                android:layout_weight="1"
 
-            <TextView
-                android:layout_width="10dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText5"
-                android:text=" : "
-                android:textColor="#ffff890c" />
 
-            <EditText
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/minute"
-                android:layout_weight="0.15"
-                android:autoText="false"
-                android:textColor="#ff0f1215"
-                android:text = "00"
-                android:background="@drawable/inputborder"/>
+                />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText4"
-                android:text="minute(s)"
-                android:textColor="#ffff9e04" />
+                android:text="Stop"
+                android:id="@+id/buttonStop"
+                android:layout_weight="1"
+                />
 
-        </TableRow>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset"
+                android:id="@+id/buttonReset"
+                android:layout_weight="1"
 
-    </LinearLayout>
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Set Timer"
-        android:id="@+id/setTimeButton"
-        android:onClick="setTimerTime"
-        android:layout_gravity="center_horizontal"/>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        >
-        <Button
+                />
+
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"
-            android:id="@+id/buttonStart"
-            android:layout_weight="1"
-
-
-            />
-
-        <Button
+            android:layout_gravity="center_horizontal"
+            android:text="00:00:00"
+            android:id="@+id/viewTime"
+            android:textSize="50sp"
+            android:textColor="#ff0f1215" />
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stop"
-            android:id="@+id/buttonStop"
-            android:layout_weight="1"
-             />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reset"
-            android:id="@+id/buttonReset"
-            android:layout_weight="1"
-
-
-            />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Notes:"
+            android:textColor="#ff0d0e33" />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:id="@+id/Notes"
+            android:textColor="#333333"
+            android:background="@drawable/inputborder"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="00:00:00"
-        android:id="@+id/viewTime"
-        android:textSize="50sp"
-        android:textColor="#ff0f1215" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Notes:"
-        android:textColor="#ff0d0e33" />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:id="@+id/Notes"
-        android:textColor="#333333"
-        android:background="@drawable/inputborder"/>
+
     
 
 

@@ -17,11 +17,13 @@ public class AlertDialogs {
 
     private static AlertDialogs instance = new AlertDialogs();
 
-    private AlertDialogs(){}
+    private AlertDialogs() {
+    }
 
-    public static AlertDialogs getInstance(){
+    public static AlertDialogs getInstance() {
         return instance;
     }
+
     /**
      * Prompts user to change location settings
      */
@@ -40,14 +42,6 @@ public class AlertDialogs {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 context.startActivity(intent);
-            }
-        });
-
-        //On pressing cancel button
-        alertDialog.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
             }
         });
         alertDialog.setCancelable(false);
@@ -73,15 +67,11 @@ public class AlertDialogs {
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 context.startActivity(intent);
             }
-        }).setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
         });
 
         //On pressing cancel button
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
+
 }

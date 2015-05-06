@@ -4,20 +4,11 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <include
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/park_location"
-            android:id="@+id/park_location"
-            android:gravity="center"
-            android:background="#DD6600" />
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-    </TableRow>
 
     <TableRow
         android:layout_width="fill_parent"

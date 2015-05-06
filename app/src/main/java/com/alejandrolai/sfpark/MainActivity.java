@@ -1,5 +1,7 @@
 package com.alejandrolai.sfpark;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +27,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -57,6 +60,8 @@ public class MainActivity extends ActionBarActivity
     Location location;
     double currentLatitude = 0;
     double currentLongitude = 0;
+
+    int numOfParkingSpots=1;
 
     Button parkMebutton;
 
@@ -166,11 +171,9 @@ public class MainActivity extends ActionBarActivity
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever
      * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
      * If it isn't installed {@link SupportMapFragment} (and
      * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
      * install/update the Google Play services APK on their device.
-     * <p/>
      * A user can return to this FragmentActivity after following the prompt and correctly
      * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
      * have been completely destroyed during this process (it is likely that it would only be
@@ -192,7 +195,6 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * This is where we can add markers or lines, add listeners or move the camera.
-     * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
@@ -292,13 +294,13 @@ public class MainActivity extends ActionBarActivity
                 }
 
             case R.id.action_search:
-                getRespone();
+                setNumberofSpotstoReturn();
                 return true;
             case R.id.action_history:
                 startLocationDatabaseHistory();
                 return true;
             //case R.id.action_preferences:
-             //   startActivity(new Intent(this,PreferencesActivity.class));
+            //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -329,10 +331,9 @@ public class MainActivity extends ActionBarActivity
     /**
      * Added by Dolly 4/27/15
      *
-     * @param numberReturn - number of  nearest spots wanted (in our case pass 5)
      * @param listOfSpots  - list of Parking spots (in our case the whole sfpark list)
      */
-    public void getNearestParkingSpots(int numberReturn, ParkingSpotList listOfSpots) {
+    public void getNearestParkingSpots(ParkingSpotList listOfSpots) {
 
         // the list that  will contain numberReturn nearest spots (in our case 5 spots)
         ParkingSpotList nearestParkingSpots = new ParkingSpotList();
@@ -341,7 +342,7 @@ public class MainActivity extends ActionBarActivity
         ParkingSpot[] copy_parkings = new ParkingSpot[listOfSpots.getListSize()];
 
         // check if there is enough spots in the list compared to the number of nearest spots to be returned
-        if (numberReturn <= listOfSpots.getListSize()) {
+        if (numOfParkingSpots <= listOfSpots.getListSize()) {
 
             //copy into temporary list for sorting
             for (int i = 0; i < listOfSpots.getListSize(); i++) {
@@ -369,7 +370,7 @@ public class MainActivity extends ActionBarActivity
             }
             //copy the first numberReturn ( first 5) spots
 
-            for (int i = 0; i < numberReturn; i++) {
+            for (int i = 0; i < numOfParkingSpots; i++) {
                 nearestParkingSpots.addParkingSpot(copy_parkings[i]);
             }
 
@@ -380,12 +381,11 @@ public class MainActivity extends ActionBarActivity
         markNearSpots(nearestParkingSpots);
     }
 
-    /**
-     * A method that iterates add marker method and pass the coordinates from the nearestparkingspot list
-     *
-     * @param nearSpots
-     */
+
+
     public void markNearSpots(ParkingSpotList nearSpots) {
+
+        mMap.clear();
 
         ArrayList<ParkingSpot> list = nearSpots.getList();
 
@@ -459,7 +459,6 @@ public class MainActivity extends ActionBarActivity
     private void retrieveData(final ParkingSpotList parkingSpotList)
             throws InterruptedException, ExecutionException, TimeoutException {
 
-        final int numOfParkingSpots = 10;
         if (parkingSpotList != null) {
             AsyncTask<Void, Void, ParkingSpotList> task = new AsyncTask<Void, Void, ParkingSpotList>() {
                 @Override
@@ -471,7 +470,7 @@ public class MainActivity extends ActionBarActivity
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
-                    getNearestParkingSpots(numOfParkingSpots,mParkingSpotList);
+                    getNearestParkingSpots(mParkingSpotList);
 
                 }
             };
@@ -507,7 +506,7 @@ public class MainActivity extends ActionBarActivity
     /**
      *  Starts LocationDatabaseActivity and puts longitude and latitude.
      */
-    private void startLocationDatabaseHistory(){
+    private void startLocationDatabaseHistory() {
 
         Toast.makeText(getApplicationContext(), "Inside startLocationDatabaseHistory.",
                 Toast.LENGTH_SHORT).show();
@@ -517,10 +516,45 @@ public class MainActivity extends ActionBarActivity
         double latitude = getLatitude();
         double longitude = getLongitude();
         intent.putExtra("latitude", latitude);
-        intent.putExtra("longitude",longitude);
+        intent.putExtra("longitude", longitude);
 
         startActivity(intent);
-       //useCurrentLocation();
+        //useCurrentLocation();
+    }
+
+    public void setNumberofSpotstoReturn() {
+
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setTitle("NumberPicker");
+        dialog.setContentView(R.layout.dialog);
+        Button setButton = (Button) dialog.findViewById(R.id.set);
+        Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
+        final NumberPicker pickedNumber = (NumberPicker) dialog.findViewById(R.id.numberPicker);
+        pickedNumber.setMaxValue(80); // max value 100
+        pickedNumber.setMinValue(1);   // min value 0
+        pickedNumber.setWrapSelectorWheel(false);
+        pickedNumber.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+            }
+        });
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numOfParkingSpots = pickedNumber.getValue();
+                dialog.dismiss();
+                getRespone();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        dialog.show();
+
     }
 
 }
