@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
@@ -54,6 +55,11 @@ public class ReminderActivity extends ActionBarActivity{
         textViewTime = (TextView) findViewById(R.id.viewTime);
     }
 
+    /*@Override
+    protected void onResume(){
+
+    }*/
+
     public void setTimerTime(View view){
         //Get Hour and Minute from XML file
         TextView hour = (EditText) findViewById(R.id.hour);
@@ -87,7 +93,7 @@ public class ReminderActivity extends ActionBarActivity{
         resetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startButton.setText("Start");
+                //startButton.setText("Start");
                 textViewTime.setText("00:00:00");
                 timer.cancel();
             }
@@ -136,11 +142,34 @@ public class ReminderActivity extends ActionBarActivity{
         // When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
         @Override
         public void onFinish() {
-            v.vibrate(2000);
+            v.vibrate(4500);
 
             //I want this to be a dialog.
-            textViewTime.setText("Time is up! Return to Parking Spot!");
+            //textViewTime.setText("Time is up! Return to Parking Spot!");
 
+            //Get Notes from user
+            TextView notes = (EditText) findViewById(R.id.Notes);
+            String userNotes = notes.getText().toString();
+
+            //Create Alert Dialog
+            AlertDialog reminderDialog = new AlertDialog.Builder(ReminderActivity.this).create();
+
+            //Set Title
+            reminderDialog.setTitle("Reminder");
+
+            //Dialog to User Notes
+            reminderDialog.setMessage(userNotes);
+
+
+            reminderDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                        // here you can add functions
+                }
+            });
+
+           if(!isFinishing()) {
+               reminderDialog.show();
+           }
         }
     }
 
