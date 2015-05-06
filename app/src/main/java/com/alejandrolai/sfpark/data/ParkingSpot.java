@@ -7,6 +7,10 @@ import com.google.maps.android.SphericalUtil;
 /**
  * Created by Alejandro on 4/8/15.
  */
+
+/**
+ * ParkingSpot class which represents a parking spot
+ */
 public class ParkingSpot {
 
     private String parkingType;
@@ -28,7 +32,6 @@ public class ParkingSpot {
 
     // Per hour, street sweep, no charge
     private String rateQualifier;
-
 
     public String getStreetName() {
         return streetName;

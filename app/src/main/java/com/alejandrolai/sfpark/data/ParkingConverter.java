@@ -12,6 +12,10 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.Calendar;
 
+
+/**
+ * Custom serializer to create custom java objects from the SFPark data
+ */
 public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
 
     @Override
@@ -109,8 +113,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                         endHour = Double.parseDouble(endHours[0]);
                                     }
 
-                                    Log.i(TAG, currentHour + "\t" + parkingSpot.getStreetName() + ": " + begHour + " - " + endHour);
-
                                     if (begHour <= currentHour && currentHour <= endHour) {
                                         parkingSpot.setRate(Double.parseDouble(pricesObject.get("RATE").getAsString()));
                                         parkingSpot.setRateQualifier(pricesObject.get("RQ").getAsString());
@@ -121,8 +123,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                 }
                             }
                         }
-                    } else {
-
                     }
 
                     if (parkingSpot.getParkingType() != "") {

@@ -64,8 +64,6 @@ public class MainActivity extends ActionBarActivity
 
     ParkingSpotList mParkingSpotList;
 
-    static ParkingSpot currentSpot;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,18 +111,8 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        LatLng latLng;
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        if (currentLatitude != 0 && currentLongitude != 0) {
-            latLng = new LatLng(currentLatitude, currentLongitude);
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(latLng)
-                    .zoom(15)
-                    .build();
-
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
     }
 
 
@@ -214,8 +202,7 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * Check if there internet connection
-     *
-     * @return true if there is a connection to the internet
+     * @return true if there is a connection to the internet, false otherwise
      */
     public boolean isOnline() {
         ConnectivityManager cm =
@@ -225,9 +212,13 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     *
-     * @param startLatitude starting latitude of block
-     * @param startLongitude starting longitude of block
+     * Adds a marker to the map with information about the prices
+     * @param streetName Name of the block
+     * @param rate Price per hour
+     * @param rateQual Per hour, street sweep or no charge
+     * @param endTime End time of the current time bracket
+     * @param startLatitude starting latitude of the block
+     * @param startLongitude starting longitude of the block
      */
     private void addMarker(String streetName, double rate, String rateQual,
                            String endTime, double startLatitude, double startLongitude) {
@@ -249,10 +240,10 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     * Adds a line to the map
-     *
-     * @param startLatLng start location of block
-     * @param endLatLng   end location of block
+     * Adds colored polyline to the map according to its rate
+     * @param startLatLng Starting latitude and longitude of the block
+     * @param endLatLng Ending latitude and longitude of the block
+     * @param rate Rate of the block
      */
     private void addLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color = getResources().getColor(R.color.black);
@@ -301,7 +292,7 @@ public class MainActivity extends ActionBarActivity
                 }
 
             case R.id.action_search:
-                getData();
+                getRespone();
                 return true;
             case R.id.action_history:
                 startLocationDatabaseHistory();
@@ -411,8 +402,6 @@ public class MainActivity extends ActionBarActivity
             String endTime = parkingSpot.getEndTime();
             String rateQual = parkingSpot.getRateQualifier();
 
-            Log.i("Locations: ", startLatLng.toString() + " - " + endLatLng.toString());
-
             addLine(startLatLng,endLatLng, rate);
             addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
 
@@ -426,8 +415,11 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    public void getData() {
-
+    /**
+     * Uses a callback to check the response from SF Park
+     *
+     */
+    public void getRespone() {
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
@@ -437,11 +429,7 @@ public class MainActivity extends ActionBarActivity
                 public void success(ParkingSpotList parkingSpotList, Response response) {
                     try {
                         retrieveData(parkingSpotList);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (TimeoutException e) {
+                    } catch (InterruptedException | ExecutionException | TimeoutException e) {
                         e.printStackTrace();
                     }
                 }
@@ -451,11 +439,7 @@ public class MainActivity extends ActionBarActivity
                     Log.e(TAG, error.getLocalizedMessage());
                     try {
                         retrieveData(null);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (TimeoutException e) {
+                    } catch (InterruptedException | ExecutionException | TimeoutException e) {
                         e.printStackTrace();
                     }
                 }
@@ -465,6 +449,13 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Contains an asynctask to get all the data from SFPark
+     * @param parkingSpotList The list of all parking spots
+     * @throws InterruptedException
+     * @throws ExecutionException
+     * @throws TimeoutException
+     */
     private void retrieveData(final ParkingSpotList parkingSpotList)
             throws InterruptedException, ExecutionException, TimeoutException {
 
@@ -487,7 +478,7 @@ public class MainActivity extends ActionBarActivity
             task.execute();
             task.get(4000, TimeUnit.MILLISECONDS);
         } else {
-            Toast.makeText(this, "error connecting", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.problem_communicating_with_sfpark), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -514,7 +505,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     *  Added by Alejandro.
      *  Starts LocationDatabaseActivity and puts longitude and latitude.
      */
     private void startLocationDatabaseHistory(){

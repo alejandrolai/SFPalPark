@@ -9,6 +9,10 @@ import android.provider.Settings;
 /**
  * Created by Alejandro on 5/1/15.
  */
+
+/**
+ * Helper class which contains methods to create AlertDialogs
+ */
 public class AlertDialogs {
 
     private static AlertDialogs instance = new AlertDialogs();
