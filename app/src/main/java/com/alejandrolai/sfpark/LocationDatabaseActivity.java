@@ -21,8 +21,8 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
     TextView idView;
    // EditText locBox;
-    EditText xBox;
-    EditText yBox;
+   TextView xBox;
+    TextView yBox;
 
     double longitude;
     double latitude;
@@ -57,8 +57,8 @@ public class LocationDatabaseActivity extends ActionBarActivity {
 
         idView = (TextView) findViewById(R.id.productID);
         //locBox = (EditText) findViewById(R.id.input_location_id);
-       xBox = (EditText) findViewById(R.id.input_x_location);
-       yBox = (EditText) findViewById(R.id.input_y_location);
+       xBox = (TextView) findViewById(R.id.input_x_location);
+       yBox = (TextView) findViewById(R.id.input_y_location);
 
 
     }

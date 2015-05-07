@@ -94,7 +94,7 @@
             android:id="@+id/enter_x_position"
             android:textColor="#333333" />
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
@@ -121,7 +121,7 @@
             android:id="@+id/enter_y_position"
             android:textColor="#333333" />
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
