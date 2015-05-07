@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.alejandrolai.sfpark.data.ParkedLocation;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,6 +28,8 @@ public class MyLocationDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_XLOCATION = "xlocation";
     private static final String COLUMN_YLOCATION = "ylocation";
     public static final String COLUMN_currenttime = "currentime";
+
+
 
     public MyLocationDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 

@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity
     double currentLatitude = 0;
     double currentLongitude = 0;
 
-    int numOfParkingSpots=1;
+    int numOfParkingSpots=0;
 
     Button parkMebutton;
 
@@ -99,6 +99,23 @@ public class MainActivity extends ActionBarActivity
             criteria.setAltitudeRequired(true);
             String bestProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    mMap.clear();
+                    mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .draggable(true))
+                            .setTitle(latLng.toString());
+
+
+                   currentLatitude = latLng.latitude;
+                   currentLongitude = latLng.longitude;
+
+
+                }
+            });
+
 
             if (location != null) {
                 onLocationChanged(location);
@@ -513,8 +530,8 @@ public class MainActivity extends ActionBarActivity
 
         Intent intent = new Intent(this, LocationDatabaseActivity.class);
 
-        double latitude = getLatitude();
-        double longitude = getLongitude();
+        double latitude = currentLatitude;
+        double longitude = currentLongitude;
         intent.putExtra("latitude", latitude);
         intent.putExtra("longitude", longitude);
 
@@ -542,7 +559,7 @@ public class MainActivity extends ActionBarActivity
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numOfParkingSpots = pickedNumber.getValue() * 2;
+                numOfParkingSpots = pickedNumber.getValue();
                 dialog.dismiss();
                 getRespone();
             }
