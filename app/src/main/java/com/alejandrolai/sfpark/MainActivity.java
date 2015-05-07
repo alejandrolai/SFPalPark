@@ -316,6 +316,9 @@ public class MainActivity extends ActionBarActivity
             case R.id.action_history:
                 startLocationDatabaseHistory();
                 return true;
+            case R.id.action_parked_history:
+                showParkedHistory();
+                return true;
             //case R.id.action_preferences:
             //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
@@ -537,6 +540,15 @@ public class MainActivity extends ActionBarActivity
 
         startActivity(intent);
         //useCurrentLocation();
+    }
+
+
+    private void showParkedHistory()
+    {
+        Intent intent = new Intent(this, ParkedHistory.class);
+
+
+        startActivity(intent);
     }
 
     public void setNumberofSpotstoReturn() {
