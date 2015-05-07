@@ -2,186 +2,186 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.3.4\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-51272508584c2b070ed7fdf2e6f4ea20af503fd9.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-498af260d7bb054bf0ffb8d95ca0e6142982f2f0.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-c7f3c0a643764ab4a8b8acdeb1a7e8178de6c10e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.9.0\a681c044244d9fc375198588297a39ba78028423\retrofit-1.9.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a681c044244d9fc375198588297a39ba78028423">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\retrofit-1.9.0-ae8bcf02b79423ab8acbf95b73fb35d05107a20f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-d0e01d57785d2fee48340e3433b5df759310c2bb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-27eb3fb0643523f7ab5a7b22b13b470ad1e20e85.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-e3a4fc7d8d73148aac5a7f182d7abc44f5e62072.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-9c562db038412fb41853c002a092f20f778f25b3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-7b77543fc60b11b4abdeaeabf8a9829cdf9f495b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-392b17d279585ac135e5786061485157e62d0fbc.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="055783146ba9654a725442563be78cad303aad1f">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-151123d6b76b948858a6ef03c5edf75079c3d76f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-bc8d96ea289c554b7c3c721bd04b88503069d592.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-9107951264b0f32933b3ac2501e171f1ac583001.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\gson-2.3.1-4a2798612c5a00a3519d795577bad6e0d221ddaa.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-35b640c77885103d4f4671a743f994f27f6fa3a4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-3bdab361a5f6c72155b2c4ddaf83ee20daa43030.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-be899fb107017179352f8711422a6e6b8b73a239.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.0.0\classes.jar"
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-6bf4cd37646810cbfdde67af2f8c6050689cb987.jar" />
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-2f582e33df1c942fa504f5232ef5fecdb1044968.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-320755d625837b90cedf0c628f97bd89c19b909c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.0.0\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-a9c2914b46da86b3be989d319ce368582a5e6239.jar" />
-    </item>
-    <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.0.0\classes.jar"
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-a904becfe9f976f317e94c782dc66b8a5f67ae0f.jar" />
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-b5be94e7eebf93e894688c50f9ba345651d07e84.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.0.0\classes.jar"
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-7075e5654d2cbd2c96cc3c332211d36fc71cb8bf.jar" />
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-4e87fb2e2110d09fcc051834cd600c3767d5e2b2.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.0.0\classes.jar"
+        jar="/Users/danielmartin/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/gson-2.3.1-3b5b13ad2c01b47cd230cd777adf23ff78f4c52e.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-2e44eec90684412910a7b0c5045fb0fcdccda334.jar" />
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-9219c3a8b8e89bed96c96bdc3588065cb9d97a22.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.0.0\classes.jar"
+        jar="/Users/danielmartin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-fbb6d6d8d68745e2e75de2ac3a60ad8c4a490a7d.jar" />
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-e700598ed406affcd28dfc36583fbe917fcdd5f9.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.0.0\classes.jar"
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-f4d70a1490b8afbdcb83e419e2a963b647660d74.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-2a1b9f4660a296abf00d73713c8283f61f9a01d2.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-7680cae67adb8c3fe38853380c4bdf0d9c14e93a.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-23a72aa899464dfb565a1e530fb7a7b033b25c71.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-54de46dda482f297545cc71ad37fb56df616f757.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/retrofit-1.9.0-9becfdce3241cc73516dade9248f47d5a43eecce.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-a2436cebb741b7f39b2db01229cf3a7284a7b6ac.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-4f1627cf29ae6a7334bc3ccd5c25558b3110ac5b.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-a9729ca6bec38f2495fc53dcd88fbc678a69c714.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-5b4248d74551a2d44dae6b4a57ba3d600a37603d.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-38f19a1639405e0a05f1fc2b5eb4cb5574a25c04.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-b2cacc03ffe5869b2a51e28e26308067e8c711cc.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-fef0592c6a7030da0487fb3816741043e38d68a9.jar" />
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-7fce23411e769b6d8d26c5811e965acffdd7965e.jar" />
     </item>
     <item
-        jar="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.0.0\classes.jar"
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-59428287dbf960233f3409b2a36a925e7948a2bf.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-480b946312456a3047bdbe2ffeb89706c5edd86f.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-70095e44df39640fa6e9a2cc22aeee70554a8dd0.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-12c1b2f5f8f3da17d9decfe1adc9f96494323079.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-816a7b6cdecdd7055051b7e0cb86ccb512d61ebf.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
-        <dex dex="C:\Users\Lenovo\AndroidStudioProjects\SFParkRep\SFPalPark\app\build\intermediates\pre-dexed\debug\classes-b0c1fbc03c207edbbb3a36bfe805345c112dc7fa.jar" />
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-4432c9c55a433004eaa9b108ad17ab9a3fbb1fe1.jar" />
+    </item>
+    <item
+        jar="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/exploded-aar/com.google.maps.android/android-maps-utils/0.3.4/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
+        <dex dex="/Users/danielmartin/AndroidStudioProjects/SFPalPark/app/build/intermediates/pre-dexed/debug/classes-d742b1b5386f0146572918a5d75eed8affe8be06.jar" />
     </item>
 
 </items>

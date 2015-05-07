@@ -53,6 +53,7 @@ public class ReminderActivity extends ActionBarActivity{
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+
     }
 
     /*@Override
@@ -66,10 +67,8 @@ public class ReminderActivity extends ActionBarActivity{
         TextView minute = (EditText) findViewById(R.id.minute);
 
         //MAKE SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
-        //NEED TO PUT AN IF STATEMENT IF TEXTVIEW IS NULL, make it zero
         //NEED TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
         //NEED TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
-        //ALSO NEED TO PUT VIBRATE AND ALARM WITH NOTES.
 
         //Change Hour and Minute from TextView Object to Int
         int hourInt = Integer.parseInt(hour.getText().toString());
@@ -168,8 +167,11 @@ public class ReminderActivity extends ActionBarActivity{
             });
 
            if(!isFinishing()) {
+
                reminderDialog.show();
            }
+
+
         }
     }
 
