@@ -62,6 +62,11 @@
             android:label="@string/location_database_activity"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity
+            android:name=".ParkedHistory"
+            android:label="@string/parked_history"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <!-- Commit! -->
     </application>
 
