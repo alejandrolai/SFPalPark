@@ -39,7 +39,8 @@
                 android:id="@+id/textView4"
                 android:textColor="#DD6600"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:textSize="30dp" />
 
             <TableRow
                 android:layout_width="fill_parent"
@@ -52,13 +53,15 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/reminder_currenttime"
                     android:id="@+id/textView5"
-                    android:textColor="#333333" />
+                    android:textColor="#333333"
+                    android:textSize="20dp" />
 
                 <TextClock
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textClock"
-                    android:textColor="#000099"  />
+                    android:textColor="#000099"
+                    android:textSize="20dp" />
 
             </TableRow>
 
@@ -83,16 +86,18 @@
                     android:ems="10"
                     android:id="@+id/hour"
                     android:layout_weight="0.15"
-                    android:textColor="#ff0f1215"
-                    android:text="00"
-                    android:background="@drawable/inputborder"/>
+                    android:textColor="#FF0F1215"
+                    android:text="0"
+                    android:background="@drawable/inputborder"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText2"
                     android:text="hour(s)"
-                    android:textColor="#ffff890c" />
+                    android:textColor="#ffff890c"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:layout_width="10dp"
@@ -110,7 +115,7 @@
                     android:layout_weight="0.15"
                     android:autoText="false"
                     android:textColor="#ff0f1215"
-                    android:text = "00"
+                    android:text = "0"
                     android:background="@drawable/inputborder"/>
 
                 <TextView
@@ -118,7 +123,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/editText4"
                     android:text="minute(s)"
-                    android:textColor="#ffff9e04" />
+                    android:textColor="#ffff9e04"
+                    android:textSize="15dp" />
 
             </TableRow>
 
@@ -188,7 +194,7 @@
             android:id="@+id/Notes"
             android:textColor="#333333"
             android:background="@drawable/inputborder"
-            android:text="" />
+            android:inputType="text" />
     </LinearLayout>
 
 

@@ -59,7 +59,7 @@ import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
 
-    private static String theme = "default";
+    public static String theme = "default";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static final String TAG = MainActivity.class.getSimpleName();
     Location location;
