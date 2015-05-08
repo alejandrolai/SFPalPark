@@ -37,7 +37,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="AIzaSyDJp_iOjpcmYCgI0W8E1xV4w3O0MiwvQCE" />
 
         <activity
             android:name=".SettingsActivity"
@@ -54,7 +54,6 @@
             android:label="@string/park_location"
             android:parentActivityName=".MainActivity">
         </activity>
-        <!-- Commit! -->
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.alejandrolai.sfpark;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,9 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -133,6 +137,12 @@ public class MainActivity extends ActionBarActivity
                     }
                 });
 
+
+
+                mMap.addCircle(new CircleOptions()
+                .center(new LatLng(getLatitude(), getLongitude()))
+                .radius(6437.376)
+                .strokeColor(Color.RED));
 
                 getRespone();
                 /*
@@ -316,15 +326,17 @@ public class MainActivity extends ActionBarActivity
      */
     private void addMarker(String streetName, double rate, String rateQual,
                            String endTime, double startLatitude, double startLongitude) {
+
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
-
+                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
                     .position(new LatLng(startLatitude, startLongitude))
                     .draggable(true)
                     .title(streetName)
                     .snippet("$" + rate + " " + rateQual + " until " + endTime));
         } else {
             mMap.addMarker(new MarkerOptions()
+                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
                     .position(new LatLng(startLatitude, startLongitude))
                     .draggable(true)
                     .title(streetName)
@@ -509,7 +521,7 @@ public class MainActivity extends ActionBarActivity
 
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", "5");
+        map.put("radius", "4");
         map.put("uom", "mile");
         map.put("response", "json");
         map.put("pricing", "yes");
