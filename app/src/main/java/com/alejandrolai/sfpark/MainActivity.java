@@ -496,7 +496,7 @@ public class MainActivity extends ActionBarActivity
             String rateQual = parkingSpot.getRateQualifier();
 
             addLine(startLatLng, endLatLng, rate);
-            //addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+            addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
             /*
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
