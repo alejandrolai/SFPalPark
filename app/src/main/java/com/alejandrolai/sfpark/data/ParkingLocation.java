@@ -37,7 +37,7 @@ public class ParkingLocation {
      * @param lon
      * @param time
      */
-    public ParkingLocation( String lat, String lon, String time) {
+    public ParkingLocation(String lat, String lon, String time) {
         _latitude = lat;
         _longitude = lon;
         _time = time;
