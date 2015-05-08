@@ -121,7 +121,8 @@
                             android:clickable="true"
                             android:textColor="#EEEEEE"
                             android:padding="0dp"
-                            android:nestedScrollingEnabled="false" />
+                            android:nestedScrollingEnabled="false"
+                            android:onClick="changeToGarden" />
                     </TableRow>
 
                     <TableRow
