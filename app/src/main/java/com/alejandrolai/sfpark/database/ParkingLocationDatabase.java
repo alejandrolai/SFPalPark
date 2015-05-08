@@ -188,7 +188,6 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         int count = cursor.getCount();
         db.close();
         cursor.close();
-
         return count;
     }
 
