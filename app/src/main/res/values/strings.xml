@@ -98,6 +98,9 @@
     <string name="turn_on_wifi_or_data_services">Turn on wifi or data services</string>
     <string name="activate_location_services">Activate location services</string>
     <string name="location_services_not_activated">Location services not activated</string>
+    <string name="title_activity_settings_activity3">Location services not activated</string>
+    <string name="title_activity_settings_activity2">Location services not activated</string>
+    <string name="title_activity_parked_history">Parking History</string>
 
     <!--Terms of Service-->
     <string name="hello">You accepted the TOS!</string>

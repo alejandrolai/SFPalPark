@@ -28,6 +28,8 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         KEY_LATITUDE = "lat",
         KEY_LONGITUDE = "lon",
         KEY_TIME = "time";
+       private static final String KEY_THEME = "theme";
+    private static final String TABLE_COLOR_THEME = "colourtheme";
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -46,6 +48,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
      */
     public ParkingLocationDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        //context.deleteDatabase(DATABASE_NAME);
     }
 
 
@@ -58,6 +61,22 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_PARKING_HISTORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LATITUDE + " TEXT," + KEY_LONGITUDE + " TEXT," + KEY_TIME + " TEXT" + ")");
+    String expression = ("CREATE TABLE " + TABLE_COLOR_THEME + "(" + KEY_THEME + " TEXT" + ")");
+        db.execSQL(expression);
+
+       // db.beginTransaction();
+//        SQLiteDatabase dba = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_THEME, "default");
+
+
+        db.insert(TABLE_COLOR_THEME, null, values);
+        //db.close();
+
+
+
     }
 
 
@@ -75,6 +94,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
 
 
 
@@ -193,4 +213,28 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         }
         return parkingLocations;
     }
+
+
+    public String checkDatabaseTheme()
+    {
+        String theme;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_COLOR_THEME, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        theme= cursor.getString(0);
+        return theme;
+
+    }
+
+public void changeDatabaseTheme(String theme){
+
+    String query = "Update " + TABLE_COLOR_THEME + " set theme " + "= \"" + theme + "\"";
+    SQLiteDatabase db = this.getWritableDatabase();
+db.execSQL(query);
+    db.close();
+    }
+
+
 }

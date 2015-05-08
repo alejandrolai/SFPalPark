@@ -68,6 +68,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     int numOfParkingSpots=0;
     AlertDialogs dialog = AlertDialogs.getInstance();
     ParkingSpotList mParkingSpotList;
+    ParkingLocationDatabase dbParkingLocation;
 
     // Added By Ihsan Taha on 5/7/15
     Button parkMebutton, RemindMe;
@@ -605,6 +606,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
      * Changes the color theme of the toolbar and buttons on the main page
      */
     public void checkColorTheme() {
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        theme= dbParkingLocation.checkDatabaseTheme();
+
         parkMebutton.setTextColor(getResources().getColor(R.color.bright_snow));
         RemindMe.setTextColor(getResources().getColor(R.color.bright_snow));
         if (theme.equalsIgnoreCase("default")) {

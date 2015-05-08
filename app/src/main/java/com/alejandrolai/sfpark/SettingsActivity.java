@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
+
 /**
  * Created by Ihsan Taha on 4/30/15.
  */
@@ -20,6 +22,7 @@ public class SettingsActivity extends ActionBarActivity {
     private String theme = MainActivity.getCurrentTheme();
 
     Toolbar mToolbar;
+    ParkingLocationDatabase dbParkingLocation;
 
     /**
      * Creates a tab menu with the Settings' features.
@@ -115,41 +118,56 @@ public class SettingsActivity extends ActionBarActivity {
     public void changeToDefault(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to default.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("default");
+
     }
 
     public void changeToBeach(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to beach.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("beach");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("beach");
     }
 
     public void changeToGarden(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to garden.", Toast.LENGTH_SHORT).show();
-        MainActivity.setTheme("garden");
+       // MainActivity.setTheme("garden");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("garden");
     }
 
     public void changeToRose(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to rose.", Toast.LENGTH_SHORT).show();
-        MainActivity.setTheme("rose");
+        //MainActivity.setTheme("rose");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("rose");
     }
 
     public void changeToIce(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to ice.", Toast.LENGTH_SHORT).show();
-        MainActivity.setTheme("ice");
+       // MainActivity.setTheme("ice");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("ice");
     }
 
     public void changeToDesert(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to desert.", Toast.LENGTH_SHORT).show();
-        MainActivity.setTheme("desert");
+       // MainActivity.setTheme("desert");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("desert");
     }
 
     public void changeToRoyal(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to royal.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("royal");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("royal");
     }
 
     public void changeToSnow(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to snow.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("snow");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("snow");
     }
 
 
