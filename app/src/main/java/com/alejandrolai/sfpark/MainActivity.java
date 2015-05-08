@@ -1,7 +1,5 @@
 package com.alejandrolai.sfpark;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,16 +7,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.alejandrolai.sfpark.Timer.ReminderActivity;
-import com.alejandrolai.sfpark.data.ParkingLocation;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
-import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.content.Context;
@@ -31,11 +26,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -48,24 +38,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity implements LocationListener {
+public class MainActivity extends ActionBarActivity
+        implements LocationListener {
 
-    private static String theme = "default";
+    public static String theme = "default";
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+
     private static final String TAG = MainActivity.class.getSimpleName();
+
     Location location;
+
     double currentLatitude = 0;
     double currentLongitude = 0;
-    int numOfParkingSpots=0;
+    int numOfParkingSpots = 0;
+
     AlertDialogs dialog = AlertDialogs.getInstance();
     ParkingSpotList mParkingSpotList;
 
@@ -74,6 +69,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     Toolbar mToolbar;
     // End of Addition
 
+    LinkedHashMap<String, String> map = new LinkedHashMap();
+    public LatLngBounds mLatLngBounds;
+
+    ArrayList<ParkingSpot> list = new ArrayList();;
+
+    boolean markerAdded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         setContentView(R.layout.activity_main);
 
         /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
-        parkMebutton  = (Button) findViewById(R.id.parkMebutton);
+        parkMebutton = (Button) findViewById(R.id.parkMebutton);
         RemindMe = (Button) findViewById(R.id.RemindMe);
 
         parkMebutton.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +95,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         new TermsOfService(this).show();
 
-        /*Toolbar*/ mToolbar = (Toolbar) findViewById(R.id.toolbar); // Edited by Ihsan Taha on 5/7/15
+        /*Toolbar*/
+        mToolbar = (Toolbar) findViewById(R.id.toolbar); // Edited by Ihsan Taha on 5/7/15
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -108,31 +110,81 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             criteria.setAltitudeRequired(true);
             String bestProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                @Override
-                public void onMapClick(LatLng latLng) {
-                    mMap.clear();
-                    mMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .draggable(true))
-                            .setTitle(latLng.toString());
-
-
-                   currentLatitude = latLng.latitude;
-                   currentLongitude = latLng.longitude;
-
-
-                }
-            });
-
 
             if (location != null) {
-                onLocationChanged(location);
-            } else {
-                Toast.makeText(this, "Location could not be determined. Turn on location services", Toast.LENGTH_SHORT).show();
-                dialog.showLocationSettingsAlert(this);
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(new LatLng(getLatitude(), getLongitude()))
+                        .zoom(11)
+                        .build();
 
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+                mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                    @Override
+                    public void onMapLongClick(LatLng latLng) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .draggable(true))
+                                .setTitle(latLng.toString());
+                        currentLatitude = latLng.latitude;
+                        currentLongitude = latLng.longitude;
+                    }
+                });
+
+
+                getRespone();
+                /*
+                mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                    @Override
+                    public void onCameraChange(CameraPosition cameraPosition) {
+                        LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+
+
+                        if (!list.isEmpty()) {
+                            for (ParkingSpot parkingSpot : list) {
+                                String streetName = parkingSpot.getStreetName();
+                                double startLatitude = parkingSpot.getStartLatitude();
+                                double startLongitude = parkingSpot.getStartLongitude();
+                                double endLatitude = parkingSpot.getEndLatitude();
+                                double endLongitude = parkingSpot.getEndLongitude();
+                                LatLng startLatLng = new LatLng(startLatitude, startLongitude);
+                                LatLng endLatLng = new LatLng(endLatitude, endLongitude);
+
+                                double rate = parkingSpot.getRate();
+                                String endTime = parkingSpot.getEndTime();
+                                String rateQual = parkingSpot.getRateQualifier();
+
+                                if (bounds.contains(new LatLng(startLatitude, startLongitude))) {
+                                    addLine(startLatLng, endLatLng, rate);
+                                    addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+                                    markerAdded = true;
+                                }
+                                /*
+                                CameraPosition cameraPosition = new CameraPosition.Builder()
+                                .target(startLatLng)
+                                .zoom(13)
+                                .build();
+
+                                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                            }
+                        }
+
+
+                    }
+                });
+
+                if (!list.isEmpty() && markerAdded == false) {
+                    Toast.makeText(this, "No locations near you, zoom out", Toast.LENGTH_SHORT).show();
+                }
+                */
+            } else {
+                dialog.showLocationSettingsAlert(this);
             }
+
+
+
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
             dialog.showInternetAlert(this);
@@ -158,7 +210,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         return this.location.getLongitude();
-
     }
 
 
@@ -191,6 +242,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+
+        if (location != null) {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(getLatitude(), getLongitude()))
+                    .zoom(11)
+                    .build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
 
         // Added by Ihsan on 5/7/15
         checkColorTheme();
@@ -233,6 +293,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     /**
      * Check if there internet connection
+     *
      * @return true if there is a connection to the internet, false otherwise
      */
     public boolean isOnline() {
@@ -244,11 +305,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     /**
      * Adds a marker to the map with information about the prices
-     * @param streetName Name of the block
-     * @param rate Price per hour
-     * @param rateQual Per hour, street sweep or no charge
-     * @param endTime End time of the current time bracket
-     * @param startLatitude starting latitude of the block
+     *
+     * @param streetName     Name of the block
+     * @param rate           Price per hour
+     * @param rateQual       Per hour, street sweep or no charge
+     * @param endTime        End time of the current time bracket
+     * @param startLatitude  starting latitude of the block
      * @param startLongitude starting longitude of the block
      */
     private void addMarker(String streetName, double rate, String rateQual,
@@ -267,14 +329,14 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .title(streetName)
                     .snippet(rateQual + " until " + endTime));
         }
-
     }
 
     /**
      * Adds colored polyline to the map according to its rate
+     *
      * @param startLatLng Starting latitude and longitude of the block
-     * @param endLatLng Ending latitude and longitude of the block
-     * @param rate Rate of the block
+     * @param endLatLng   Ending latitude and longitude of the block
+     * @param rate        Rate of the block
      */
     private void addLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color = getResources().getColor(R.color.black);
@@ -310,20 +372,20 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             case R.id.action_back:
                 return true;
             case R.id.action_settings:
-                    Intent intent = new Intent(this, SettingsActivity.class);
-                    startActivity(intent);
-                    return true;
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.action_search:
-                setNumberofSpotstoReturn();
+                getRespone();
                 return true;
             case R.id.action_history:
                 Intent intent2 = new Intent(this, ParkingLocationActivity.class);
                 startActivity(intent2);
                 return true;
             //case R.id.action_parked_history:
-                //showParkedHistory();
-                //goToParkHistory();
-                //return true;
+            //showParkedHistory();
+            //goToParkHistory();
+            //return true;
             //case R.id.action_preferences:
             //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
@@ -361,7 +423,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     /**
      * Added by Dolly 4/27/15
      *
-     * @param listOfSpots  - list of Parking spots (in our case the whole sfpark list)
+     * @param listOfSpots - list of Parking spots (in our case the whole sfpark list)
      */
     public void getNearestParkingSpots(ParkingSpotList listOfSpots) {
 
@@ -412,12 +474,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
 
-
     public void markNearSpots(ParkingSpotList nearSpots) {
 
         mMap.clear();
 
-        ArrayList<ParkingSpot> list = nearSpots.getList();
+        list = nearSpots.getList();
+
+        Toast.makeText(this, list.size() + " found", Toast.LENGTH_SHORT).show();
 
         for (ParkingSpot parkingSpot : list) {
             String streetName = parkingSpot.getStreetName();
@@ -426,35 +489,43 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             double endLatitude = parkingSpot.getEndLatitude();
             double endLongitude = parkingSpot.getEndLongitude();
             LatLng startLatLng = new LatLng(startLatitude, startLongitude);
-            LatLng endLatLng = new LatLng(endLatitude,endLongitude);
+            LatLng endLatLng = new LatLng(endLatitude, endLongitude);
 
             double rate = parkingSpot.getRate();
             String endTime = parkingSpot.getEndTime();
             String rateQual = parkingSpot.getRateQualifier();
 
-            addLine(startLatLng,endLatLng, rate);
-            addMarker(streetName,rate, rateQual, endTime, startLatitude, startLongitude);
-
+            addLine(startLatLng, endLatLng, rate);
+            //addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+            /*
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(startLatLng)
-                    .zoom(15)
+                    .zoom(13)
                     .build();
 
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            */
         }
 
     }
 
     /**
      * Uses a callback to check the response from SF Park
-     *
      */
     public void getRespone() {
+
+        map.put("lat", Double.toString(getLatitude()));
+        map.put("long", Double.toString(getLongitude()));
+        map.put("radius", "5");
+        map.put("uom", "mile");
+        map.put("response", "json");
+        map.put("pricing", "yes");
+
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
             // on succcess retrieve
-            Service.getService().getParkingSpots(new Callback<ParkingSpotList>() {
+            Service.getService().getParkingSpots(map, new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
                     try {
@@ -481,6 +552,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     /**
      * Contains an asynctask to get all the data from SFPark
+     *
      * @param parkingSpotList The list of all parking spots
      * @throws InterruptedException
      * @throws ExecutionException
@@ -500,29 +572,36 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 protected void onPostExecute(ParkingSpotList parkingSpotList) {
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
-                    getNearestParkingSpots(mParkingSpotList);
+                    markNearSpots(mParkingSpotList);
+
 
                 }
             };
             task.execute();
-            task.get(4000, TimeUnit.MILLISECONDS);
         } else {
             Toast.makeText(this, getString(R.string.problem_communicating_with_sfpark), Toast.LENGTH_SHORT).show();
         }
     }
 
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
 
-        LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             dialog.showLocationSettingsAlert(this);
-        } else if (!isOnline()){
+        } else if (!isOnline()) {
             dialog.showInternetAlert(this);
+        } else {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(getLatitude(), getLongitude()))
+                    .zoom(11)
+                    .build();
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
         }
 
     }
@@ -532,7 +611,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     /**
-     *  Starts LocationDatabaseActivity and puts longitude and latitude.
+     * Starts LocationDatabaseActivity and puts longitude and latitude.
      */
    /* private void startLocationDatabaseHistory() {
 
@@ -549,51 +628,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         startActivity(intent);
         //useCurrentLocation();
     }*/
-
-
-    private void showParkedHistory()
-    {
+    private void showParkedHistory() {
         Intent intent = new Intent(this, ParkedHistory.class);
 
 
         startActivity(intent);
     }
-
-    public void setNumberofSpotstoReturn() {
-
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setTitle("Choose a Radius");
-        dialog.setContentView(R.layout.dialog);
-        Button setButton = (Button) dialog.findViewById(R.id.set);
-        Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
-        final NumberPicker pickedNumber = (NumberPicker) dialog.findViewById(R.id.numberPicker);
-        pickedNumber.setMaxValue(80); // max value 100
-        pickedNumber.setMinValue(1);   // min value 0
-        pickedNumber.setWrapSelectorWheel(false);
-        pickedNumber.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-            }
-        });
-        setButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                numOfParkingSpots = pickedNumber.getValue();
-                dialog.dismiss();
-                getRespone();
-            }
-        });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        dialog.show();
-
-    }
-
 
 
     public static void setTheme(String theTheme) {
@@ -631,7 +671,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             parkMebutton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
             RemindMe.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-        }  else if (theme.equalsIgnoreCase("royal")) {
+        } else if (theme.equalsIgnoreCase("royal")) {
             parkMebutton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
             RemindMe.setBackgroundColor(getResources().getColor(R.color.royal_purple));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
