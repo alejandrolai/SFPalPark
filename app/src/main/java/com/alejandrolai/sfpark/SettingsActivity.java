@@ -19,6 +19,7 @@ public class SettingsActivity extends ActionBarActivity {
 
     private String theme = MainActivity.getCurrentTheme();
 
+    Toolbar mToolbar;
 
     /**
      * Creates a tab menu with the Settings' features.
@@ -31,11 +32,13 @@ public class SettingsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_menu);
 
         // Creates a toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        checkColorTheme();
 
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
@@ -147,6 +150,31 @@ public class SettingsActivity extends ActionBarActivity {
     public void changeToSnow(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to snow.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("snow");
+    }
+
+
+
+    /**
+     * Changes the color theme of the toolbar and buttons on the Parking History page
+     */
+    public void checkColorTheme() {
+        if (MainActivity.theme.equalsIgnoreCase("default")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.default_grey));
+        } else if (MainActivity.theme.equalsIgnoreCase("beach")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("garden")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+        } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
+        } else if (MainActivity.theme.equalsIgnoreCase("ice")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("desert")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+        }  else if (MainActivity.theme.equalsIgnoreCase("royal")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+        } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+        }
     }
 
 }
