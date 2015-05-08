@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <include
+
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/tabHost"
+        android:layout_gravity="center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#999999" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false">
+
+                <LinearLayout
+                    android:id="@+id/park"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Parking Information"
+                        android:id="@+id/parking_info"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:singleLine="true"
+                        android:layout_marginTop="0dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@string/history_park_latitude"
+                        android:ems="10"
+                        android:id="@+id/history_park_latitude"
+                        android:hint="Latitude"
+                        android:textColor="#333333" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/history_park_longitude"
+                        android:text="@string/history_park_longitude"
+                        android:layout_marginTop="0dp"
+                        android:hint="Longitude"
+                        android:inputType="text"
+                        android:textColor="#333333" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/history_park_time"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/history_park_time"
+                        android:hint="Time"
+                        android:inputType="time"
+                        android:textColor="#333333" />
+
+                    <Button
+                        android:layout_width="175dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/history_save"
+                        android:id="@+id/history_save"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/history"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:focusableInTouchMode="false">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/title_activity_history"
+                        android:id="@+id/history_title"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#333333"
+                        android:layout_marginTop="10dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/history_delete"
+                        android:id="@+id/history_delete"
+                        android:singleLine="false"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp" />
+
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listView" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </TabHost>
+
+
+</LinearLayout>

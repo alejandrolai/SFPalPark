@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="@string/history_latitude"
+            android:ems="10"
+            android:id="@+id/history_latitude"
+            android:hint="Latitude"
+            android:textColor="#333333"
+            android:layout_marginTop="0dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/history_longitude"
+            android:text="@string/history_longitude"
+            android:layout_marginTop="0dp"
+            android:hint="Longitude"
+            android:inputType="text"
+            android:textColor="#333333" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/history_time"
+            android:layout_marginTop="0dp"
+            android:text="@string/history_time"
+            android:hint="Time"
+            android:inputType="time"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+
+</LinearLayout>
