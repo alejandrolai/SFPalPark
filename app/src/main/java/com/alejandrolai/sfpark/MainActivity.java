@@ -320,10 +320,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 Intent intent2 = new Intent(this, ParkingLocationActivity.class);
                 startActivity(intent2);
                 return true;
-            case R.id.action_parked_history:
+            //case R.id.action_parked_history:
                 //showParkedHistory();
-                goToParkHistory();
-                return true;
+                //goToParkHistory();
+                //return true;
             //case R.id.action_preferences:
             //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
