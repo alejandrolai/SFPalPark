@@ -614,9 +614,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             RemindMe.setBackgroundColor(getResources().getColor(R.color.beach_orange));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
         } else if (theme.equalsIgnoreCase("garden")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_plant));
             RemindMe.setBackgroundColor(getResources().getColor(R.color.garden_plant));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
         } else if (theme.equalsIgnoreCase("rose")) {
             parkMebutton.setBackgroundColor(getResources().getColor(R.color.red_rose));
             RemindMe.setBackgroundColor(getResources().getColor(R.color.red_rose));
