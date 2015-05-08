@@ -216,7 +216,7 @@ public class ReminderActivity extends ActionBarActivity{
         //int
 
         //long startTime =
-        long interval =  1 * 1000;
+        long interval = 1 * 1000;
 
     }
 
