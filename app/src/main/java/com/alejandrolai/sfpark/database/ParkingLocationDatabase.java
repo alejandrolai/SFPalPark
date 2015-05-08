@@ -40,7 +40,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
     // Data methods
     /**
-     *
+     * ?
      *
      * @param context
      */
@@ -51,7 +51,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     *
+     * Creates a Parking History Table
      *
      * @param db
      */
@@ -63,7 +63,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     *
+     * ?
      *
      * @param db
      * @param oldVersion
@@ -158,7 +158,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     *
+     * ?
      *
      * @return
      */
@@ -175,7 +175,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     *
+     * ?
      *
      * @return
      */
