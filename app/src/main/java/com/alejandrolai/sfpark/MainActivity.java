@@ -9,12 +9,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.alejandrolai.sfpark.Timer.ReminderActivity;
+import com.alejandrolai.sfpark.data.ParkingLocation;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
+import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.content.Context;
@@ -27,7 +31,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -40,6 +48,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -63,16 +72,28 @@ public class MainActivity extends ActionBarActivity
 
     int numOfParkingSpots=0;
 
-    Button parkMebutton;
+    //Button parkMebutton;
 
     AlertDialogs dialog = AlertDialogs.getInstance();
 
     ParkingSpotList mParkingSpotList;
 
+    ParkingLocationActivity parkingLocationActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);
+
+        parkMebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToParkHistory();
+
+            }
+        });
 
         new TermsOfService(this).show();
 
@@ -82,14 +103,15 @@ public class MainActivity extends ActionBarActivity
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        parkMebutton = (Button) findViewById(R.id.parkMebutton);
+        /*parkMebutton = (Button) findViewById(R.id.parkMebutton);
 
         this.findViewById(R.id.parkMebutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startLocationDatabaseHistory();
+                //startLocationDatabaseHistory();
+                saveCurrentParkingLocation();
             }
-        });
+        });*/
 
         setUpMapIfNeeded();
 
@@ -295,37 +317,27 @@ public class MainActivity extends ActionBarActivity
 
         switch (item.getItemId()) {
 
+            case R.id.action_back:
+                return true;
             case R.id.action_settings:
-                if (theme.equalsIgnoreCase("beach")) {
                     Intent intent = new Intent(this, SettingsActivity.class);
                     startActivity(intent);
                     return true;
-                } else if (theme.equalsIgnoreCase("garden")) {
-                    Intent intent = new Intent(this, SettingsActivity2.class);
-                    startActivity(intent);
-                    return true;
-                } else if (theme.equalsIgnoreCase("lady")) {
-                    Intent intent = new Intent(this, SettingsActivity3.class);
-                    startActivity(intent);
-                    return true;
-                }
-
             case R.id.action_search:
                 setNumberofSpotstoReturn();
                 return true;
             case R.id.action_history:
-                startLocationDatabaseHistory();
+                Intent intent2 = new Intent(this, ParkingLocationActivity.class);
+                startActivity(intent2);
+                return true;
+            case R.id.action_parked_history:
+                showParkedHistory();
                 return true;
             //case R.id.action_preferences:
             //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void sendToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void goToStoreLocation(View view) {
@@ -341,6 +353,16 @@ public class MainActivity extends ActionBarActivity
     public void goToReminder(View view) {
 
         Intent intent = new Intent(this, ReminderActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToParkHistory() {
+
+        Intent intent = new Intent(this, ParkingLocationActivity.class);
+        double latitude = currentLatitude;
+        double longitude = currentLongitude;
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
         startActivity(intent);
     }
 
@@ -523,7 +545,7 @@ public class MainActivity extends ActionBarActivity
     /**
      *  Starts LocationDatabaseActivity and puts longitude and latitude.
      */
-    private void startLocationDatabaseHistory() {
+   /* private void startLocationDatabaseHistory() {
 
         Toast.makeText(getApplicationContext(), "Inside startLocationDatabaseHistory.",
                 Toast.LENGTH_SHORT).show();
@@ -537,12 +559,21 @@ public class MainActivity extends ActionBarActivity
 
         startActivity(intent);
         //useCurrentLocation();
+    }*/
+
+
+    private void showParkedHistory()
+    {
+        Intent intent = new Intent(this, ParkedHistory.class);
+
+
+        startActivity(intent);
     }
 
     public void setNumberofSpotstoReturn() {
 
         final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setTitle("NumberPicker");
+        dialog.setTitle("Choose a Radius");
         dialog.setContentView(R.layout.dialog);
         Button setButton = (Button) dialog.findViewById(R.id.set);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancel);

@@ -37,7 +37,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC4-kdF9nPsl_YRqqSsPIUU01bN3M-2ZZI" />
+            android:value="" />
 
         <activity
             android:name=".SettingsActivity"
@@ -45,7 +45,9 @@
         </activity>
         <activity
             android:name=".Timer.ReminderActivity"
-            android:label="@string/title_activity_reminder" >
+            android:label="@string/title_activity_reminder"
+            android:parentActivityName=".MainActivity">
+
         </activity>
         <activity
             android:name=".SettingsActivity2"
@@ -57,7 +59,8 @@
         </activity>
         <activity
             android:name=".LocationDatabaseActivity"
-            android:label="@string/location_database_activity" >
+            android:label="@string/location_database_activity"
+            android:parentActivityName=".MainActivity">
         </activity>
         <!-- Commit! -->
     </application>

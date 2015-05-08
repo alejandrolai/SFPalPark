@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SF ParkPal</string>
 
+    <string name="action_back">Back</string>
     <string name="action_settings">Settings</string>
     <string name="connection_error">Error loading data. Check network connection and try again.</string>
     <!-- <string name="action_refresh">Refresh</string> -->
@@ -8,6 +9,19 @@
     <string name="error_connecting">Could not connect to SFPark</string>
     <string name="retrieving_data">Retrieving data</string>
     <string name="title_activity_list">ListActivity</string>
+
+    <string name="activity_history">Parking History</string>
+    <string name="title_activity_history">Parking History</string>
+    <string name="history_latitude">Latitude</string>
+    <string name="history_longitude">Longitude</string>
+    <string name="history_time">Time</string>
+    <string name="history_park_latitude">Latitude</string>
+    <string name="history_park_longitude">Longitude</string>
+    <string name="history_park_time">Time</string>
+    <string name="history_save">Save Location</string>
+    <string name="history_add_location">Current Location</string>
+    <string name="history_delete">Delete History</string>
+    <string name="parking_info">Parking Information</string>
 
     <string name="about_title">About SF Park Pal</string>
     <string name="about_creators">Created By:</string>
@@ -24,7 +38,7 @@
     <string name="about_phonenumber">415-265-3692</string>
 
     <string name="title_activity_about">Menu</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="button_return">Return</string>
     <string name="menu_settings">Settings</string>
 
@@ -41,17 +55,28 @@
     <string name="reminder_clocktime">Clock Time</string>
     <string name="action_search">Search</string>
     <string name="title_activity_reminder">ReminderActivity</string>
-    <string name="title_activity_settings_activity2">SettingsActivity2</string>
 
+    <string name="radius_title">Choose a Radius</string>
+
+    <string name="themes">Themes</string>
+    <string name="themes_title">Color Themes</string>
     <string name="first_theme">1. </string>
     <string name="button_beach">Beach</string>
     <string name="second_theme">2. </string>
     <string name="button_garden">Garden</string>
     <string name="third_theme">3. </string>
-    <string name="button_lady">Lady</string>
-    <string name="themes">Themes</string>
-    <string name="themes_title">Themes</string>
-    <string name="title_activity_settings_activity3">SettingsActivity3</string>
+    <string name="button_rose">Rose</string>
+    <string name="fourth_theme">4. </string>
+    <string name="button_ice">Ice</string>
+    <string name="fifth_theme">5. </string>
+    <string name="button_desert">Desert</string>
+    <string name="sixth_theme">6. </string>
+    <string name="button_royal">Royal</string>
+    <string name="seventh_theme">7. </string>
+    <string name="button_snow">Snow</string>
+    <string name="eighth_theme">8. </string>
+    <string name="button_default">Default</string>
+
     <string name="can_not_get_location">Could not get your location</string>
     <string name="title_activity_preferences">PreferencesActivity</string>
 
@@ -79,5 +104,6 @@
     <string name="tos">Terms Of Service: Cautious driving . Always drive vigilantly according to road conditions and in accordance with traffic laws.It is strictly forbidden to interact with the app any purpose other than navigation while driving. Alternatively, such interactions with the app may be used by a passenger other than the driver, provided it does not interfere with the due course of driving and does not distract the drivers attention to the road.</string>
     <string name="updates">Upates in this version: Welcome! This is the first update! More to come. </string>
     <string name="problem_communicating_with_sfpark">There was a problem communicating with SF Park, try again later</string>
+    <string name="parked_history">Parked History</string>
     <!--Terms of Service-->
 </resources>

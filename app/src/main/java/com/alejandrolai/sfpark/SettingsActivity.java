@@ -1,9 +1,12 @@
 package com.alejandrolai.sfpark;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
@@ -27,13 +30,30 @@ public class SettingsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        // Creates a toolbar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
 
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("reminder");
-        tabSpec.setContent(R.id.reminder);
-        tabSpec.setIndicator("Reminder");
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("Radius");
+        tabSpec.setContent(R.id.radius);
+        tabSpec.setIndicator("Radius");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("Themes");
+        tabSpec.setContent(R.id.themes);
+        tabSpec.setIndicator("Themes");
+        tabHost.addTab(tabSpec);
+
+        tabSpec = tabHost.newTabSpec("Help");
+        tabSpec.setContent(R.id.help);
+        tabSpec.setIndicator("Help");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("About");
@@ -41,11 +61,49 @@ public class SettingsActivity extends ActionBarActivity {
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
 
-        tabSpec = tabHost.newTabSpec("Themes");
-        tabSpec.setContent(R.id.themes);
-        tabSpec.setIndicator("Themes");
-        tabHost.addTab(tabSpec);
     }
+
+
+
+    /**
+     *
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+
+
+    /**
+     *
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                return true;
+            case R.id.action_history:
+                Intent intent = new Intent(this, ParkingLocationActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
 
@@ -54,7 +112,7 @@ public class SettingsActivity extends ActionBarActivity {
      *
      * @param view
      */
-    public void sendToBeach(View view) {
+    /*public void sendToBeach(View view) {
 
         Context context = getApplicationContext();
         CharSequence text = "Theme changed to beach! Exit settings and return to see the new theme!";
@@ -64,7 +122,7 @@ public class SettingsActivity extends ActionBarActivity {
         toast.show();
 
         MainActivity.setTheme("beach");
-    }
+    }*/
 
 
 
@@ -73,7 +131,7 @@ public class SettingsActivity extends ActionBarActivity {
      *
      * @param view
      */
-    public void sendToGarden(View view) {
+    /*public void sendToGarden(View view) {
 
         Context context = getApplicationContext();
         CharSequence text = "Theme changed to garden! Exit settings and return to see the new theme!";
@@ -83,7 +141,7 @@ public class SettingsActivity extends ActionBarActivity {
         toast.show();
 
         MainActivity.setTheme("garden");
-    }
+    }*/
 
 
 
@@ -92,7 +150,7 @@ public class SettingsActivity extends ActionBarActivity {
      *
      * @param view
      */
-    public void sendToLady(View view) {
+    /*public void sendToLady(View view) {
 
         Context context = getApplicationContext();
         CharSequence text = "Theme changed to lady! Exit settings and return to see the new theme!";
@@ -103,6 +161,6 @@ public class SettingsActivity extends ActionBarActivity {
 
         MainActivity.setTheme("lady");
 
-    }
+    }*/
 
 }
