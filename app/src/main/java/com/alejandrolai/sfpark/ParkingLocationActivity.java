@@ -147,15 +147,15 @@ public class ParkingLocationActivity extends ActionBarActivity {
             }
         }
 
-        latitudeTxt.setText("Latitude:      " + String.valueOf(latitude));
+        latitudeTxt.setText("Latitude:          " + String.valueOf(latitude));
         longitudeTxt.setText("Longitude:    " + String.valueOf(longitude));
-        timeTxt.setText("Time:      " + getDateTime());
+        timeTxt.setText("Time:              " + getDateTime());
     }
 
 
 
     /**
-     *
+     * Accumulates the locations in the list
      */
     private void populateList() {
         ArrayAdapter<ParkingLocation> adapter = new ParkingListAdapter();
@@ -165,7 +165,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
 
     /**
-     *
+     * Displays the accumulated locations in the list
      */
     private class ParkingListAdapter extends ArrayAdapter<ParkingLocation> {
 
@@ -206,7 +206,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        //getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_history, menu);
         return true;

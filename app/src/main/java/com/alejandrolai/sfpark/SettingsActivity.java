@@ -13,7 +13,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 /**
- * Created by ihsan_taha on 4/30/15.
+ * Created by Ihsan Taha on 4/30/15.
  */
 public class SettingsActivity extends ActionBarActivity {
 
@@ -66,7 +66,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 
     /**
-     *
+     * Displays the menu
      *
      * @param menu
      * @return
@@ -74,7 +74,7 @@ public class SettingsActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_about, menu);
+        //getMenuInflater().inflate(R.menu.menu_settings, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
@@ -83,7 +83,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 
     /**
-     *
+     * Responds to the actions in the menu
      *
      * @param item
      * @return
@@ -107,60 +107,46 @@ public class SettingsActivity extends ActionBarActivity {
 
 
 
-    /**
-     * Changes the color theme to "beach".
-     *
-     * @param view
-     */
-    /*public void sendToBeach(View view) {
+    // Changes the color themes based on the selected theme
 
-        Context context = getApplicationContext();
-        CharSequence text = "Theme changed to beach! Exit settings and return to see the new theme!";
-        int duration = Toast.LENGTH_SHORT;
+    public void changeToDefault(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to default.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("default");
+    }
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
+    public void changeToBeach(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to beach.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("beach");
-    }*/
+    }
 
-
-
-    /**
-     * Changes the color theme to "garden".
-     *
-     * @param view
-     */
-    /*public void sendToGarden(View view) {
-
-        Context context = getApplicationContext();
-        CharSequence text = "Theme changed to garden! Exit settings and return to see the new theme!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
+    public void changeToGarden(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to garden.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("garden");
-    }*/
+    }
 
+    public void changeToRose(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to rose.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("rose");
+    }
 
+    public void changeToIce(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to ice.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("ice");
+    }
 
-    /**
-     * Changes the color theme to "lady".
-     *
-     * @param view
-     */
-    /*public void sendToLady(View view) {
+    public void changeToDesert(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to desert.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("desert");
+    }
 
-        Context context = getApplicationContext();
-        CharSequence text = "Theme changed to lady! Exit settings and return to see the new theme!";
-        int duration = Toast.LENGTH_SHORT;
+    public void changeToRoyal(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to royal.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("royal");
+    }
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-        MainActivity.setTheme("lady");
-
-    }*/
+    public void changeToSnow(View view) {
+        Toast.makeText(getApplicationContext(), "Theme changed to snow.", Toast.LENGTH_SHORT).show();
+        MainActivity.setTheme("snow");
+    }
 
 }

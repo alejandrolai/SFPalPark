@@ -57,35 +57,32 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends ActionBarActivity
-        implements LocationListener {
+public class MainActivity extends ActionBarActivity implements LocationListener {
 
-    private static String theme = "beach";
-
+    private static String theme = "default";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
     private static final String TAG = MainActivity.class.getSimpleName();
-
     Location location;
     double currentLatitude = 0;
     double currentLongitude = 0;
-
     int numOfParkingSpots=0;
-
-    //Button parkMebutton;
-
     AlertDialogs dialog = AlertDialogs.getInstance();
-
     ParkingSpotList mParkingSpotList;
 
-    ParkingLocationActivity parkingLocationActivity;
+    // Added By Ihsan Taha on 5/7/15
+    Button parkMebutton, RemindMe;
+    Toolbar mToolbar;
+    // End of Addition
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);
+        /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
+        parkMebutton  = (Button) findViewById(R.id.parkMebutton);
+        RemindMe = (Button) findViewById(R.id.RemindMe);
 
         parkMebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,21 +94,11 @@ public class MainActivity extends ActionBarActivity
 
         new TermsOfService(this).show();
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar*/ mToolbar = (Toolbar) findViewById(R.id.toolbar); // Edited by Ihsan Taha on 5/7/15
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-        /*parkMebutton = (Button) findViewById(R.id.parkMebutton);
-
-        this.findViewById(R.id.parkMebutton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startLocationDatabaseHistory();
-                saveCurrentParkingLocation();
-            }
-        });*/
 
         setUpMapIfNeeded();
 
@@ -204,6 +191,9 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+
+        // Added by Ihsan on 5/7/15
+        checkColorTheme();
     }
 
     /**
@@ -331,7 +321,8 @@ public class MainActivity extends ActionBarActivity
                 startActivity(intent2);
                 return true;
             case R.id.action_parked_history:
-                showParkedHistory();
+                //showParkedHistory();
+                goToParkHistory();
                 return true;
             //case R.id.action_preferences:
             //   startActivity(new Intent(this,PreferencesActivity.class));
@@ -520,9 +511,7 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    public static void setTheme(String theTheme) {
-        theme = theTheme;
-    }
+
 
     @Override
     protected void onRestart() {
@@ -603,6 +592,54 @@ public class MainActivity extends ActionBarActivity
         });
         dialog.show();
 
+    }
+
+
+
+    public static void setTheme(String theTheme) {
+        theme = theTheme;
+    }
+
+
+    /**
+     * Changes the color theme of the toolbar and buttons on the main page
+     */
+    public void checkColorTheme() {
+        if (theme.equalsIgnoreCase("default")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.default_grey));
+        } else if (theme.equalsIgnoreCase("beach")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
+        } else if (theme.equalsIgnoreCase("garden")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+        } else if (theme.equalsIgnoreCase("rose")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
+        } else if (theme.equalsIgnoreCase("ice")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+        } else if (theme.equalsIgnoreCase("desert")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+        }  else if (theme.equalsIgnoreCase("royal")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+        } else if (theme.equalsIgnoreCase("snow")) {
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            parkMebutton.setTextColor(getResources().getColor(R.color.default_grey));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            RemindMe.setTextColor(getResources().getColor(R.color.default_grey));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+        }
     }
 
 }

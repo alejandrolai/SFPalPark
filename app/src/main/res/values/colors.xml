@@ -292,12 +292,29 @@
     <color name="color_blind_primary">#3182bd</color>
     <color name="color_blind_primary_dark">#08519c</color>
 
-    <!-- Added by ihsan_taha 5/2/2015 -->
+    <!-- Added by Ihsan Taha 5/2/2015 -->
     <color name="beach_orange">#DD6600</color>
     <color name="beach_blue">#0099CC</color>
+
     <color name="garden_foilage">#009900</color>
     <color name="garden_plant">#66CC00</color>
-    <color name="lady_red">#990000</color>
-    <color name="lady_pink">#FF9999</color>
+
+    <color name="red_rose">#990000</color>
+    <color name="bright_rose">#CC0000</color>
+
+    <color name="ice_blue">#0066CC</color>
+    <color name="bright_ice">#0099FF</color>
+
+    <color name="desert_yellow">#CC9900</color>
+    <color name="bright_desert">#FFCC00</color>
+
+    <color name="royal_purple">#660066</color>
+    <color name="bright_purple">#990099</color>
+
+    <color name="snow_white">#EEEEEE</color>
+    <color name="bright_snow">#FFFFFF</color>
+
+    <color name="default_grey">#333333</color>
+    <color name="bright_default">#666666</color>
 
 </resources>
