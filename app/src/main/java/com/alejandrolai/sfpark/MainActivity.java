@@ -497,14 +497,6 @@ public class MainActivity extends ActionBarActivity
 
             addLine(startLatLng, endLatLng, rate);
             addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
-            /*
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(startLatLng)
-                    .zoom(13)
-                    .build();
-
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            */
         }
 
     }
