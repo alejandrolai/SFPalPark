@@ -45,6 +45,11 @@ public class ReminderActivity extends ActionBarActivity{
     PendingIntent pendingIntent;
     //AlarmManager reminderAlarm;
 
+    /**
+     * When Reminder Page is opened, onCreate creates objects needed for activity to function,
+     * such as buttons, textview, etc
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,18 +73,15 @@ public class ReminderActivity extends ActionBarActivity{
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
 
-        //Notification Manager
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-
     }
 
-    /*@Override
-    protected void onResume(){
-
-    }*/
-
+    /**
+     * This method sets the text to the time user wants to use for timer.
+     * This is also where the timer is created.
+     * @param view
+     */
     public void setTimerTime(View view){
+
         //Get Hour and Minute from XML file
         TextView hour = (EditText) findViewById(R.id.hour);
         TextView minute = (EditText) findViewById(R.id.minute);
@@ -93,7 +95,6 @@ public class ReminderActivity extends ActionBarActivity{
         int minuteInt = Integer.parseInt(minute.getText().toString());
 
 
-
         // Sets the text to the tested time. Need to Set text time to user input
         textViewTime.setText(hourInt+":"+minuteInt+":00");
 
@@ -104,9 +105,13 @@ public class ReminderActivity extends ActionBarActivity{
         long hourToMillisecs = hourInt*3600000;
         long minuteToMillisecs = minuteInt*60000;
 
+        //Puts the users total desired time into milliseconds
         long userInputTime = hourToMillisecs + minuteToMillisecs;
+
+        //Create timer with user time
         final CounterClass timer = new CounterClass(userInputTime, 1000);
 
+        //Resets Timer
         resetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +121,7 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
+        //Starts timer countdown
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,16 +141,25 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
-    //@TargetApi(Build.VERSION_CODES.GINGERBREAD)
-
-    //CountDown Timer Class
+    /**
+     *CountDown Timer Class. This is how the timer is counted down.
+     */
     public class CounterClass extends CountDownTimer{
 
+        /**
+         * Counts down the timer
+         * @param millisInFuture the exact time when the timer is done
+         * @param countDownInterval is time inbetween count downs
+         */
         public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
 
-        // Counting down method of Timer
+        /**
+         * Implementation of ticking down. String is dynamically changed in runtime, where the time
+         * is shown by hour, minutes, and seconds.
+         * @param millisUntilFinished the exact time when the timer is done
+         */
         @Override
         public void onTick(long millisUntilFinished) {
             long millisecs = millisUntilFinished;
@@ -156,7 +171,9 @@ public class ReminderActivity extends ActionBarActivity{
             textViewTime.setText(tick);
         }
 
-        // When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
+        /**
+         *When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
+         */
         @Override
         public void onFinish() {
             v.vibrate(4500);
@@ -170,8 +187,10 @@ public class ReminderActivity extends ActionBarActivity{
             builder.setAutoCancel(true);
             builder.setContentTitle("Reminder");
             builder.setContentText(userNotes);
-            //Want to add Parkpal Logo Here
-            builder.setSmallIcon(R.drawable.ic_plusone_small_off_client);
+
+            //Want to added Logo Here
+            builder.setSmallIcon(R.drawable.applogo);
+
 
             //Builds notification to Notify
             Notification notify = builder.build();
@@ -207,17 +226,6 @@ public class ReminderActivity extends ActionBarActivity{
                reminderDialog.show();
            }*/
         }
-    }
-
-    public void createTimer() {
-        CountDownTimer countDownTimer;
-        boolean timerHasStarted = false;
-
-        //int
-
-        //long startTime =
-        long interval = 1 * 1000;
-
     }
 
 }
