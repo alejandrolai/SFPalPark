@@ -173,7 +173,7 @@ public class SettingsActivity extends ActionBarActivity {
 
 
     /**
-     * Changes the color theme of the toolbar and buttons on the Parking History page
+     * Changes the color theme of the toolbar and buttons on the Parking History page.
      */
     public void checkColorTheme() {
         if (MainActivity.theme.equalsIgnoreCase("default")) {
