@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +13,23 @@ import android.view.MenuItem;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.View;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
+import android.app.AlarmManager;
 import android.content.DialogInterface;
+import android.provider.AlarmClock;
+import android.content.BroadcastReceiver;
+import android.widget.Toast;
+import android.app.PendingIntent;
+import android.app.NotificationManager;
+import android.app.Notification;
+
 
 import com.alejandrolai.sfpark.MainActivity;
 import com.alejandrolai.sfpark.R;
@@ -30,6 +42,8 @@ public class ReminderActivity extends ActionBarActivity{
     Button startButton, stopButton,setTimer, resetTimer;
     TextView textViewTime;
     Vibrator v;
+    PendingIntent pendingIntent;
+    //AlarmManager reminderAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +67,10 @@ public class ReminderActivity extends ActionBarActivity{
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+
+        //Notification Manager
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
 
     }
 
@@ -122,7 +140,7 @@ public class ReminderActivity extends ActionBarActivity{
     //CountDown Timer Class
     public class CounterClass extends CountDownTimer{
 
-        public CounterClass(long millisInFuture, long countDownInterval){
+        public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
 
@@ -143,11 +161,29 @@ public class ReminderActivity extends ActionBarActivity{
         public void onFinish() {
             v.vibrate(4500);
 
-            //I want this to be a dialog.
-            //textViewTime.setText("Time is up! Return to Parking Spot!");
-
             //Get Notes from user
             TextView notes = (EditText) findViewById(R.id.Notes);
+            String userNotes = notes.getText().toString();
+
+            //Builds a Notification object with settings
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderActivity.this);
+            builder.setAutoCancel(true);
+            builder.setContentTitle("Reminder");
+            builder.setContentText(userNotes);
+            //Want to add Parkpal Logo Here
+            builder.setSmallIcon(R.drawable.ic_plusone_small_off_client);
+
+            //Builds notification to Notify
+            Notification notify = builder.build();
+
+            //Creates Notification Manager to Notification services
+            NotificationManager notifyManager = (NotificationManager) ReminderActivity.this.getSystemService(NOTIFICATION_SERVICE);
+
+            notifyManager.notify(8, notify);
+
+
+            //Get Notes from user
+            /*TextView notes = (EditText) findViewById(R.id.Notes);
             String userNotes = notes.getText().toString();
 
             //Create Alert Dialog
@@ -166,15 +202,12 @@ public class ReminderActivity extends ActionBarActivity{
                 }
             });
 
-           if(!isFinishing()) {
+           if(!isFinishing()){
 
                reminderDialog.show();
-           }
-
-
+           }*/
         }
     }
-
 
     public void createTimer() {
         CountDownTimer countDownTimer;

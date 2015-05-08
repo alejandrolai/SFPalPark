@@ -187,7 +187,8 @@
             android:layout_height="60dp"
             android:id="@+id/Notes"
             android:textColor="#333333"
-            android:background="@drawable/inputborder"/>
+            android:background="@drawable/inputborder"
+            android:text="" />
     </LinearLayout>
 
 
