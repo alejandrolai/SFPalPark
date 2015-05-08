@@ -14,6 +14,7 @@ import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
+import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
