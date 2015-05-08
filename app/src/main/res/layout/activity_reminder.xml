@@ -58,7 +58,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textClock"
-                    android:textColor="#000099" />
+                    android:textColor="#000099"  />
 
             </TableRow>
 
@@ -187,7 +187,8 @@
             android:layout_height="60dp"
             android:id="@+id/Notes"
             android:textColor="#333333"
-            android:background="@drawable/inputborder"/>
+            android:background="@drawable/inputborder"
+            android:text="" />
     </LinearLayout>
 
 
