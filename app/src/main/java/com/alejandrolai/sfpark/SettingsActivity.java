@@ -96,11 +96,9 @@ public class SettingsActivity extends ActionBarActivity {
             case R.id.action_back:
                 return true;
             case R.id.action_history:
-                Intent intent2 = new Intent(this, ParkingLocationActivity.class);
-                startActivity(intent2);
+                Intent intent = new Intent(this, ParkingLocationActivity.class);
+                startActivity(intent);
                 return true;
-            //case R.id.action_preferences:
-            //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
