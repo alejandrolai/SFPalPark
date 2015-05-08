@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 /**
  * Created by Ihsan Taha and Ami Parikh on 5/6/15.
  */
-public class ParkingLocation /*extends ActionBarActivity implements LocationListener*/ {
+public class ParkingLocation {
 
     // Data fields
 
