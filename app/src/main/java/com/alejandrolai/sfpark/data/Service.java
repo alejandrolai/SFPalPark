@@ -3,10 +3,13 @@ package com.alejandrolai.sfpark.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Map;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import retrofit.http.GET;
+import retrofit.http.QueryMap;
 
 /**
  * Created by Alejandro on 4/8/15.
@@ -39,6 +42,9 @@ public class Service {
     }
 
     public interface SFParkService {
+
+        @GET("/sfpark/rest/availabilityservice")
+        void getParkingSpots(@QueryMap Map<String, String> options, Callback<ParkingSpotList> callback);
 
         @GET("/sfpark/rest/availabilityservice?response=json&pricing=yes")
         void getParkingSpots(Callback<ParkingSpotList> callback);

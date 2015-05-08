@@ -49,10 +49,9 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
-
         <activity
             android:name=".ParkingLocationActivity"
-            android:label="@string/title_activity_parked_history"
+            android:label="@string/park_location"
             android:parentActivityName=".MainActivity">
         </activity>
         <!-- Commit! -->

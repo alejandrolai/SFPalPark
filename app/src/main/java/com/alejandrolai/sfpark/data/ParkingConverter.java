@@ -38,7 +38,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
             JsonObject sfParkData = json.getAsJsonObject();
             if (sfParkData.getAsJsonArray("AVL").isJsonArray()) {
                 JsonArray data = sfParkData.getAsJsonArray("AVL");
-                for (int i = 1; i < data.size(); i++) {
+                for (int i = 5; i < data.size(); i++) {
                     JsonObject dataObject = data.get(i).getAsJsonObject();
                     ParkingSpot parkingSpot = new ParkingSpot();
                     if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("ON")) {
@@ -54,8 +54,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                     + ", " + dataObject.get("DESC").getAsString()
                                     + ", " + dataObject.get("INTER").getAsString());
                         }
-                    } else {
-                        Log.e("ParkingConverter", "No parking spots");
                     }
 
                     if (!dataObject.get("LOC").isJsonNull()) {
@@ -122,7 +120,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                     }
 
 
-                    if (parkingSpot.getParkingType() != "") {
+                    if (parkingSpot.getParkingType() != "" && !parkingSpot.getRateQualifier().equals("")) {
                         parkingSpotList.addParkingSpot(parkingSpot);
                     }
 
