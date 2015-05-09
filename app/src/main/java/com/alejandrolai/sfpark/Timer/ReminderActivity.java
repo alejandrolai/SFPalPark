@@ -103,7 +103,7 @@ public class ReminderActivity extends ActionBarActivity{
         textViewTime.setText(hourInt+":"+minuteInt+":00");
 
         //Set Start button text to start
-        //startButton.setText("Start");
+        startButton.setText("Start");
 
         // Set this timer to the time the user specifies into milliseconds
         long hourToMillisecs = hourInt*3600000;
@@ -119,7 +119,7 @@ public class ReminderActivity extends ActionBarActivity{
         resetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startButton.setText("Start");
+                startButton.setText("Start");
                 textViewTime.setText("00:00:00");
                 timer.cancel();
             }
@@ -158,6 +158,7 @@ public class ReminderActivity extends ActionBarActivity{
                else if(stopButton.getText().equals("Resume")){
                    stopButton.setText("Stop");
                    startButton.setText("Restart");
+                   timer.cancel();
                    timer = new CounterClass(millisecs, 1000);
                    timer.start();
                }
@@ -207,11 +208,18 @@ public class ReminderActivity extends ActionBarActivity{
             TextView notes = (EditText) findViewById(R.id.Notes);
             String userNotes = notes.getText().toString();
 
+            //Intent to open App
+            Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), MainActivity.class);
+            PendingIntent openAppIntent = PendingIntent.getActivity(ReminderActivity.this,
+                    0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
             //Builds a Notification object with settings
             NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderActivity.this);
             builder.setAutoCancel(true);
             builder.setContentTitle("Reminder");
             builder.setContentText(userNotes);
+            builder.setContentIntent(openAppIntent);
 
             //Want to added Logo Here
             builder.setSmallIcon(R.drawable.applogo);
