@@ -489,7 +489,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp" />
 
-                    <EditText
+                    <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:inputType="textMultiLine"

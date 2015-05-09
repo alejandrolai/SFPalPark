@@ -1,5 +1,6 @@
 package com.alejandrolai.sfpark;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -78,7 +79,9 @@ public class MainActivity extends ActionBarActivity
 
     ArrayList<ParkingSpot> list = new ArrayList();;
 
-    boolean markerAdded = false;
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
+    public static final String RADIUS = "radiusKey";
+    public static final String UNIT = "unitKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +143,9 @@ public class MainActivity extends ActionBarActivity
 
                 mMap.addCircle(new CircleOptions()
                         .center(new LatLng(getLatitude(), getLongitude()))
-                        .radius(8046.72)
+                        .radius(Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this,RADIUS,"5")) * 1609.34) // miles to meters
                         .strokeColor(Color.GREEN)
-                .fillColor(Color.argb(50,100,100,100)));
+                .fillColor(Color.argb(50, 100, 100,100)));
 
                 /*
                 mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
@@ -387,7 +390,7 @@ public class MainActivity extends ActionBarActivity
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.action_search:
+            case R.id.action_refresh:
                 getRespone();
                 return true;
             case R.id.action_history:
@@ -527,8 +530,8 @@ public class MainActivity extends ActionBarActivity
 
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", "5");
-        map.put("uom", "mile");
+        map.put("radius", SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5"));
+        map.put("uom", SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile"));
         map.put("response", "json");
         map.put("pricing", "yes");
 
