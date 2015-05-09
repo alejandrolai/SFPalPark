@@ -459,7 +459,7 @@ public class MainActivity extends ActionBarActivity
             boolean swapped = true;
             int j = 0;
             ParkingSpot tmp;
-
+            
             while (swapped) {
                 swapped = false;
                 j++;
@@ -474,6 +474,9 @@ public class MainActivity extends ActionBarActivity
                     }
                 }
             }
+
+
+
             //copy the first numberReturn ( first 5) spots
 
             for (int i = 0; i < numOfParkingSpots; i++) {

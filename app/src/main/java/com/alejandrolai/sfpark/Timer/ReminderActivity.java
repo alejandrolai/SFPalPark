@@ -43,6 +43,9 @@ public class ReminderActivity extends ActionBarActivity{
     TextView textViewTime;
     Vibrator v;
     PendingIntent pendingIntent;
+    private CounterClass timer;
+    long userInputTime, millisecs;
+    long timeInTimerWhenPause, systemTimeWhenPause;
     //AlarmManager reminderAlarm;
 
     /**
@@ -75,6 +78,7 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
+
     /**
      * This method sets the text to the time user wants to use for timer.
      * This is also where the timer is created.
@@ -106,10 +110,10 @@ public class ReminderActivity extends ActionBarActivity{
         long minuteToMillisecs = minuteInt*60000;
 
         //Puts the users total desired time into milliseconds
-        long userInputTime = hourToMillisecs + minuteToMillisecs;
+        userInputTime = hourToMillisecs + minuteToMillisecs;
 
-        //Create timer with user time
-        final CounterClass timer = new CounterClass(userInputTime, 1000);
+
+
 
         //Resets Timer
         resetTimer.setOnClickListener(new View.OnClickListener() {
@@ -125,17 +129,38 @@ public class ReminderActivity extends ActionBarActivity{
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startButton.setText("Start");
-                timer.start();
+                timer = new CounterClass(userInputTime, 1000);
+                if(startButton.getText().equals("Start")){
+                    //Create timer with user time
+
+                    startButton.setText("Restart");
+                    stopButton.setText("Stop");
+                    timer.start();
+
+                }
+                else if(startButton.getText().equals("Restart")){
+                    stopButton.setText("Stop");
+                    timer.start();
+                }
+
             }
         });
 
-        //Stops the timer with the stop button
+        //Stops/resume timer when clicked
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //stopButton.setText("Continue");
-                timer.cancel();
+               if(stopButton.getText().equals("Stop")){
+                   stopButton.setText("Resume");
+                   startButton.setText("Restart");
+                   timer.cancel();
+               }
+               else if(stopButton.getText().equals("Resume")){
+                   stopButton.setText("Stop");
+                   startButton.setText("Restart");
+                   timer = new CounterClass(millisecs, 1000);
+                   timer.start();
+               }
             }
         });
 
@@ -162,7 +187,7 @@ public class ReminderActivity extends ActionBarActivity{
          */
         @Override
         public void onTick(long millisUntilFinished) {
-            long millisecs = millisUntilFinished;
+             millisecs = millisUntilFinished;
             String tick = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisecs),
                     TimeUnit.MILLISECONDS.toMinutes(millisecs) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisecs)),
                     TimeUnit.MILLISECONDS.toSeconds(millisecs) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisecs)));
