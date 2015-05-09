@@ -36,17 +36,80 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
 
         if (json.isJsonObject()) {
             JsonObject sfParkData = json.getAsJsonObject();
-            if (sfParkData.getAsJsonArray("AVL").isJsonArray()) {
+            if (!sfParkData.getAsJsonArray("AVL").isJsonNull() && sfParkData.getAsJsonArray("AVL").isJsonArray()) {
                 JsonArray data = sfParkData.getAsJsonArray("AVL");
-                for (int i = 10; i < data.size(); i++) {
+                for (int i = 5; i < data.size(); i++) {
                     JsonObject dataObject = data.get(i).getAsJsonObject();
                     ParkingSpot parkingSpot = new ParkingSpot();
-                    if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("ON")) {
+                    if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("ON") && !dataObject.get("TYPE").getAsString().equals("OFF")) {
                         parkingSpot.setParkingType("Street Parking");
                         if (!dataObject.get("NAME").isJsonNull()) {
                             parkingSpot.setStreetName(dataObject.get("NAME").getAsString());
                         }
-                    } else if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("OFF")) {
+
+                        if (!dataObject.get("LOC").isJsonNull()) {
+                            String location = dataObject.get("LOC").getAsString();
+                            String[] parts = location.split(",");
+                            if (parts.length == 4) {
+                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
+                                parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
+                            } /*else {
+                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                                parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
+                            }*/
+
+                        } else {
+                            Log.e("ParkingConverter", "No parking spots");
+                        }
+
+                        if (dataObject.getAsJsonObject("RATES").getAsJsonArray("RS").isJsonArray()) {
+                            JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
+                            for (int j = 0; j < prices.size(); j++) {
+                                JsonObject pricesObject = prices.get(j).getAsJsonObject();
+                                if (!pricesObject.get("RATE").isJsonNull() &&
+                                        !pricesObject.get("RQ").isJsonNull() &&
+                                        !pricesObject.get("END").isJsonNull() &&
+                                        !pricesObject.get("BEG").isJsonNull()) {
+                                    String[] begTime = pricesObject.get("BEG").getAsString().split(" ");
+                                    String[] endTime = pricesObject.get("END").getAsString().split(" ");
+                                    String[] begHours = begTime[0].split(":");
+                                    double begHour;
+                                    String[] endHours = endTime[0].split(":");
+                                    double endHour;
+
+                                    if (Double.parseDouble(begHours[0]) != 12 && begTime[1].equals("PM")) {
+                                        begHour = Double.parseDouble(begHours[0]) + 12;
+                                    } else if (Double.parseDouble(begHours[0]) == 12 && begTime[1].equals("AM")) {
+                                        begHour = 0;
+                                    } else if (Double.parseDouble(begHours[0]) == 12 && begTime[1].equals("PM")) {
+                                        begHour = 12;
+                                    } else {
+                                        begHour = Double.parseDouble(begHours[0]);
+                                    }
+
+                                    if (Double.parseDouble(endHours[0]) != 12 && endTime[1].equals("PM")) {
+                                        endHour = Double.parseDouble(endHours[0]) + 12;
+                                    } else if (Double.parseDouble(endHours[0]) == 12 && endTime[1].equals("AM")) {
+                                        endHour = 24;
+                                    } else if (Double.parseDouble(endHours[0]) == 12 && endTime[1].equals("PM")) {
+                                        endHour = 12;
+                                    } else {
+                                        endHour = Double.parseDouble(endHours[0]);
+                                    }
+
+                                    if (begHour <= currentHour && currentHour <= endHour) {
+                                        parkingSpot.setRate(Double.parseDouble(pricesObject.get("RATE").getAsString()));
+                                        parkingSpot.setRateQualifier(pricesObject.get("RQ").getAsString());
+                                        parkingSpot.setEndTime(pricesObject.get("END").getAsString());
+                                    }
+                                }
+                            }
+                        }
+                    } /*else if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("OFF")) {
                         parkingSpot.setParkingType("Garage");
                         if (!dataObject.get("NAME").isJsonNull() &&
                                 !dataObject.get("DESC").isJsonNull() && !dataObject.get("INTER").isJsonNull()) {
@@ -56,75 +119,12 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                         }
                     }
 
-                    if (!dataObject.get("LOC").isJsonNull()) {
-                        String location = dataObject.get("LOC").getAsString();
-                        String[] parts = location.split(",");
-                        if (parts.length == 4) {
-                            parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
-                            parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
-                            parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
-                            parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
-                        } else {
-                            parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
-                            parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
-                            parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
-                            parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
-                        }
-
-                    } else {
-                        Log.e("ParkingConverter", "No parking spots");
-                    }
-
-                    if (dataObject.getAsJsonObject("RATES").getAsJsonArray("RS").isJsonArray()) {
-                        JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
-                        for (int j = 0; j < prices.size(); j++) {
-                            JsonObject pricesObject = prices.get(j).getAsJsonObject();
-                            if (!pricesObject.get("RATE").isJsonNull() &&
-                                    !pricesObject.get("RQ").isJsonNull() &&
-                                    !pricesObject.get("END").isJsonNull() &&
-                                    !pricesObject.get("BEG").isJsonNull()) {
-                                String[] begTime = pricesObject.get("BEG").getAsString().split(" ");
-                                String[] endTime = pricesObject.get("END").getAsString().split(" ");
-                                String[] begHours = begTime[0].split(":");
-                                double begHour;
-                                String[] endHours = endTime[0].split(":");
-                                double endHour;
-
-                                if (Double.parseDouble(begHours[0]) != 12 && begTime[1].equals("PM")) {
-                                    begHour = Double.parseDouble(begHours[0]) + 12;
-                                } else if (Double.parseDouble(begHours[0]) == 12 && begTime[1].equals("AM")) {
-                                    begHour = 0;
-                                } else if (Double.parseDouble(begHours[0]) == 12 && begTime[1].equals("PM")) {
-                                    begHour = 12;
-                                } else {
-                                    begHour = Double.parseDouble(begHours[0]);
-                                }
-
-                                if (Double.parseDouble(endHours[0]) != 12 && endTime[1].equals("PM")) {
-                                    endHour = Double.parseDouble(endHours[0]) + 12;
-                                } else if (Double.parseDouble(endHours[0]) == 12 && endTime[1].equals("AM")) {
-                                    endHour = 24;
-                                } else if (Double.parseDouble(endHours[0]) == 12 && endTime[1].equals("PM")) {
-                                    endHour = 12;
-                                } else {
-                                    endHour = Double.parseDouble(endHours[0]);
-                                }
-
-                                if (begHour <= currentHour && currentHour <= endHour) {
-                                    parkingSpot.setRate(Double.parseDouble(pricesObject.get("RATE").getAsString()));
-                                    parkingSpot.setRateQualifier(pricesObject.get("RQ").getAsString());
-                                    parkingSpot.setEndTime(pricesObject.get("END").getAsString());
-                                }
-                            }
-                        }
-                    }
+                    */
 
 
-                    if (parkingSpot.getParkingType() != "" && !parkingSpot.getRateQualifier().equals("")) {
+                    if (parkingSpot.getParkingType().equals("Street Parking") && !parkingSpot.getRateQualifier().equals("")) {
                         parkingSpotList.addParkingSpot(parkingSpot);
                     }
-
-                    parkingSpotList.addParkingSpot(parkingSpot);
                 }
             } else {
                 Log.e("ParkingConverter", "No parking spots");

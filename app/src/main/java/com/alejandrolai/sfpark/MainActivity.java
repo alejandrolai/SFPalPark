@@ -15,8 +15,6 @@ import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -102,7 +100,7 @@ public class MainActivity extends ActionBarActivity
         new TermsOfService(this).show();
 
         /*Toolbar*/
-        mToolbar = (Toolbar) findViewById(R.id.toolbar); // Edited by Ihsan Taha on 5/7/15
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -138,14 +136,14 @@ public class MainActivity extends ActionBarActivity
                     }
                 });
 
-
+                getRespone();
 
                 mMap.addCircle(new CircleOptions()
-                .center(new LatLng(getLatitude(), getLongitude()))
-                .radius(6437.376)
-                .strokeColor(Color.RED));
+                        .center(new LatLng(getLatitude(), getLongitude()))
+                        .radius(8046.72)
+                        .strokeColor(Color.GREEN)
+                .fillColor(Color.argb(50,100,100,100)));
 
-                getRespone();
                 /*
                 mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
                     @Override
@@ -168,8 +166,8 @@ public class MainActivity extends ActionBarActivity
                                 String rateQual = parkingSpot.getRateQualifier();
 
                                 if (bounds.contains(new LatLng(startLatitude, startLongitude))) {
-                                    addLine(startLatLng, endLatLng, rate);
-                                    addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+                                    addColoredLine(startLatLng, endLatLng, rate);
+                                    addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
                                     markerAdded = true;
                                 }
                                 /*
@@ -325,8 +323,8 @@ public class MainActivity extends ActionBarActivity
      * @param startLatitude  starting latitude of the block
      * @param startLongitude starting longitude of the block
      */
-    private void addMarker(String streetName, double rate, String rateQual,
-                           String endTime, double startLatitude, double startLongitude) {
+    private void addMarkerWithInfo(String streetName, double rate, String rateQual,
+                                   String endTime, double startLatitude, double startLongitude) {
 
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
@@ -352,7 +350,7 @@ public class MainActivity extends ActionBarActivity
      * @param endLatLng   Ending latitude and longitude of the block
      * @param rate        Rate of the block
      */
-    private void addLine(LatLng startLatLng, LatLng endLatLng, double rate) {
+    private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color = getResources().getColor(R.color.black);
 
         if (rate <= 1) {
@@ -493,28 +491,32 @@ public class MainActivity extends ActionBarActivity
 
     public void markNearSpots(ParkingSpotList nearSpots) {
 
-        mMap.clear();
 
         list = nearSpots.getList();
 
         Toast.makeText(this, list.size() + " found", Toast.LENGTH_SHORT).show();
 
-        for (ParkingSpot parkingSpot : list) {
-            String streetName = parkingSpot.getStreetName();
-            double startLatitude = parkingSpot.getStartLatitude();
-            double startLongitude = parkingSpot.getStartLongitude();
-            double endLatitude = parkingSpot.getEndLatitude();
-            double endLongitude = parkingSpot.getEndLongitude();
-            LatLng startLatLng = new LatLng(startLatitude, startLongitude);
-            LatLng endLatLng = new LatLng(endLatitude, endLongitude);
+        if (list.size() > 0) {
+            for (ParkingSpot parkingSpot : list) {
+                String streetName = parkingSpot.getStreetName();
+                double startLatitude = parkingSpot.getStartLatitude();
+                double startLongitude = parkingSpot.getStartLongitude();
+                double endLatitude = parkingSpot.getEndLatitude();
+                double endLongitude = parkingSpot.getEndLongitude();
+                LatLng startLatLng = new LatLng(startLatitude, startLongitude);
+                LatLng endLatLng = new LatLng(endLatitude, endLongitude);
 
-            double rate = parkingSpot.getRate();
-            String endTime = parkingSpot.getEndTime();
-            String rateQual = parkingSpot.getRateQualifier();
+                double rate = parkingSpot.getRate();
+                String endTime = parkingSpot.getEndTime();
+                String rateQual = parkingSpot.getRateQualifier();
 
-            addLine(startLatLng, endLatLng, rate);
-            addMarker(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+                addColoredLine(startLatLng, endLatLng, rate);
+                addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+            }
+        } else {
+            Toast.makeText(this,"No parking spots within your selected radius",Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
@@ -525,7 +527,7 @@ public class MainActivity extends ActionBarActivity
 
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", "4");
+        map.put("radius", "5");
         map.put("uom", "mile");
         map.put("response", "json");
         map.put("pricing", "yes");
@@ -555,7 +557,7 @@ public class MainActivity extends ActionBarActivity
                 }
             });
         } else {
-            Toast.makeText(this, getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "There was an error connecting to SFPark", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -603,14 +605,6 @@ public class MainActivity extends ActionBarActivity
             dialog.showLocationSettingsAlert(this);
         } else if (!isOnline()) {
             dialog.showInternetAlert(this);
-        } else {
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(getLatitude(), getLongitude()))
-                    .zoom(11)
-                    .build();
-
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
         }
 
     }
