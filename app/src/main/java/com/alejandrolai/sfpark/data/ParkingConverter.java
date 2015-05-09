@@ -122,7 +122,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                     + ", " + dataObject.get("INTER").getAsString());
                         }
                     }
-
                     */
 
 

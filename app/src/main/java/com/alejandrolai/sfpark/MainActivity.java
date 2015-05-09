@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity
     ArrayList<ParkingSpot> list = new ArrayList();;
 
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
-    public static final String RADIUS = "radiusKey";
+    public static final String RADIUS = "5";
     public static final String UNIT = "unitKey";
 
     @Override
@@ -101,6 +101,8 @@ public class MainActivity extends ActionBarActivity
         });
 
         new TermsOfService(this).show();
+
+        //sharedPreferencesHelper.saveToPreferences(this,RADIUS,"");
 
         /*Toolbar*/
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,9 +145,9 @@ public class MainActivity extends ActionBarActivity
 
                 mMap.addCircle(new CircleOptions()
                         .center(new LatLng(getLatitude(), getLongitude()))
-                        .radius(Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this,RADIUS,"5")) * 1609.34) // miles to meters
+                        .radius(Double.parseDouble(RADIUS) * 1609.34) // miles to meters
                         .strokeColor(Color.GREEN)
-                .fillColor(Color.argb(50, 100, 100,100)));
+                        .fillColor(Color.argb(50, 100, 100, 100)));
 
                 /*
                 mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
@@ -530,8 +532,8 @@ public class MainActivity extends ActionBarActivity
 
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5"));
-        map.put("uom", SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile"));
+        map.put("radius", RADIUS/*SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5")*/);
+        map.put("uom","mile" /*SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile")*/);
         map.put("response", "json");
         map.put("pricing", "yes");
 
