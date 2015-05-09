@@ -19,7 +19,8 @@ import java.util.Calendar;
 public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
 
     @Override
-    public ParkingSpotList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public ParkingSpotList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
 
         final String TAG = ParkingConverter.class.getSimpleName();
 
@@ -38,10 +39,13 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
             JsonObject sfParkData = json.getAsJsonObject();
             if (!sfParkData.getAsJsonArray("AVL").isJsonNull() && sfParkData.getAsJsonArray("AVL").isJsonArray()) {
                 JsonArray data = sfParkData.getAsJsonArray("AVL");
-                for (int i = 5; i < data.size(); i++) {
+                for (int i = 0; i < data.size(); i++) {
                     JsonObject dataObject = data.get(i).getAsJsonObject();
                     ParkingSpot parkingSpot = new ParkingSpot();
-                    if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("ON") && !dataObject.get("TYPE").getAsString().equals("OFF")) {
+                    parkingSpot.setParkingType("");
+                    parkingSpot.setRateQualifier("");
+                    if (!dataObject.get("TYPE").isJsonNull() &&
+                            dataObject.get("TYPE").getAsString().equals("ON")){
                         parkingSpot.setParkingType("Street Parking");
                         if (!dataObject.get("NAME").isJsonNull()) {
                             parkingSpot.setStreetName(dataObject.get("NAME").getAsString());
@@ -130,7 +134,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                 Log.e("ParkingConverter", "No parking spots");
             }
         } else {
-            Log.w("ParkingConverter", "No Data 1");
+            Log.e("ParkingConverter", "No Data");
         }
 
         return parkingSpotList;
