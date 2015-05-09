@@ -146,7 +146,7 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
-        //Stops/resume timer when clicked
+        //Stops resume timer when clicked
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
