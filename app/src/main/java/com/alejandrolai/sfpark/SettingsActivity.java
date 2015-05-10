@@ -118,6 +118,8 @@ public class SettingsActivity extends ActionBarActivity {
     public void changeToDefault(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to default.", Toast.LENGTH_SHORT).show();
         MainActivity.setTheme("default");
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        dbParkingLocation.changeDatabaseTheme("default");
 
     }
 
@@ -130,28 +132,28 @@ public class SettingsActivity extends ActionBarActivity {
 
     public void changeToGarden(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to garden.", Toast.LENGTH_SHORT).show();
-       // MainActivity.setTheme("garden");
+        MainActivity.setTheme("garden");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("garden");
     }
 
     public void changeToRose(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to rose.", Toast.LENGTH_SHORT).show();
-        //MainActivity.setTheme("rose");
+        MainActivity.setTheme("rose");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("rose");
     }
 
     public void changeToIce(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to ice.", Toast.LENGTH_SHORT).show();
-       // MainActivity.setTheme("ice");
+        MainActivity.setTheme("ice");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("ice");
     }
 
     public void changeToDesert(View view) {
         Toast.makeText(getApplicationContext(), "Theme changed to desert.", Toast.LENGTH_SHORT).show();
-       // MainActivity.setTheme("desert");
+        MainActivity.setTheme("desert");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("desert");
     }

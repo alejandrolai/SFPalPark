@@ -39,6 +39,9 @@ public class ParkingLocationActivity extends ActionBarActivity {
     ListView parkingListView;
     List<ParkingLocation> ParkingLocations = new ArrayList<ParkingLocation>();
 
+    Button history_save, history_delete;
+    Toolbar mToolbar;
+
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
@@ -63,11 +66,23 @@ public class ParkingLocationActivity extends ActionBarActivity {
         setContentView(R.layout.activity_history);
 
         // Creates a toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        // Creates a toolbar
+        /*Toolbar*/ mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        history_save  = (Button) findViewById(R.id.history_save);
+        history_delete  = (Button) findViewById(R.id.history_delete);
+
+        checkColorTheme();
 
         // Passes the latitude and longitude values from the Main Activity
         Intent intent = getIntent();
@@ -236,4 +251,50 @@ public class ParkingLocationActivity extends ActionBarActivity {
         }
     }
 
+
+
+    /**
+     * Changes the color theme of the toolbar and buttons on the Parking History page
+     */
+    public void checkColorTheme() {
+        history_save.setTextColor(getResources().getColor(R.color.bright_snow));
+        history_delete.setTextColor(getResources().getColor(R.color.bright_snow));
+        if (MainActivity.theme.equalsIgnoreCase("default")) {
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.default_grey));
+        } else if (MainActivity.theme.equalsIgnoreCase("beach")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("garden")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+        } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
+        } else if (MainActivity.theme.equalsIgnoreCase("ice")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("desert")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+        }  else if (MainActivity.theme.equalsIgnoreCase("royal")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+        } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            history_save.setTextColor(getResources().getColor(R.color.default_grey));
+            history_delete.setTextColor(getResources().getColor(R.color.default_grey));
+        } else if (MainActivity.theme.equalsIgnoreCase("royal")) {
+            history_save.setBackgroundColor(getResources().getColor(R.color.default_grey));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.bright_default));
+        }
+    }
 }
