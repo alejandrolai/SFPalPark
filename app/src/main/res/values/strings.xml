@@ -9,14 +9,18 @@
     <string name="error_connecting">Could not connect to SFPark</string>
     <string name="retrieving_data">Retrieving data</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="location_number">1</string>
 
     <string name="activity_history">Parking History</string>
     <string name="title_activity_history">Parking History</string>
     <string name="history_latitude">Latitude</string>
     <string name="history_longitude">Longitude</string>
     <string name="history_time">Time</string>
+    <string name="history_park_lat">Latitude:</string>
     <string name="history_park_latitude">Latitude</string>
+    <string name="history_park_lon">Longitude:</string>
     <string name="history_park_longitude">Longitude</string>
+    <string name="history_park_ti">Time:</string>
     <string name="history_park_time">Time</string>
     <string name="history_save">Save Location</string>
     <string name="history_add_location">Current Location</string>

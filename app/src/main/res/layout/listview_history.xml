@@ -3,44 +3,108 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="250dp"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="10dp">
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:text="@string/history_latitude"
-            android:ems="10"
-            android:id="@+id/history_latitude"
-            android:hint="Latitude"
-            android:textColor="#333333"
-            android:layout_marginTop="0dp" />
+            android:layout_marginLeft="10dp">
 
-        <EditText
-            android:layout_width="match_parent"
+            <EditText
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_number"
+                android:text="@string/location_number"
+                android:textSize="18dp"
+                android:textIsSelectable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/history_longitude"
-            android:text="@string/history_longitude"
-            android:layout_marginTop="0dp"
-            android:hint="Longitude"
-            android:inputType="text"
-            android:textColor="#333333" />
+            android:layout_gravity="center_horizontal|right"
+            android:layout_margin="10dp"
+            android:layout_marginRight="5dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/history_time"
-            android:layout_marginTop="0dp"
-            android:text="@string/history_time"
-            android:hint="Time"
-            android:inputType="time"
-            android:textColor="#333333" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Latitude:"
+                    android:id="@+id/history_park_lat"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@string/history_latitude"
+                    android:id="@+id/history_latitude"
+                    android:hint="Latitude"
+                    android:textColor="#333333"
+                    android:layout_marginTop="0dp"
+                    android:textSize="18dp"
+                    android:textIsSelectable="false" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Longitude:"
+                    android:id="@+id/textView8"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/history_longitude"
+                    android:text="@string/history_longitude"
+                    android:layout_marginTop="0dp"
+                    android:hint="Longitude"
+                    android:inputType="text"
+                    android:textColor="#333333"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Time:"
+                    android:id="@+id/textView9"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/history_time"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/history_time"
+                    android:hint="Time"
+                    android:inputType="time"
+                    android:textColor="#333333"
+                    android:textSize="18dp"
+                    android:textIsSelectable="true" />
+            </TableRow>
+
+        </LinearLayout>
+    </TableRow>
 
 </LinearLayout>

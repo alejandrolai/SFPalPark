@@ -120,6 +120,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("default");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("default");
+        checkColorTheme();
 
     }
 
@@ -128,6 +129,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("beach");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("beach");
+        checkColorTheme();
     }
 
     public void changeToGarden(View view) {
@@ -135,6 +137,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("garden");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("garden");
+        checkColorTheme();
     }
 
     public void changeToRose(View view) {
@@ -142,6 +145,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("rose");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("rose");
+        checkColorTheme();
     }
 
     public void changeToIce(View view) {
@@ -149,6 +153,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("ice");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("ice");
+        checkColorTheme();
     }
 
     public void changeToDesert(View view) {
@@ -156,6 +161,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("desert");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("desert");
+        checkColorTheme();
     }
 
     public void changeToRoyal(View view) {
@@ -163,6 +169,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("royal");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("royal");
+        checkColorTheme();
     }
 
     public void changeToSnow(View view) {
@@ -170,6 +177,7 @@ public class SettingsActivity extends ActionBarActivity {
         MainActivity.setTheme("snow");
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         dbParkingLocation.changeDatabaseTheme("snow");
+        checkColorTheme();
     }
 
 

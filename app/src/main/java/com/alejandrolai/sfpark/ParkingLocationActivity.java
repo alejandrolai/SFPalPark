@@ -34,7 +34,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
     // Data fields
 
     double latitude, longitude;
-    EditText latitudeTxt, longitudeTxt, timeTxt;
+    TextView latitudeTxt, longitudeTxt, timeTxt;
     ParkingLocationDatabase dbParkingLocation;
     ListView parkingListView;
     List<ParkingLocation> ParkingLocations = new ArrayList<ParkingLocation>();
@@ -89,9 +89,9 @@ public class ParkingLocationActivity extends ActionBarActivity {
         if (intent != null) {
             longitude = intent.getDoubleExtra("longitude", 0);
             latitude = intent.getDoubleExtra("latitude", 0);
-            latitudeTxt = (EditText) findViewById(R.id.history_park_latitude);
-            longitudeTxt = (EditText) findViewById(R.id.history_park_longitude);
-            timeTxt = (EditText) findViewById(R.id.history_park_time);
+            latitudeTxt = (TextView) findViewById(R.id.history_park_latitude);
+            longitudeTxt = (TextView) findViewById(R.id.history_park_longitude);
+            timeTxt = (TextView) findViewById(R.id.history_park_time);
             parkingListView = (ListView) findViewById(R.id.listView);
             dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
 
@@ -163,9 +163,9 @@ public class ParkingLocationActivity extends ActionBarActivity {
             }
         }
 
-        latitudeTxt.setText("Latitude:          " + String.valueOf(latitude));
-        longitudeTxt.setText("Longitude:    " + String.valueOf(longitude));
-        timeTxt.setText("Time:              " + getDateTime());
+        latitudeTxt.setText(String.valueOf(latitude));
+        longitudeTxt.setText(String.valueOf(longitude));
+        timeTxt.setText(getDateTime());
     }
 
 

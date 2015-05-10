@@ -55,35 +55,83 @@
                         android:singleLine="true"
                         android:layout_marginTop="0dp" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@string/history_park_latitude"
-                        android:ems="10"
-                        android:id="@+id/history_park_latitude"
-                        android:hint="Latitude"
-                        android:textColor="#333333" />
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/history_park_longitude"
-                        android:text="@string/history_park_longitude"
-                        android:layout_marginTop="0dp"
-                        android:hint="Longitude"
-                        android:inputType="text"
-                        android:textColor="#333333" />
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/history_park_lat"
+                            android:id="@+id/history_Park_lat"
+                            android:textColor="#333333" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/history_park_time"
-                        android:layout_marginTop="0dp"
-                        android:text="@string/history_park_time"
-                        android:hint="Time"
-                        android:inputType="time"
-                        android:textColor="#333333" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:text="@string/history_park_latitude"
+                            android:ems="10"
+                            android:id="@+id/history_park_latitude"
+                            android:hint="Latitude"
+                            android:textColor="#333333"
+                            android:textIsSelectable="true"
+                            android:textSize="18dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/history_park_lon"
+                            android:id="@+id/history_park_lon"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/history_park_longitude"
+                            android:text="@string/history_park_longitude"
+                            android:layout_marginTop="0dp"
+                            android:hint="Longitude"
+                            android:inputType="text"
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:textSize="18dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/history_park_ti"
+                            android:id="@+id/history_park_ti"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/history_park_time"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/history_park_time"
+                            android:hint="Time"
+                            android:inputType="time"
+                            android:textColor="#333333"
+                            android:textSize="18dp"
+                            android:textIsSelectable="true" />
+
+                    </TableRow>
 
                     <Button
                         android:layout_width="175dp"
@@ -119,7 +167,8 @@
                         android:id="@+id/history_delete"
                         android:singleLine="false"
                         android:layout_gravity="center"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp" />
 
                     <ListView
                         android:layout_width="wrap_content"

@@ -42,6 +42,46 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/help"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Help"
+                        android:id="@+id/help_title"
+                        android:textColor="#333333" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Main Page"
+                        android:id="@+id/help_mainsubtitle"
+                        android:textColor="#333333"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/editText"
+                        android:layout_margin="10dp"
+                        android:text="The main page consists of a map, two buttons, and a toolbar. A pin can be dropped any where on the map. When selected, information on the street name, cost, and location will be displayed. You will also be able to connect to Google Maps for directions to your destination. If you wish to save a parking location for future reference, simply hit the “Park Me!” button to view the details of the location and save it. If you wish to set a reminder to make it back to your vehicle in time, simply hit the “Reminder!” button, and set the amount of time you have."
+                        android:textColor="#333333"
+                        android:textIsSelectable="false" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/themes"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -459,45 +499,6 @@
                             android:autoLink="phone" />
                     </TableRow>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/help"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Help"
-                        android:id="@+id/help_title"
-                        android:textColor="#333333" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Main Page"
-                        android:id="@+id/help_mainsubtitle"
-                        android:textColor="#333333"
-                        android:textStyle="bold"
-                        android:gravity="left"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:inputType="textMultiLine"
-                        android:ems="10"
-                        android:id="@+id/editText"
-                        android:layout_margin="10dp"
-                        android:text="The main page consists of a map, two buttons, and a toolbar. A pin can be dropped any where on the map. When selected, information on the street name, cost, and location will be displayed. You will also be able to connect to Google Maps for directions to your destination. If you wish to save a parking location for future reference, simply hit the “Park Me!” button to view the details of the location and save it. If you wish to set a reminder to make it back to your vehicle in time, simply hit the “Reminder!” button, and set the amount of time you have."
-                        android:textColor="#333333" />
                 </LinearLayout>
 
                 <LinearLayout
