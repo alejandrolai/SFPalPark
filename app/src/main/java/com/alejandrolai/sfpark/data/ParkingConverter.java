@@ -50,26 +50,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                         if (!dataObject.get("NAME").isJsonNull()) {
                             parkingSpot.setStreetName(dataObject.get("NAME").getAsString());
                         }
-
-                        if (!dataObject.get("LOC").isJsonNull()) {
-                            String location = dataObject.get("LOC").getAsString();
-                            String[] parts = location.split(",");
-                            if (parts.length == 4) {
-                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
-                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
-                                parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
-                                parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
-                            } /*else {
-                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
-                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
-                                parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
-                                parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
-                            }*/
-
-                        } else {
-                            Log.e("ParkingConverter", "No parking spots");
-                        }
-
+                        /*
                         if (dataObject.getAsJsonObject("RATES").getAsJsonArray("RS").isJsonArray()) {
                             JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
                             for (int j = 0; j < prices.size(); j++) {
@@ -112,20 +93,32 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                     }
                                 }
                             }
+                        } else {
+                            Log.e("ParkingConverter","No array");
                         }
-                    } /*else if (!dataObject.get("TYPE").isJsonNull() && dataObject.get("TYPE").getAsString().equals("OFF")) {
-                        parkingSpot.setParkingType("Garage");
-                        if (!dataObject.get("NAME").isJsonNull() &&
-                                !dataObject.get("DESC").isJsonNull() && !dataObject.get("INTER").isJsonNull()) {
-                            parkingSpot.setStreetName(dataObject.get("NAME").getAsString()
-                                    + ", " + dataObject.get("DESC").getAsString()
-                                    + ", " + dataObject.get("INTER").getAsString());
+                        */
+
+                        if (!dataObject.get("LOC").isJsonNull()) {
+                            String location = dataObject.get("LOC").getAsString();
+                            String[] parts = location.split(",");
+                            if (parts.length == 4) {
+                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
+                                parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
+                            } /*else {
+                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
+                                parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
+                                parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
+                            }*/
+
+                        } else {
+                            Log.e("ParkingConverter", "No parking spots");
                         }
                     }
-                    */
 
-
-                    if (parkingSpot.getParkingType().equals("Street Parking") && !parkingSpot.getRateQualifier().equals("")) {
+                    if (parkingSpot.getParkingType().equals("Street Parking")) {
                         parkingSpotList.addParkingSpot(parkingSpot);
                     }
                 }

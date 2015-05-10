@@ -154,8 +154,6 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onCameraChange(CameraPosition cameraPosition) {
                         LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
-
-
                         if (!list.isEmpty()) {
                             for (ParkingSpot parkingSpot : list) {
                                 String streetName = parkingSpot.getStreetName();
@@ -165,11 +163,9 @@ public class MainActivity extends ActionBarActivity
                                 double endLongitude = parkingSpot.getEndLongitude();
                                 LatLng startLatLng = new LatLng(startLatitude, startLongitude);
                                 LatLng endLatLng = new LatLng(endLatitude, endLongitude);
-
                                 double rate = parkingSpot.getRate();
                                 String endTime = parkingSpot.getEndTime();
                                 String rateQual = parkingSpot.getRateQualifier();
-
                                 if (bounds.contains(new LatLng(startLatitude, startLongitude))) {
                                     addColoredLine(startLatLng, endLatLng, rate);
                                     addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
@@ -180,16 +176,11 @@ public class MainActivity extends ActionBarActivity
                                 .target(startLatLng)
                                 .zoom(13)
                                 .build();
-
                                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
                             }
                         }
-
-
                     }
                 });
-
                 if (!list.isEmpty() && markerAdded == false) {
                     Toast.makeText(this, "No locations near you, zoom out", Toast.LENGTH_SHORT).show();
                 }
@@ -384,20 +375,22 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent;
+
         switch (item.getItemId()) {
 
             case R.id.action_back:
                 return true;
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.action_refresh:
                 getRespone();
                 return true;
             case R.id.action_history:
-                Intent intent2 = new Intent(this, ParkingLocationActivity.class);
-                startActivity(intent2);
+                intent = new Intent(this, ParkingLocationActivity.class);
+                startActivity(intent);
                 return true;
             //case R.id.action_parked_history:
             //showParkedHistory();
@@ -462,7 +455,7 @@ public class MainActivity extends ActionBarActivity
             boolean swapped = true;
             int j = 0;
             ParkingSpot tmp;
-            
+
             while (swapped) {
                 swapped = false;
                 j++;
@@ -510,19 +503,33 @@ public class MainActivity extends ActionBarActivity
                 double endLongitude = parkingSpot.getEndLongitude();
                 LatLng startLatLng = new LatLng(startLatitude, startLongitude);
                 LatLng endLatLng = new LatLng(endLatitude, endLongitude);
+                if(!parkingSpot.getRateQualifier().equals("")){
+                    double rate = parkingSpot.getRate();
+                    String endTime = parkingSpot.getEndTime();
+                    String rateQual = parkingSpot.getRateQualifier();
+                    addColoredLine(startLatLng, endLatLng, rate);
+                    addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+                } else {
+                    addMarker(streetName,startLatitude,startLongitude);
+                }
 
-                double rate = parkingSpot.getRate();
-                String endTime = parkingSpot.getEndTime();
-                String rateQual = parkingSpot.getRateQualifier();
 
-                addColoredLine(startLatLng, endLatLng, rate);
-                addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+
             }
         } else {
             Toast.makeText(this,"No parking spots within your selected radius",Toast.LENGTH_SHORT).show();
         }
 
 
+    }
+
+    private void addMarker(String streetName, double startLatitude, double startLongitude) {
+
+        mMap.addMarker(new MarkerOptions()
+                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
+                    .position(new LatLng(startLatitude, startLongitude))
+                    .draggable(true)
+                    .title(streetName));
     }
 
     /**
@@ -532,7 +539,7 @@ public class MainActivity extends ActionBarActivity
 
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", RADIUS/*SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5")*/);
+        map.put("radius", "5"/*SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5")*/);
         map.put("uom","mile" /*SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile")*/);
         map.put("response", "json");
         map.put("pricing", "yes");
@@ -622,17 +629,13 @@ public class MainActivity extends ActionBarActivity
      * Starts LocationDatabaseActivity and puts longitude and latitude.
      */
    /* private void startLocationDatabaseHistory() {
-
         Toast.makeText(getApplicationContext(), "Inside startLocationDatabaseHistory.",
                 Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(this, LocationDatabaseActivity.class);
-
         double latitude = currentLatitude;
         double longitude = currentLongitude;
         intent.putExtra("latitude", latitude);
         intent.putExtra("longitude", longitude);
-
         startActivity(intent);
         //useCurrentLocation();
     }*/
