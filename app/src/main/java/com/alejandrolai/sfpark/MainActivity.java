@@ -15,6 +15,7 @@ import com.alejandrolai.sfpark.data.ParkingSpot;
 import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -75,7 +76,7 @@ public class MainActivity extends ActionBarActivity
     LinkedHashMap<String, String> map = new LinkedHashMap();
 
     ArrayList<ParkingSpot> list = new ArrayList();
-    ;
+
 
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
     public static final String RADIUS = "radiusKey";
@@ -129,18 +130,23 @@ public class MainActivity extends ActionBarActivity
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(LatLng latLng) {
+                        mMap.clear();
                         mMap.addMarker(new MarkerOptions()
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                 .position(latLng)
                                 .draggable(true))
-                                .setTitle(latLng.toString());
-                        currentLatitude = latLng.latitude;
-                        currentLongitude = latLng.longitude;
+                        .setTitle("You are here: " + latLng.toString());
+                        double newLatitude = latLng.latitude;
+                        double newLongitude = latLng.longitude;
+                        addCircle(newLatitude, newLongitude);
+                        getResponse(newLatitude, newLongitude);
+
                     }
                 });
 
-                getRespone();
+                getResponse(getLatitude(), getLongitude());
 
-                addCircle();
+                addCircle(getLatitude(), getLongitude());
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
@@ -153,10 +159,10 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-    private void addCircle() {
-        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "5"));
+    private void addCircle(double latitude, double longitude) {
+        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25"));
         mMap.addCircle(new CircleOptions()
-                .center(new LatLng(getLatitude(), getLongitude()))
+                .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
                 .strokeColor(Color.GREEN)
                 .fillColor(Color.argb(50, 100, 100, 100)));
@@ -295,7 +301,7 @@ public class MainActivity extends ActionBarActivity
                 startActivity(intent);
                 return true;
             case R.id.action_refresh:
-                getRespone();
+                getResponse(getLongitude(), getLongitude());
                 return true;
             case R.id.action_history:
                 intent = new Intent(this, ParkingLocationActivity.class);
@@ -394,8 +400,6 @@ public class MainActivity extends ActionBarActivity
 
         list = nearSpots.getList();
 
-        Toast.makeText(this, list.size() + " found", Toast.LENGTH_SHORT).show();
-
         if (list.size() > 0) {
             for (ParkingSpot parkingSpot : list) {
                 String streetName = parkingSpot.getStreetName();
@@ -424,11 +428,11 @@ public class MainActivity extends ActionBarActivity
     /**
      * Adds a marker to the map with information about the prices
      *
-     * @param streetName    Name of the block
-     * @param rate          Price per hour
-     * @param rateQual      Per hour, street sweep or no charge
-     * @param endTime       End time of the current time bracket
-     * @param position      Position of marker
+     * @param streetName Name of the block
+     * @param rate       Price per hour
+     * @param rateQual   Per hour, street sweep or no charge
+     * @param endTime    End time of the current time bracket
+     * @param position   Position of marker
      */
     private void addMarkerWithInfo(String streetName, double rate, String rateQual,
                                    String endTime, LatLng position) {
@@ -475,6 +479,7 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * Adds a simple line to a street block
+     *
      * @param startLatLng Starting point
      * @param endLatLng
      */
@@ -487,13 +492,13 @@ public class MainActivity extends ActionBarActivity
     /**
      * Uses a callback to check the response from SF Park
      */
-    public void getRespone() {
+    public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "5");
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
         String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
-        map.put("lat", Double.toString(getLatitude()));
-        map.put("long", Double.toString(getLongitude()));
+        map.put("lat", Double.toString(newLatitude));
+        map.put("long", Double.toString(newLongitude));
         map.put("radius", newRadius);
         map.put("uom", newUOM);
         map.put("response", "json");
@@ -551,8 +556,6 @@ public class MainActivity extends ActionBarActivity
                     super.onPostExecute(parkingSpotList);
                     mParkingSpotList = parkingSpotList;
                     markNearSpots(mParkingSpotList);
-
-
                 }
             };
             task.execute();
