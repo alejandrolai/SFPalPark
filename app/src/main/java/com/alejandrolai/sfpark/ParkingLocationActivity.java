@@ -33,6 +33,8 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
     // Data fields
 
+    String counter = "empty";
+    int numOfSavedLocations;
     double latitude, longitude;
     TextView latitudeTxt, longitudeTxt, timeTxt;
     ParkingLocationDatabase dbParkingLocation;
@@ -83,6 +85,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
         history_delete  = (Button) findViewById(R.id.history_delete);
 
         checkColorTheme();
+        //checkCounter();
 
         // Passes the latitude and longitude values from the Main Activity
         Intent intent = getIntent();
@@ -120,6 +123,10 @@ public class ParkingLocationActivity extends ActionBarActivity {
                     ParkingLocations.add(parkingLocation);
                     populateList();
                     Toast.makeText(getApplicationContext(), "Location saved to Parking History.", Toast.LENGTH_SHORT).show();
+                    numOfSavedLocations++;
+                    //dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+                    //dbParkingLocation.changeDatabaseCounter("notEmpty");
+
                 }
             });
 
@@ -128,11 +135,18 @@ public class ParkingLocationActivity extends ActionBarActivity {
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dbParkingLocation.deleteParkingHistory();
-                    Toast.makeText(getApplicationContext(), "Your Parking History has been deleted.", Toast.LENGTH_SHORT).show();
-                    finish();
-                    startActivity(getIntent());
-
+                    //checkCounter();
+                    if (/*counter.equalsIgnoreCase("notEmpty")*/numOfSavedLocations>0) {
+                        dbParkingLocation.deleteParkingHistory();
+                        Toast.makeText(getApplicationContext(), "Your Parking History has been deleted.", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(getIntent());
+                        numOfSavedLocations = 0;
+                        //dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+                        //dbParkingLocation.changeDatabaseCounter("empty");
+                    } else {
+                        Toast.makeText(getApplicationContext(), "There is nothing in your Parking History.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -254,6 +268,14 @@ public class ParkingLocationActivity extends ActionBarActivity {
         }
     }*/
 
+
+    /**
+     * Checks the current counter value
+     */
+    public void checkCounter() {
+        dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
+        counter = dbParkingLocation.checkDatabaseCounter();
+    }
 
 
     /**

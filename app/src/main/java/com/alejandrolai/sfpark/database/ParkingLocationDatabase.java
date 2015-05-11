@@ -28,8 +28,13 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         KEY_LATITUDE = "lat",
         KEY_LONGITUDE = "lon",
         KEY_TIME = "time";
-       private static final String KEY_THEME = "theme";
+
+    private static final String KEY_THEME = "theme";
     private static final String TABLE_COLOR_THEME = "colourtheme";
+
+    private static final String KEY_COUNTER = "counter";
+    private static final String TABLE_HISTORY_COUNTER = "historycounter";
+
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -65,6 +70,9 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
     String expression = ("CREATE TABLE " + TABLE_COLOR_THEME + "(" + KEY_THEME + " TEXT" + ")");
         db.execSQL(expression);
 
+    String counterExpression = ("CREATE TABLE " + TABLE_HISTORY_COUNTER + "(" + KEY_COUNTER + " TEXT" + ")");
+        db.execSQL(counterExpression);
+
        // db.beginTransaction();
 //        SQLiteDatabase dba = getWritableDatabase();
 
@@ -72,12 +80,12 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
         values.put(KEY_THEME, "default");
 
-
         db.insert(TABLE_COLOR_THEME, null, values);
         //db.close();
 
+        values.put(KEY_COUNTER, "empty");
 
-
+        db.insert(TABLE_HISTORY_COUNTER, null, values);
     }
 
 
@@ -249,5 +257,39 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+
+
+    /**
+     * Gets the current counter stored in the database
+     *
+     * @return
+     */
+    public String checkDatabaseCounter()
+    {
+        String counter;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_HISTORY_COUNTER, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        counter= cursor.getString(0);
+        return counter;
+
+    }
+
+
+
+    /**
+     * Sets the current counter stored in the database
+     *
+     * @param counter
+     */
+    public void changeDatabaseCounter(String counter){
+
+        String query = "Update " + TABLE_HISTORY_COUNTER + " set counter " + "= \"" + counter + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+        db.close();
+    }
 
 }
