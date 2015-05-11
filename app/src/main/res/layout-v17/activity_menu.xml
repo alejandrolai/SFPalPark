@@ -43,7 +43,7 @@
                 <ScrollView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/scrollView" >
+                    android:id="@+id/scrollViewHelp" >
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -136,409 +136,325 @@
                     </LinearLayout>
                 </ScrollView>
 
-                <LinearLayout
-                    android:id="@+id/themes"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical"
-                    android:focusableInTouchMode="false"
-                    android:clickable="true"
-                    android:layout_gravity="center"
-                    android:focusable="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#EEEEEE">
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="@string/themes_title"
-                        android:id="@+id/themes_title"
-                        android:layout_marginTop="0dp"
-                        android:textColor="#333333"
-                        android:gravity="center" />
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/first_theme"
-                            android:id="@+id/first_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_beach"
-                            android:id="@+id/button3"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#DD6600"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:onClick="changeToBeach"
-                            android:textColor="#EEEEEE"
-                            android:padding="0dp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/second_theme"
-                            android:id="@+id/second_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_garden"
-                            android:id="@+id/button_garden"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#006633"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#EEEEEE"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToGarden" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/third_theme"
-                            android:id="@+id/third_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_rose"
-                            android:id="@+id/button_rose"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#990000"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#EEEEEE"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToRose" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/fourth_theme"
-                            android:id="@+id/fourth_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_ice"
-                            android:id="@+id/button_ice"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#0066CC"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#EEEEEE"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToIce" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/fifth_theme"
-                            android:id="@+id/fifth_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_desert"
-                            android:id="@+id/button"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#CC9900"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#EEEEEE"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToDesert" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/sixth_theme"
-                            android:id="@+id/sixth_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_royal"
-                            android:id="@+id/button_royal"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#660066"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#FFFFFF"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToRoyal" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/seventh_theme"
-                            android:id="@+id/seventh_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_snow"
-                            android:id="@+id/button_snow"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#FFFFFF"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:textColor="#333333"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false"
-                            android:onClick="changeToSnow" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="110dp">
-
-                        <TextView
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/eighth_theme"
-                            android:id="@+id/eigth_theme"
-                            android:layout_marginTop="5dp"
-                            android:textColor="#333333"
-                            android:singleLine="false" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:text="@string/button_default"
-                            android:id="@+id/button_default"
-                            android:layout_gravity="center_horizontal|left"
-                            android:background="#333333"
-                            android:alpha="50"
-                            android:clickable="true"
-                            android:onClick="changeToDefault"
-                            android:textColor="#FFFFFF"
-                            android:padding="0dp"
-                            android:nestedScrollingEnabled="false" />
-                    </TableRow>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/about"
-                    android:layout_width="fill_parent"
+                <ScrollView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp"
-                    android:clickable="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp">
+                    android:id="@+id/scrollViewThemes" >
 
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="@string/about_title"
-                        android:id="@+id/about_title"
-                        android:singleLine="true"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginBottom="0dp"
-                        android:textColor="#333333"
-                        android:gravity="center"
-                        android:layout_marginRight="0dp"
-                        android:layout_marginLeft="0dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_creators"
-                        android:id="@+id/about_creator"
-                        android:textStyle="bold"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#333333" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_company"
-                        android:id="@+id/about_company"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_class"
-                        android:id="@+id/about_class"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_group"
-                        android:id="@+id/about_group"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_date"
-                        android:id="@+id/about_date"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_members"
-                        android:id="@+id/about_members"
-                        android:textColor="#333333"
-                        android:layout_marginTop="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_membernames"
-                        android:id="@+id/about_membernames"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#666666" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/about_contact"
-                        android:id="@+id/about_contact"
-                        android:layout_marginTop="20dp"
-                        android:textStyle="bold"
-                        android:textColor="#333333" />
-
-                    <TableRow
+                    <LinearLayout
+                        android:id="@+id/themes"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_marginTop="5dp">
+                        android:orientation="vertical"
+                        android:focusableInTouchMode="false"
+                        android:clickable="true"
+                        android:layout_gravity="center"
+                        android:focusable="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#EEEEEE">
 
                         <TextView
-                            android:layout_width="75dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/about_email"
-                            android:id="@+id/about_email"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/themes_title"
+                            android:id="@+id/themes_title"
                             android:layout_marginTop="0dp"
-                            android:textColor="#666666" />
+                            android:textColor="#333333"
+                            android:gravity="center" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <TableRow
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/about_leaderemail"
-                            android:id="@+id/about_leaderemail"
-                            android:layout_marginTop="0dp"
-                            android:textIsSelectable="true"
-                            android:linksClickable="true"
-                            android:autoLink="email" />
-                    </TableRow>
+                            android:layout_marginTop="45dp"
+                            android:layout_marginLeft="110dp">
 
-                    <TableRow
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/first_theme"
+                                android:id="@+id/first_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_beach"
+                                android:id="@+id/button3"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#DD6600"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:onClick="changeToBeach"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/second_theme"
+                                android:id="@+id/second_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_garden"
+                                android:id="@+id/button_garden"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#006633"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToGarden" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/third_theme"
+                                android:id="@+id/third_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_rose"
+                                android:id="@+id/button_rose"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#990000"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToRose" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/fourth_theme"
+                                android:id="@+id/fourth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_ice"
+                                android:id="@+id/button_ice"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#0066CC"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToIce" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/fifth_theme"
+                                android:id="@+id/fifth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_desert"
+                                android:id="@+id/button"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#CC9900"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToDesert" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/sixth_theme"
+                                android:id="@+id/sixth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_royal"
+                                android:id="@+id/button_royal"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#660066"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#FFFFFF"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToRoyal" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/seventh_theme"
+                                android:id="@+id/seventh_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_snow"
+                                android:id="@+id/button_snow"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#FFFFFF"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#333333"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToSnow" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/eighth_theme"
+                                android:id="@+id/eigth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333"
+                                android:singleLine="false" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_default"
+                                android:id="@+id/button_default"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#333333"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:onClick="changeToDefault"
+                                android:textColor="#FFFFFF"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false" />
+                        </TableRow>
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollViewAbout" >
+
+                    <LinearLayout
+                        android:id="@+id/about"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:clickable="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp">
 
                         <TextView
-                            android:layout_width="75dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/about_title"
+                            android:id="@+id/about_title"
+                            android:singleLine="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:textColor="#333333"
+                            android:gravity="center"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginLeft="0dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/about_phone"
-                            android:id="@+id/about_phone"
+                            android:text="@string/about_creators"
+                            android:id="@+id/about_creator"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_company"
+                            android:id="@+id/about_company"
                             android:layout_marginTop="5dp"
                             android:textColor="#666666" />
 
@@ -546,15 +462,111 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/about_phonenumber"
-                            android:id="@+id/about_phonenumber"
+                            android:text="@string/about_class"
+                            android:id="@+id/about_class"
                             android:layout_marginTop="5dp"
-                            android:textIsSelectable="true"
-                            android:longClickable="true"
-                            android:autoLink="phone" />
-                    </TableRow>
+                            android:textColor="#666666" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_group"
+                            android:id="@+id/about_group"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_date"
+                            android:id="@+id/about_date"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_members"
+                            android:id="@+id/about_members"
+                            android:textColor="#333333"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_membernames"
+                            android:id="@+id/about_membernames"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_contact"
+                            android:id="@+id/about_contact"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="bold"
+                            android:textColor="#333333" />
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_email"
+                                android:id="@+id/about_email"
+                                android:layout_marginTop="0dp"
+                                android:textColor="#666666" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_leaderemail"
+                                android:id="@+id/about_leaderemail"
+                                android:layout_marginTop="0dp"
+                                android:textIsSelectable="true"
+                                android:linksClickable="true"
+                                android:autoLink="email" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_phone"
+                                android:id="@+id/about_phone"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#666666" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_phonenumber"
+                                android:id="@+id/about_phonenumber"
+                                android:layout_marginTop="5dp"
+                                android:textIsSelectable="true"
+                                android:longClickable="true"
+                                android:autoLink="phone" />
+                        </TableRow>
+
+                    </LinearLayout>
+                </ScrollView>
 
                 <LinearLayout
                     android:orientation="vertical"
