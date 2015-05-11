@@ -103,6 +103,7 @@
     <string name="updates">Upates in this version: Welcome! This is the first update! More to come. </string>
     <string name="problem_communicating_with_sfpark">There was a problem communicating with SF Park, try again later</string>
     <string name="parked_history">Parked History</string>
+    <string name="no_parking_spots_within_radius">There was an error connecting to SFPark</string>
 
 
     <!-- <string name="action_refresh">Refresh</string> -->

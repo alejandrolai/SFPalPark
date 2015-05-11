@@ -25,7 +25,8 @@ public class AlertDialogs {
     }
 
     /**
-     * Prompts user to change location settings
+     * Shows an alert dialog asking the user to turn location services
+     * @param context Context of calling activity
      */
     public void showLocationSettingsAlert(final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -49,7 +50,8 @@ public class AlertDialogs {
     }
 
     /**
-     * Shows a Dialog to prompt the user to change internet settings
+     * Shows an alert dialog asking the user to turn on wifi or data services
+     * @param context Context of calling activity
      */
     public void showInternetAlert(final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);

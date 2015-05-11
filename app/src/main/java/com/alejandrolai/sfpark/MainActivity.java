@@ -66,6 +66,8 @@ public class MainActivity extends ActionBarActivity
 
     AlertDialogs dialog = AlertDialogs.getInstance();
     ParkingSpotList mParkingSpotList;
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
+
     ParkingLocationDatabase dbParkingLocation;
 
     // Added By Ihsan Taha on 5/7/15
@@ -73,7 +75,7 @@ public class MainActivity extends ActionBarActivity
     Toolbar mToolbar;
     // End of Addition
 
-    LinkedHashMap<String, String> map = new LinkedHashMap();
+    LinkedHashMap<String,String> map = new LinkedHashMap();
 
     ArrayList<ParkingSpot> list = new ArrayList();
 
@@ -98,7 +100,6 @@ public class MainActivity extends ActionBarActivity
 
         new TermsOfService(this).show();
 
-
         /*Toolbar*/
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -120,29 +121,11 @@ public class MainActivity extends ActionBarActivity
                 double longitude = getLongitude();
 
                 zoomToMap(latitude, longitude);
-
-                mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                    @Override
-                    public void onMapLongClick(LatLng latLng) {
-                        mMap.clear();
-                        mMap.addMarker(new MarkerOptions()
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                                .position(latLng)
-                                .draggable(true))
-                                .setTitle("You are here: " + latLng.toString());
-                        double newLatitude = latLng.latitude;
-                        double newLongitude = latLng.longitude;
-                        addCircle(newLatitude, newLongitude);
-                        getResponse(newLatitude, newLongitude);
-                    }
-                });
-
-                getResponse(latitude, longitude);
                 addCircle(latitude, longitude);
+                getResponse(latitude, longitude);
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
-
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
             dialog.showInternetAlert(this);
@@ -151,7 +134,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void addCircle(double latitude, double longitude) {
-        double radius = Double.parseDouble(SharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15"));
+        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15"));
         mMap.addCircle(new CircleOptions()
                 .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
@@ -260,10 +243,25 @@ public class MainActivity extends ActionBarActivity
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMyLocationEnabled(true);
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        .position(latLng)
+                        .draggable(true))
+                        .setTitle("You are here: " + latLng.toString());
+                double newLatitude = latLng.latitude;
+                double newLongitude = latLng.longitude;
+                addCircle(newLatitude, newLongitude);
+                getResponse(newLatitude, newLongitude);
+            }
+        });
     }
 
     /**
-     * Check if there internet connection
+     * Check if there is internet connection
      *
      * @return true if there is a connection to the internet, false otherwise
      */
@@ -410,13 +408,11 @@ public class MainActivity extends ActionBarActivity
                     String rateQual = parkingSpot.getRateQualifier();
                     addColoredLine(startLatLng, endLatLng, rate);
                     addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatLng);
-                } else {
-                    addSimpleLine(startLatLng, endLatLng);
                 }
 
             }
         } else {
-            Toast.makeText(this, "No parking spots within your selected radius", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No parking spots within your selected radius. Long tap in a different location or change the radius", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -473,24 +469,12 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     * Adds a simple line to a street block
-     *
-     * @param startLatLng Starting point of block
-     * @param endLatLng Ending point of block
-     */
-    private void addSimpleLine(LatLng startLatLng, LatLng endLatLng) {
-        mMap.addPolyline(new PolylineOptions()
-                .add(startLatLng)
-                .add(endLatLng));
-    }
-
-    /**
      * Uses a callback to check the response from SF Park
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = SharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15");
-        String newUOM = SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15");
+        String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
         map.put("long", Double.toString(newLongitude));
@@ -524,7 +508,7 @@ public class MainActivity extends ActionBarActivity
                 }
             });
         } else {
-            Toast.makeText(this, "There was an error connecting to SFPark", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.no_parking_spots_within_radius), Toast.LENGTH_SHORT).show();
         }
     }
 
