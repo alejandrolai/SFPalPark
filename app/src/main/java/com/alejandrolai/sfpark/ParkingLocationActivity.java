@@ -130,6 +130,9 @@ public class ParkingLocationActivity extends ActionBarActivity {
                 public void onClick(View view) {
                     dbParkingLocation.deleteParkingHistory();
                     Toast.makeText(getApplicationContext(), "Your Parking History has been deleted.", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
+
                 }
             });
 

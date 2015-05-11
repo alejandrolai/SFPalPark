@@ -55,7 +55,7 @@ public class ReminderActivity extends ActionBarActivity{
 
     Toolbar mToolbar;
 
-    //AlarmManager reminderAlarm;
+    // AlarmManager reminderAlarm;
 
     /**
      * When Reminder Page is opened, onCreate creates objects needed for activity to function,
@@ -73,7 +73,7 @@ public class ReminderActivity extends ActionBarActivity{
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        //Add a vibrator
+        // Adds a vibrator
         v =(Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         // Adds buttons
@@ -90,6 +90,7 @@ public class ReminderActivity extends ActionBarActivity{
     }
 
 
+
     /**
      * This method sets the text to the time user wants to use for timer.
      * This is also where the timer is created.
@@ -97,15 +98,15 @@ public class ReminderActivity extends ActionBarActivity{
      */
     public void setTimerTime(View view){
 
-        //Get Hour and Minute from XML file
+        // Gets Hour and Minute from XML file
         TextView hour = (EditText) findViewById(R.id.hour);
         TextView minute = (EditText) findViewById(R.id.minute);
 
-        //MAKE SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
-        //NEED TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
-        //NEED TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
+        // MAKES SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
+        // NEEDS TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
+        // NEEDS TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
 
-        //Change Hour and Minute from TextView Object to Int
+        // ChangeS Hour and Minute from TextView Object to Int
         int hourInt = Integer.parseInt(hour.getText().toString());
         int minuteInt = Integer.parseInt(minute.getText().toString());
 
@@ -113,20 +114,20 @@ public class ReminderActivity extends ActionBarActivity{
         // Sets the text to the tested time. Need to Set text time to user input
         textViewTime.setText(hourInt+":"+minuteInt+":00");
 
-        //Set Start button text to start
+        // Sets Start button text to start
         startButton.setText("Start");
 
-        // Set this timer to the time the user specifies into milliseconds
+        // Sets this timer to the time the user specifies into milliseconds
         long hourToMillisecs = hourInt*3600000;
         long minuteToMillisecs = minuteInt*60000;
 
-        //Puts the users total desired time into milliseconds
+        // Puts the users total desired time into milliseconds
         userInputTime = hourToMillisecs + minuteToMillisecs;
 
 
 
 
-        //Resets Timer
+        // Resets Timer
         resetTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,13 +137,13 @@ public class ReminderActivity extends ActionBarActivity{
             }
         });
 
-        //Starts timer countdown
+        // Starts timer countdown
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timer = new CounterClass(userInputTime, 1000);
                 if(startButton.getText().equals("Start")){
-                    //Create timer with user time
+                    // Creates timer with user time
 
                     startButton.setText("Restart");
                     stopButton.setText("Stop");
@@ -178,8 +179,10 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
+
+
     /**
-     *CountDown Timer Class. This is how the timer is counted down.
+     * CountDown Timer Class. This is how the timer is counted down.
      */
     public class CounterClass extends CountDownTimer{
 
@@ -191,6 +194,8 @@ public class ReminderActivity extends ActionBarActivity{
         public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
+
+
 
         /**
          * Implementation of ticking down. String is dynamically changed in runtime, where the time
@@ -208,6 +213,8 @@ public class ReminderActivity extends ActionBarActivity{
             textViewTime.setText(tick);
         }
 
+
+
         /**
          *When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
          */
@@ -215,17 +222,17 @@ public class ReminderActivity extends ActionBarActivity{
         public void onFinish() {
             v.vibrate(4500);
 
-            //Get Notes from user
+            // Gets Notes from user
             TextView notes = (EditText) findViewById(R.id.Notes);
             String userNotes = notes.getText().toString();
 
-            //Intent to open App
+            //sIntent to open App
             Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), MainActivity.class);
             PendingIntent openAppIntent = PendingIntent.getActivity(ReminderActivity.this,
                     0, notificationIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            //Builds a Notification object with settings
+            //sBuilds a Notification object with settings
             NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderActivity.this);
             builder.setAutoCancel(true);
             builder.setContentTitle("Reminder");
@@ -236,26 +243,26 @@ public class ReminderActivity extends ActionBarActivity{
             builder.setSmallIcon(R.drawable.applogo);
 
 
-            //Builds notification to Notify
+            // Builds notification to Notify
             Notification notify = builder.build();
 
-            //Creates Notification Manager to Notification services
+            // Creates Notification Manager to Notification services
             NotificationManager notifyManager = (NotificationManager) ReminderActivity.this.getSystemService(NOTIFICATION_SERVICE);
 
             notifyManager.notify(8, notify);
 
 
-            //Get Notes from user
+            // Gets Notes from user
             /*TextView notes = (EditText) findViewById(R.id.Notes);
             String userNotes = notes.getText().toString();
 
-            //Create Alert Dialog
+            // Creates Alert Dialog
             AlertDialog reminderDialog = new AlertDialog.Builder(ReminderActivity.this).create();
 
-            //Set Title
+            // Sets Title
             reminderDialog.setTitle("Reminder");
 
-            //Dialog to User Notes
+            // Dialog to User Notes
             reminderDialog.setMessage(userNotes);
 
 

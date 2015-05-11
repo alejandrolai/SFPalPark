@@ -41,6 +41,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     // Data methods
+
     /**
      * ?
      *
@@ -214,6 +215,12 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
     }
 
 
+
+    /**
+     * Gets the current theme stored in the database
+     *
+     * @return
+     */
     public String checkDatabaseTheme()
     {
         String theme;
@@ -227,12 +234,19 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
     }
 
-public void changeDatabaseTheme(String theme){
 
-    String query = "Update " + TABLE_COLOR_THEME + " set theme " + "= \"" + theme + "\"";
-    SQLiteDatabase db = this.getWritableDatabase();
-db.execSQL(query);
-    db.close();
+
+    /**
+     * Sets the current theme stored in the database
+     *
+     * @param theme
+     */
+    public void changeDatabaseTheme(String theme){
+
+        String query = "Update " + TABLE_COLOR_THEME + " set theme " + "= \"" + theme + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+        db.close();
     }
 
 
