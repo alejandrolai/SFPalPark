@@ -47,11 +47,14 @@ public class ReminderActivity extends ActionBarActivity{
 
     Button startButton, stopButton,setTimer, resetTimer;
     TextView textViewTime;
+    EditText notes;
     Vibrator v;
     PendingIntent pendingIntent;
     private CounterClass timer;
     long userInputTime, millisecs;
-    long timeInTimerWhenPause, systemTimeWhenPause;
+    static long timeInTimerWhenPause, systemTimeWhenPause;
+    static boolean isPaused = false;
+    static String textInNotes;
 
     Toolbar mToolbar;
 
@@ -84,6 +87,8 @@ public class ReminderActivity extends ActionBarActivity{
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+        //notes
+        notes = (EditText) findViewById(R.id.Notes);
 
         checkColorTheme();
 
@@ -179,80 +184,101 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        systemTimeWhenPause = System.currentTimeMillis();
+        timeInTimerWhenPause = millisecs;
+        textInNotes = notes.getText().toString();
+        isPaused = true;
 
 
-    /**
-     * CountDown Timer Class. This is how the timer is counted down.
-     */
-    public class CounterClass extends CountDownTimer{
+    }
 
-        /**
-         * Counts down the timer
-         * @param millisInFuture the exact time when the timer is done
-         * @param countDownInterval is time inbetween count downs
-         */
-        public CounterClass(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isPaused) {
+            isPaused = false;
+            timer = new CounterClass((timeInTimerWhenPause - (System.currentTimeMillis() - systemTimeWhenPause)), 1000);
+            timer.start();
+            notes.setText(textInNotes);
         }
 
-
-
+    }
         /**
-         * Implementation of ticking down. String is dynamically changed in runtime, where the time
-         * is shown by hour, minutes, and seconds.
-         * @param millisUntilFinished the exact time when the timer is done
+         * CountDown Timer Class. This is how the timer is counted down.
          */
-        @Override
-        public void onTick(long millisUntilFinished) {
-             millisecs = millisUntilFinished;
-            String tick = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisecs),
-                    TimeUnit.MILLISECONDS.toMinutes(millisecs) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisecs)),
-                    TimeUnit.MILLISECONDS.toSeconds(millisecs) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisecs)));
+        public class CounterClass extends CountDownTimer {
 
-            System.out.println(tick);
-            textViewTime.setText(tick);
-        }
-
-
-
-        /**
-         *When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
-         */
-        @Override
-        public void onFinish() {
-            v.vibrate(4500);
-
-            // Gets Notes from user
-            TextView notes = (EditText) findViewById(R.id.Notes);
-            String userNotes = notes.getText().toString();
-
-            //sIntent to open App
-            Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), MainActivity.class);
-            PendingIntent openAppIntent = PendingIntent.getActivity(ReminderActivity.this,
-                    0, notificationIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-
-            //sBuilds a Notification object with settings
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderActivity.this);
-            builder.setAutoCancel(true);
-            builder.setContentTitle("Reminder");
-            builder.setContentText(userNotes);
-            builder.setContentIntent(openAppIntent);
-
-            //Want to added Logo Here
-            builder.setSmallIcon(R.drawable.applogo);
+            /**
+             * Counts down the timer
+             *
+             * @param millisInFuture    the exact time when the timer is done
+             * @param countDownInterval is time inbetween count downs
+             */
+            public CounterClass(long millisInFuture, long countDownInterval) {
+                super(millisInFuture, countDownInterval);
+            }
 
 
-            // Builds notification to Notify
-            Notification notify = builder.build();
+            /**
+             * Implementation of ticking down. String is dynamically changed in runtime, where the time
+             * is shown by hour, minutes, and seconds.
+             *
+             * @param millisUntilFinished the exact time when the timer is done
+             */
+            @Override
+            public void onTick(long millisUntilFinished) {
+                millisecs = millisUntilFinished;
+                String tick = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisecs),
+                        TimeUnit.MILLISECONDS.toMinutes(millisecs) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisecs)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisecs) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisecs)));
 
-            // Creates Notification Manager to Notification services
-            NotificationManager notifyManager = (NotificationManager) ReminderActivity.this.getSystemService(NOTIFICATION_SERVICE);
+                System.out.println(tick);
+                textViewTime.setText(tick);
+            }
 
-            notifyManager.notify(8, notify);
+
+            /**
+             * When the time reaches zero, this method is called. Should be vibrate, alarm, etc.
+             */
+            @Override
+            public void onFinish() {
+                v.vibrate(4500);
+
+                // Gets Notes from user
+                TextView notes = (EditText) findViewById(R.id.Notes);
+                String userNotes = notes.getText().toString();
+
+                //sIntent to open App
+                Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), MainActivity.class);
+                PendingIntent openAppIntent = PendingIntent.getActivity(ReminderActivity.this,
+                        0, notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+                //sBuilds a Notification object with settings
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(ReminderActivity.this);
+                builder.setAutoCancel(true);
+                builder.setContentTitle("Reminder");
+                builder.setContentText(userNotes);
+                builder.setContentIntent(openAppIntent);
+
+                //Want to added Logo Here
+                builder.setSmallIcon(R.drawable.applogo);
 
 
-            // Gets Notes from user
+                // Builds notification to Notify
+                Notification notify = builder.build();
+
+                // Creates Notification Manager to Notification services
+                NotificationManager notifyManager = (NotificationManager) ReminderActivity.this.getSystemService(NOTIFICATION_SERVICE);
+
+                notifyManager.notify(8, notify);
+
+
+                // Gets Notes from user
             /*TextView notes = (EditText) findViewById(R.id.Notes);
             String userNotes = notes.getText().toString();
 
@@ -276,8 +302,9 @@ public class ReminderActivity extends ActionBarActivity{
 
                reminderDialog.show();
            }*/
+            }
         }
-    }
+
 
 
 
