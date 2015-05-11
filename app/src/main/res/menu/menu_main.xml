@@ -33,9 +33,4 @@
         android:title="Parking History View"
         app:showAsAction="never" />-->
 
-    <!--<item android:id="@+id/action_preferences"
-        android:orderInCategory="1"
-        android:title="Preferences"
-        app:showAsAction="never"/> -->
-
 </menu>

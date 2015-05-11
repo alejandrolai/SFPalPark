@@ -1,6 +1,5 @@
 package com.alejandrolai.sfpark;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +16,6 @@ import com.alejandrolai.sfpark.data.ParkingSpotList;
 import com.alejandrolai.sfpark.data.Service;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
 import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.content.Context;
@@ -75,12 +73,12 @@ public class MainActivity extends ActionBarActivity
     // End of Addition
 
     LinkedHashMap<String, String> map = new LinkedHashMap();
-    public LatLngBounds mLatLngBounds;
 
-    ArrayList<ParkingSpot> list = new ArrayList();;
+    ArrayList<ParkingSpot> list = new ArrayList();
+    ;
 
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
-    public static final String RADIUS = "5";
+    public static final String RADIUS = "radiusKey";
     public static final String UNIT = "unitKey";
 
     @Override
@@ -102,7 +100,6 @@ public class MainActivity extends ActionBarActivity
 
         new TermsOfService(this).show();
 
-        //sharedPreferencesHelper.saveToPreferences(this,RADIUS,"");
 
         /*Toolbar*/
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,52 +140,10 @@ public class MainActivity extends ActionBarActivity
 
                 getRespone();
 
-                mMap.addCircle(new CircleOptions()
-                        .center(new LatLng(getLatitude(), getLongitude()))
-                        .radius(Double.parseDouble(RADIUS) * 1609.34) // miles to meters
-                        .strokeColor(Color.GREEN)
-                        .fillColor(Color.argb(50, 100, 100, 100)));
-
-                /*
-                mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-                    @Override
-                    public void onCameraChange(CameraPosition cameraPosition) {
-                        LatLngBounds bounds = mMap.getProjection().getVisibleRegion().latLngBounds;
-                        if (!list.isEmpty()) {
-                            for (ParkingSpot parkingSpot : list) {
-                                String streetName = parkingSpot.getStreetName();
-                                double startLatitude = parkingSpot.getStartLatitude();
-                                double startLongitude = parkingSpot.getStartLongitude();
-                                double endLatitude = parkingSpot.getEndLatitude();
-                                double endLongitude = parkingSpot.getEndLongitude();
-                                LatLng startLatLng = new LatLng(startLatitude, startLongitude);
-                                LatLng endLatLng = new LatLng(endLatitude, endLongitude);
-                                double rate = parkingSpot.getRate();
-                                String endTime = parkingSpot.getEndTime();
-                                String rateQual = parkingSpot.getRateQualifier();
-                                if (bounds.contains(new LatLng(startLatitude, startLongitude))) {
-                                    addColoredLine(startLatLng, endLatLng, rate);
-                                    addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
-                                    markerAdded = true;
-                                }
-                                /*
-                                CameraPosition cameraPosition = new CameraPosition.Builder()
-                                .target(startLatLng)
-                                .zoom(13)
-                                .build();
-                                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                            }
-                        }
-                    }
-                });
-                if (!list.isEmpty() && markerAdded == false) {
-                    Toast.makeText(this, "No locations near you, zoom out", Toast.LENGTH_SHORT).show();
-                }
-                */
+                addCircle();
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
-
 
 
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
@@ -196,6 +151,15 @@ public class MainActivity extends ActionBarActivity
             dialog.showInternetAlert(this);
         }
 
+    }
+
+    private void addCircle() {
+        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "5"));
+        mMap.addCircle(new CircleOptions()
+                .center(new LatLng(getLatitude(), getLongitude()))
+                .radius(radius * 1609.34) // miles to meters
+                .strokeColor(Color.GREEN)
+                .fillColor(Color.argb(50, 100, 100, 100)));
     }
 
     @Override
@@ -309,60 +273,6 @@ public class MainActivity extends ActionBarActivity
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    /**
-     * Adds a marker to the map with information about the prices
-     *
-     * @param streetName     Name of the block
-     * @param rate           Price per hour
-     * @param rateQual       Per hour, street sweep or no charge
-     * @param endTime        End time of the current time bracket
-     * @param startLatitude  starting latitude of the block
-     * @param startLongitude starting longitude of the block
-     */
-    private void addMarkerWithInfo(String streetName, double rate, String rateQual,
-                                   String endTime, double startLatitude, double startLongitude) {
-
-        if (rateQual.equals("Per hour")) {
-            mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
-                    .position(new LatLng(startLatitude, startLongitude))
-                    .draggable(true)
-                    .title(streetName)
-                    .snippet("$" + rate + " " + rateQual + " until " + endTime));
-        } else {
-            mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
-                    .position(new LatLng(startLatitude, startLongitude))
-                    .draggable(true)
-                    .title(streetName)
-                    .snippet(rateQual + " until " + endTime));
-        }
-    }
-
-    /**
-     * Adds colored polyline to the map according to its rate
-     *
-     * @param startLatLng Starting latitude and longitude of the block
-     * @param endLatLng   Ending latitude and longitude of the block
-     * @param rate        Rate of the block
-     */
-    private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
-        int color = getResources().getColor(R.color.black);
-
-        if (rate <= 1) {
-            color = getResources().getColor(R.color.green_500);
-        } else if (rate > 1 && rate <= 2) {
-            color = getResources().getColor(R.color.yellow_500);
-        } else if (rate > 2) {
-            color = getResources().getColor(R.color.red_500);
-        }
-        mMap.addPolyline(new PolylineOptions().geodesic(true)
-                .color(color)
-                .add(startLatLng)
-                .add(endLatLng));
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -378,7 +288,6 @@ public class MainActivity extends ActionBarActivity
         Intent intent;
 
         switch (item.getItemId()) {
-
             case R.id.action_back:
                 return true;
             case R.id.action_settings:
@@ -392,12 +301,6 @@ public class MainActivity extends ActionBarActivity
                 intent = new Intent(this, ParkingLocationActivity.class);
                 startActivity(intent);
                 return true;
-            //case R.id.action_parked_history:
-            //showParkedHistory();
-            //goToParkHistory();
-            //return true;
-            //case R.id.action_preferences:
-            //   startActivity(new Intent(this,PreferencesActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -472,7 +375,6 @@ public class MainActivity extends ActionBarActivity
             }
 
 
-
             //copy the first numberReturn ( first 5) spots
 
             for (int i = 0; i < numOfParkingSpots; i++) {
@@ -503,33 +405,83 @@ public class MainActivity extends ActionBarActivity
                 double endLongitude = parkingSpot.getEndLongitude();
                 LatLng startLatLng = new LatLng(startLatitude, startLongitude);
                 LatLng endLatLng = new LatLng(endLatitude, endLongitude);
-                if(!parkingSpot.getRateQualifier().equals("")){
+                if (!parkingSpot.getRateQualifier().equals("")) {
                     double rate = parkingSpot.getRate();
                     String endTime = parkingSpot.getEndTime();
                     String rateQual = parkingSpot.getRateQualifier();
                     addColoredLine(startLatLng, endLatLng, rate);
-                    addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatitude, startLongitude);
+                    addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatLng);
                 } else {
-                    addMarker(streetName,startLatitude,startLongitude);
+                    addSimpleLine(startLatLng, endLatLng);
                 }
-
-
 
             }
         } else {
-            Toast.makeText(this,"No parking spots within your selected radius",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No parking spots within your selected radius", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
-    private void addMarker(String streetName, double startLatitude, double startLongitude) {
+    /**
+     * Adds a marker to the map with information about the prices
+     *
+     * @param streetName    Name of the block
+     * @param rate          Price per hour
+     * @param rateQual      Per hour, street sweep or no charge
+     * @param endTime       End time of the current time bracket
+     * @param position      Position of marker
+     */
+    private void addMarkerWithInfo(String streetName, double rate, String rateQual,
+                                   String endTime, LatLng position) {
 
-        mMap.addMarker(new MarkerOptions()
+        if (rateQual.equals("Per hour")) {
+            mMap.addMarker(new MarkerOptions()
                     //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
-                    .position(new LatLng(startLatitude, startLongitude))
+                    .position(position)
                     .draggable(true)
-                    .title(streetName));
+                    .title(streetName)
+                    .snippet("$" + rate + " " + rateQual + " until " + endTime));
+        } else {
+            mMap.addMarker(new MarkerOptions()
+                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
+                    .position(position)
+                    .draggable(true)
+                    .title(streetName)
+                    .snippet(rateQual + " until " + endTime));
+        }
+    }
+
+    /**
+     * Adds colored polyline to the map according to its rate
+     *
+     * @param startLatLng Starting latitude and longitude of the block
+     * @param endLatLng   Ending latitude and longitude of the block
+     * @param rate        Rate of the block
+     */
+    private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
+        int color = getResources().getColor(R.color.black);
+
+        if (rate <= 1) {
+            color = getResources().getColor(R.color.green_500);
+        } else if (rate > 1 && rate <= 2) {
+            color = getResources().getColor(R.color.yellow_500);
+        } else if (rate > 2) {
+            color = getResources().getColor(R.color.red_500);
+        }
+        mMap.addPolyline(new PolylineOptions().geodesic(true)
+                .color(color)
+                .add(startLatLng)
+                .add(endLatLng));
+    }
+
+    /**
+     * Adds a simple line to a street block
+     * @param startLatLng Starting point
+     * @param endLatLng
+     */
+    private void addSimpleLine(LatLng startLatLng, LatLng endLatLng) {
+        mMap.addPolyline(new PolylineOptions()
+                .add(startLatLng)
+                .add(endLatLng));
     }
 
     /**
@@ -537,10 +489,13 @@ public class MainActivity extends ActionBarActivity
      */
     public void getRespone() {
 
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "5");
+        String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
+
         map.put("lat", Double.toString(getLatitude()));
         map.put("long", Double.toString(getLongitude()));
-        map.put("radius", "5"/*SharedPreferencesHelper.readFromPreferences(this, RADIUS, "5")*/);
-        map.put("uom","mile" /*SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile")*/);
+        map.put("radius", newRadius);
+        map.put("uom", newUOM);
         map.put("response", "json");
         map.put("pricing", "yes");
 
@@ -657,7 +612,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void checkColorTheme() {
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
-        theme= dbParkingLocation.checkDatabaseTheme();
+        theme = dbParkingLocation.checkDatabaseTheme();
 
         parkMebutton.setTextColor(getResources().getColor(R.color.bright_snow));
         RemindMe.setTextColor(getResources().getColor(R.color.bright_snow));
@@ -698,7 +653,4 @@ public class MainActivity extends ActionBarActivity
             RemindMe.setTextColor(getResources().getColor(R.color.default_grey));
         }
     }
-
 }
-
-//
