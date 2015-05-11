@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.alejandrolai.sfpark" >
+    package="com.alejandrolai.sfpark"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -18,8 +24,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- add your own key inside value -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="" />
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.alejandrolai.sfpark.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,33 +39,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splash" > <!-- added activity Splash -->
+
+        <activity android:name="com.alejandrolai.sfpark.Splash" > <!-- added activity Splash -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- add your own key inside value -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDJp_iOjpcmYCgI0W8E1xV4w3O0MiwvQCE" />
 
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.alejandrolai.sfpark.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
-        <activity
-            android:name=".Timer.ReminderActivity"
-            android:label="@string/title_activity_reminder"
-            android:parentActivityName=".MainActivity">
 
-        </activity>
         <activity
-            android:name=".ParkingLocationActivity"
-            android:label="@string/park_location"
-            android:parentActivityName=".MainActivity">
+            android:name="com.alejandrolai.sfpark.Timer.ReminderActivity"
+            android:label="@string/title_activity_reminder"
+            android:parentActivityName="com.alejandrolai.sfpark.MainActivity" >
         </activity>
+
+        <activity
+            android:name="com.alejandrolai.sfpark.ParkingLocationActivity"
+            android:label="@string/title_activity_history"
+            android:parentActivityName="com.alejandrolai.sfpark.MainActivity" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

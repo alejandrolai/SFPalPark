@@ -216,28 +216,28 @@ public class ParkingLocationActivity extends ActionBarActivity {
     /**
      * Displays the menu
      *
-     * @param menu
+     * @param //menu
      * @return
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    //@Override
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_history, menu);
         return true;
-    }
+    }*/
 
 
 
     /**
      * Responds to the actions in the menu
      *
-     * @param item
+     * @param //item
      * @return
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    //@Override
+    /*public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_back:
@@ -249,7 +249,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
 
 
@@ -259,6 +259,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
     public void checkColorTheme() {
         history_save.setTextColor(getResources().getColor(R.color.bright_snow));
         history_delete.setTextColor(getResources().getColor(R.color.bright_snow));
+
         if (MainActivity.theme.equalsIgnoreCase("default")) {
             mToolbar.setBackgroundColor(getResources().getColor(R.color.default_grey));
         } else if (MainActivity.theme.equalsIgnoreCase("beach")) {
@@ -291,10 +292,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
             mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
             history_save.setTextColor(getResources().getColor(R.color.default_grey));
             history_delete.setTextColor(getResources().getColor(R.color.default_grey));
-        } else if (MainActivity.theme.equalsIgnoreCase("royal")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.default_grey));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_default));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.bright_default));
         }
     }
 }

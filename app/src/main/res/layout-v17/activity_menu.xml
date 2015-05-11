@@ -15,7 +15,6 @@
     android:padding="0dp">
 
     <include
-
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
@@ -128,7 +127,7 @@
                             android:layout_height="fill_parent"
                             android:inputType="textMultiLine"
                             android:ems="10"
-                            android:id="@+id/textView"
+                            android:id="@+id/history_settings_text"
                             android:layout_margin="10dp"
                             android:text="The settings contains a radius section that allows you to choose a radial distance in which you can find parking locations. The themes section allows you to choose a color theme for the app. The help page is where the user can learn how to use the app. Finally, the About page contains information on the app&apos;s developers."
                             android:textColor="#333333"

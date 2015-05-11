@@ -4,7 +4,6 @@
     android:background="#FFFFFF">
 
     <include
-
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
@@ -47,24 +46,25 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Parking Information"
+                        android:text="@string/history_parking_info"
                         android:id="@+id/parking_info"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:textColor="#333333"
-                        android:singleLine="true"
+                        android:singleLine="false"
                         android:layout_marginTop="0dp" />
 
                     <TableRow
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="@string/history_park_lat"
-                            android:id="@+id/history_Park_lat"
+                            android:id="@+id/history_park_lat"
                             android:textColor="#333333" />
 
                         <TextView

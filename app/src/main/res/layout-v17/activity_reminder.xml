@@ -1,0 +1,208 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical"
+    android:id="@+id/menu"
+    android:focusableInTouchMode="true"
+    android:background="#EEEEEE"
+    android:weightSum="1">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollViewReminder" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/reminder_title"
+                    android:id="@+id/reminder_title"
+                    android:textColor="#333333"
+                    android:gravity="center" />
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" >
+
+                    <TextView
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/reminder_currenttime"
+                        android:id="@+id/textView5"
+                        android:textColor="#333333"
+                        android:textIsSelectable="false" />
+
+                    <TextClock
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textClock"
+                        android:textColor="#000099"
+                        android:textIsSelectable="false"
+                        android:textSize="18dp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/reminder_entertime"
+                        android:id="@+id/reminder_entertime"
+                        android:textColor="#333333" />
+
+                    <EditText
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/hour"
+                        android:layout_weight="0.15"
+                        android:textColor="#FF0F1215"
+                        android:text="@string/reminder_hour"
+                        android:background="@drawable/inputborder"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textIsSelectable="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hours"
+                        android:text="@string/reminder_hours"
+                        android:textColor="#333333"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="5dp" />
+
+                    <EditText
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/minute"
+                        android:layout_weight="0.15"
+                        android:autoText="false"
+                        android:textColor="#ff0f1215"
+                        android:text = "@string/reminder_minute"
+                        android:background="@drawable/inputborder"
+                        android:layout_marginLeft="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/minutes"
+                        android:text="@string/reminder_minutes"
+                        android:textColor="#333333"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="5dp" />
+
+                </TableRow>
+
+            </LinearLayout>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reminder_set"
+                android:id="@+id/setTimer"
+                android:onClick="setTimerTime"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginTop="10dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_start"
+                    android:id="@+id/startButton"
+                    android:layout_weight="1"
+
+
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_stop"
+                    android:id="@+id/stopButton"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_reset"
+                    android:id="@+id/resetTimer"
+                    android:layout_weight="1"
+
+
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="00:00:00"
+                android:id="@+id/viewTime"
+                android:textSize="50sp"
+                android:textColor="#ff0f1215"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Notes:"
+                android:textColor="#ff0d0e33"
+                android:layout_marginTop="10dp" />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:id="@+id/Notes"
+                android:textColor="#333333"
+                android:background="@drawable/inputborder"
+                android:inputType="text" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

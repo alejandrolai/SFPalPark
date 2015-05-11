@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
@@ -32,12 +33,17 @@ import android.app.Notification;
 
 
 import com.alejandrolai.sfpark.MainActivity;
+import com.alejandrolai.sfpark.ParkingLocationActivity;
 import com.alejandrolai.sfpark.R;
+import com.alejandrolai.sfpark.SettingsActivity;
+import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
 
 import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 
 public class ReminderActivity extends ActionBarActivity{
+
+
 
     Button startButton, stopButton,setTimer, resetTimer;
     TextView textViewTime;
@@ -46,6 +52,9 @@ public class ReminderActivity extends ActionBarActivity{
     private CounterClass timer;
     long userInputTime, millisecs;
     long timeInTimerWhenPause, systemTimeWhenPause;
+
+    Toolbar mToolbar;
+
     //AlarmManager reminderAlarm;
 
     /**
@@ -58,7 +67,7 @@ public class ReminderActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -68,13 +77,15 @@ public class ReminderActivity extends ActionBarActivity{
         v =(Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         // Adds buttons
-        startButton = (Button) findViewById(R.id.buttonStart);
-        stopButton = (Button) findViewById(R.id.buttonStop);
-        setTimer = (Button) findViewById(R.id.setTimeButton);
-        resetTimer = (Button) findViewById(R.id.buttonReset);
+        startButton = (Button) findViewById(R.id.startButton);
+        stopButton = (Button) findViewById(R.id.stopButton);
+        setTimer = (Button) findViewById(R.id.setTimer);
+        resetTimer = (Button) findViewById(R.id.resetTimer);
 
         // Views the time
         textViewTime = (TextView) findViewById(R.id.viewTime);
+
+        checkColorTheme();
 
     }
 
@@ -258,6 +269,117 @@ public class ReminderActivity extends ActionBarActivity{
 
                reminderDialog.show();
            }*/
+        }
+    }
+
+
+
+    /**
+     * Displays the menu
+     *
+     * @param //menu
+     * @return
+     */
+    //@Override
+    /*public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_settings, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_reminder, menu);
+        return true;
+    }*/
+
+
+
+    /**
+     * Responds to the actions in the menu
+     *
+     * @param //item
+     * @return
+     */
+    //@Override
+    /*public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                return true;
+            case R.id.action_history:
+                Intent intent = new Intent(this, ParkingLocationActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_settings:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
+
+
+
+    /**
+     * Changes the color theme of the toolbar and buttons on the main page
+     */
+    public void checkColorTheme() {
+        startButton.setTextColor(getResources().getColor(R.color.bright_snow));
+        stopButton.setTextColor(getResources().getColor(R.color.bright_snow));
+        setTimer.setTextColor(getResources().getColor(R.color.bright_snow));
+        resetTimer.setTextColor(getResources().getColor(R.color.bright_snow));
+
+        if (MainActivity.theme.equalsIgnoreCase("default")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_default));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.default_grey));
+        } else if (MainActivity.theme.equalsIgnoreCase("beach")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.beach_orange));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("garden")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+        } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
+        } else if (MainActivity.theme.equalsIgnoreCase("ice")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+        } else if (MainActivity.theme.equalsIgnoreCase("desert")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+        } else if (MainActivity.theme.equalsIgnoreCase("royal")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+        } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
+            startButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            startButton.setTextColor(getResources().getColor(R.color.snow_white));
+            stopButton.setTextColor(getResources().getColor(R.color.snow_white));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.default_grey));
+            resetTimer.setTextColor(getResources().getColor(R.color.default_grey));
         }
     }
 

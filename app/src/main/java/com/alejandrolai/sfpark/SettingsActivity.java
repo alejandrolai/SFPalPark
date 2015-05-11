@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
 
 /**
@@ -19,7 +20,7 @@ import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
  */
 public class SettingsActivity extends ActionBarActivity {
 
-    private String theme = MainActivity.getCurrentTheme();
+    //private String theme = MainActivity.getCurrentTheme();
 
     Toolbar mToolbar;
     ParkingLocationDatabase dbParkingLocation;
@@ -74,28 +75,28 @@ public class SettingsActivity extends ActionBarActivity {
     /**
      * Displays the menu
      *
-     * @param menu
+     * @param //menu
      * @return
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    //@Override
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_settings, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
-    }
+    }*/
 
 
 
     /**
      * Responds to the actions in the menu
      *
-     * @param item
+     * @param //item
      * @return
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    //@Override
+    /*public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
@@ -108,7 +109,7 @@ public class SettingsActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
 
 

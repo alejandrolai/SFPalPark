@@ -661,6 +661,7 @@ public class MainActivity extends ActionBarActivity
 
         parkMebutton.setTextColor(getResources().getColor(R.color.bright_snow));
         RemindMe.setTextColor(getResources().getColor(R.color.bright_snow));
+
         if (theme.equalsIgnoreCase("default")) {
             parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_default));
             RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_default));
@@ -695,10 +696,6 @@ public class MainActivity extends ActionBarActivity
             mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
             parkMebutton.setTextColor(getResources().getColor(R.color.default_grey));
             RemindMe.setTextColor(getResources().getColor(R.color.default_grey));
-        } else if (theme.equalsIgnoreCase("default")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.default_grey));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_default));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.bright_default));
         }
     }
 
