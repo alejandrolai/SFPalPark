@@ -50,7 +50,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity
-        implements LocationListener {
+        implements LocationListener{
 
     public static String theme = "default";
 
@@ -77,8 +77,6 @@ public class MainActivity extends ActionBarActivity
 
     ArrayList<ParkingSpot> list = new ArrayList();
 
-
-    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
     public static final String RADIUS = "radiusKey";
     public static final String UNIT = "unitKey";
 
@@ -95,7 +93,6 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 goToParkHistory();
-
             }
         });
 
@@ -119,13 +116,10 @@ public class MainActivity extends ActionBarActivity
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
             if (location != null) {
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(getLatitude(), getLongitude()))
-                        .zoom(11)
-                        .build();
+                double latitude = getLatitude();
+                double longitude = getLongitude();
 
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+                zoomToMap(latitude, longitude);
 
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
@@ -135,22 +129,19 @@ public class MainActivity extends ActionBarActivity
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                 .position(latLng)
                                 .draggable(true))
-                        .setTitle("You are here: " + latLng.toString());
+                                .setTitle("You are here: " + latLng.toString());
                         double newLatitude = latLng.latitude;
                         double newLongitude = latLng.longitude;
                         addCircle(newLatitude, newLongitude);
                         getResponse(newLatitude, newLongitude);
-
                     }
                 });
 
-                getResponse(getLatitude(), getLongitude());
-
-                addCircle(getLatitude(), getLongitude());
+                getResponse(latitude, longitude);
+                addCircle(latitude, longitude);
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
-
 
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
@@ -160,7 +151,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void addCircle(double latitude, double longitude) {
-        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25"));
+        double radius = Double.parseDouble(SharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15"));
         mMap.addCircle(new CircleOptions()
                 .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
@@ -220,16 +211,20 @@ public class MainActivity extends ActionBarActivity
         setUpMapIfNeeded();
 
         if (location != null) {
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(getLatitude(), getLongitude()))
-                    .zoom(11)
-                    .build();
-
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            zoomToMap(getLatitude(), getLongitude());
         }
 
         // Added by Ihsan on 5/7/15
         checkColorTheme();
+    }
+
+    private void zoomToMap(double latitude, double longitude) {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(latitude, longitude))
+                .zoom(14)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     /**
@@ -429,10 +424,10 @@ public class MainActivity extends ActionBarActivity
      * Adds a marker to the map with information about the prices
      *
      * @param streetName Name of the block
-     * @param rate       Price per hour
-     * @param rateQual   Per hour, street sweep or no charge
-     * @param endTime    End time of the current time bracket
-     * @param position   Position of marker
+     * @param rate Price per hour
+     * @param rateQual Per hour, street sweep or no charge
+     * @param endTime End time of the current time bracket
+     * @param position Position of marker
      */
     private void addMarkerWithInfo(String streetName, double rate, String rateQual,
                                    String endTime, LatLng position) {
@@ -480,8 +475,8 @@ public class MainActivity extends ActionBarActivity
     /**
      * Adds a simple line to a street block
      *
-     * @param startLatLng Starting point
-     * @param endLatLng
+     * @param startLatLng Starting point of block
+     * @param endLatLng Ending point of block
      */
     private void addSimpleLine(LatLng startLatLng, LatLng endLatLng) {
         mMap.addPolyline(new PolylineOptions()
@@ -494,8 +489,8 @@ public class MainActivity extends ActionBarActivity
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
-        String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
+        String newRadius = SharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15");
+        String newUOM = SharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
         map.put("long", Double.toString(newLongitude));
@@ -507,7 +502,7 @@ public class MainActivity extends ActionBarActivity
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
             // Call getParkingSpots() and test connection to Sfpark,
-            // on succcess retrieve
+            // on success retrieve
             Service.getService().getParkingSpots(map, new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
@@ -656,4 +651,5 @@ public class MainActivity extends ActionBarActivity
             RemindMe.setTextColor(getResources().getColor(R.color.default_grey));
         }
     }
+
 }
