@@ -105,7 +105,6 @@
                     android:textSize="18dp"
                     android:textIsSelectable="true" />
             </TableRow>
-
         </LinearLayout>
     </TableRow>
 
