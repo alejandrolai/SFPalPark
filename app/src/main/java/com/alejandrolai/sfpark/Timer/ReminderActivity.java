@@ -184,6 +184,9 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
+    /**
+     * Over ride the onPause method and gets called when the user exits the activity to go back to the main activity
+      */
     @Override
     protected void onPause(){
         super.onPause();
@@ -196,6 +199,9 @@ public class ReminderActivity extends ActionBarActivity{
 
     }
 
+    /**
+     * Over ride the onResume() method and gets called when the user resumes to the reminder page
+     */
     @Override
     protected void onResume() {
         super.onResume();
