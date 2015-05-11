@@ -83,9 +83,11 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
         db.insert(TABLE_COLOR_THEME, null, values);
         //db.close();
 
-        values.put(KEY_COUNTER, "empty");
+        ContentValues values1 = new ContentValues();
 
-        db.insert(TABLE_HISTORY_COUNTER, null, values);
+        values1.put(KEY_COUNTER, "empty");
+
+        db.insert(TABLE_HISTORY_COUNTER, null, values1);
     }
 
 
