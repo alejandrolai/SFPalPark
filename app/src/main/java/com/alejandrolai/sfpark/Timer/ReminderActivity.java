@@ -194,6 +194,7 @@ public class ReminderActivity extends ActionBarActivity{
         systemTimeWhenPause = System.currentTimeMillis();
         timeInTimerWhenPause = millisecs;
         textInNotes = notes.getText().toString();
+        timer.cancel();
         isPaused = true;
 
 
