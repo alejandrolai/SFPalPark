@@ -47,9 +47,9 @@ public class SettingsActivity extends ActionBarActivity {
 
         tabHost.setup();
 
-        TabHost.TabSpec tabSpec = tabHost.newTabSpec("Radius");
-        tabSpec.setContent(R.id.radius);
-        tabSpec.setIndicator("Radius");
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("Help");
+        tabSpec.setContent(R.id.help);
+        tabSpec.setIndicator("Help");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("Themes");
@@ -57,9 +57,9 @@ public class SettingsActivity extends ActionBarActivity {
         tabSpec.setIndicator("Themes");
         tabHost.addTab(tabSpec);
 
-        tabSpec = tabHost.newTabSpec("Help");
-        tabSpec.setContent(R.id.help);
-        tabSpec.setIndicator("Help");
+        tabSpec = tabHost.newTabSpec("Radius");
+        tabSpec.setContent(R.id.radius);
+        tabSpec.setIndicator("Radius");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("About");
