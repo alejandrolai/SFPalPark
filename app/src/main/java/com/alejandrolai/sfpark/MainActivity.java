@@ -252,10 +252,10 @@ public class MainActivity extends ActionBarActivity
                         .position(latLng)
                         .draggable(true))
                         .setTitle("You are here: " + latLng.toString());
-                double newLatitude = latLng.latitude;
-                double newLongitude = latLng.longitude;
-                addCircle(newLatitude, newLongitude);
-                getResponse(newLatitude, newLongitude);
+                currentLatitude = latLng.latitude;
+                currentLongitude = latLng.longitude;
+                addCircle(currentLatitude, currentLongitude);
+                getResponse(currentLatitude, currentLongitude);
             }
         });
     }
