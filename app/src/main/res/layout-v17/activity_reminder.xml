@@ -153,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_start"
                     android:id="@+id/startButton"
+                    android:onClick="startButtonListener"
                     android:layout_weight="1"
 
 
@@ -163,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_stop"
                     android:id="@+id/stopButton"
+                    android:onClick="stopButtonListener"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp" />
 
@@ -171,9 +173,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/reminder_reset"
                     android:id="@+id/resetTimer"
+                    android:onClick="resetButtonListener"
                     android:layout_weight="1"
-
-
                     android:layout_marginLeft="10dp" />
 
             </LinearLayout>
