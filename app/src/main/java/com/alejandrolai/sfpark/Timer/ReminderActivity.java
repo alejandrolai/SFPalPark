@@ -104,7 +104,6 @@ public class ReminderActivity extends ActionBarActivity{
     public void setTimerTime(View view){
 
         // Gets Hour and Minute from XML file
-
         timer.cancel();
         TextView hour = (EditText) findViewById(R.id.hour);
         TextView minute = (EditText) findViewById(R.id.minute);
@@ -137,10 +136,10 @@ public class ReminderActivity extends ActionBarActivity{
 
     /**
      * A method that is called when the user clicks the start/ restart button
-     * @param view
+     * @param v
      */
 
-     public void startButtonListener(View view){
+     public void startButtonListener(View v){
 
 
          if(startButton.getText().equals("Start")){
@@ -157,9 +156,9 @@ public class ReminderActivity extends ActionBarActivity{
 
     /**
      * A method that is invoked when the stop / resume button is clicked
-     * @param view
+     * @param v
      */
-     public void stopButtonListener(View view){
+     public void stopButtonListener(View v){
 
          if(stopButton.getText().equals("Stop")){
              stopButton.setText("Resume");
@@ -177,9 +176,9 @@ public class ReminderActivity extends ActionBarActivity{
 
     /**
      * A method invoked when the reset button is called
-     * @param view
+     * @param v
      */
-     public void resetButtonListener(View view){
+     public void resetButtonListener(View v){
          millisecs = 0;
          startButton.setText("Start");
          textViewTime.setText("00:00:00");
@@ -197,7 +196,7 @@ public class ReminderActivity extends ActionBarActivity{
         systemTimeWhenPause = System.currentTimeMillis();
         timeInTimerWhenPause = millisecs;
         textInNotes = notes.getText().toString();
-        timer.cancel();
+
         isPaused = true;
 
 
@@ -209,6 +208,7 @@ public class ReminderActivity extends ActionBarActivity{
     @Override
     protected void onResume() {
         super.onResume();
+
         if (isPaused) {
             isPaused = false;
             timer.cancel();
@@ -229,6 +229,7 @@ public class ReminderActivity extends ActionBarActivity{
              * @param millisInFuture    the exact time when the timer is done
              * @param countDownInterval is time inbetween count downs
              */
+
             public CounterClass(long millisInFuture, long countDownInterval) {
                 super(millisInFuture, countDownInterval);
             }
