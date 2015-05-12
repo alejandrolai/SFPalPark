@@ -329,14 +329,14 @@ public class ReminderActivity extends ActionBarActivity{
      * @param //menu
      * @return
      */
-    //@Override
-    /*public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_settings, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_reminder, menu);
         return true;
-    }*/
+    }
 
 
 
@@ -346,25 +346,18 @@ public class ReminderActivity extends ActionBarActivity{
      * @param //item
      * @return
      */
-    //@Override
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
             case R.id.action_back:
-                return true;
-            case R.id.action_history:
-                Intent intent = new Intent(this, ParkingLocationActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.action_settings:
-                intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 
 
 
@@ -390,44 +383,44 @@ public class ReminderActivity extends ActionBarActivity{
             resetTimer.setBackgroundColor(getResources().getColor(R.color.beach_orange));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
         } else if (MainActivity.theme.equalsIgnoreCase("garden")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            startButton.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.garden_plant));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
         } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.red_rose));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
         } else if (MainActivity.theme.equalsIgnoreCase("ice")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.ice_blue));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.ice_blue));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.ice_blue));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_ice));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
         } else if (MainActivity.theme.equalsIgnoreCase("desert")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_desert));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_desert));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_desert));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_desert));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
         } else if (MainActivity.theme.equalsIgnoreCase("royal")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.royal_purple));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_purple));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
         } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
             startButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
             stopButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
             setTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
             resetTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            startButton.setTextColor(getResources().getColor(R.color.snow_white));
-            stopButton.setTextColor(getResources().getColor(R.color.snow_white));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.default_grey));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
+            startButton.setTextColor(getResources().getColor(R.color.default_grey));
+            stopButton.setTextColor(getResources().getColor(R.color.default_grey));
+            setTimer.setTextColor(getResources().getColor(R.color.default_grey));
             resetTimer.setTextColor(getResources().getColor(R.color.default_grey));
         }
     }

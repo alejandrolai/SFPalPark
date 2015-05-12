@@ -58,11 +58,6 @@ public class SettingsActivity extends ActionBarActivity {
         tabSpec.setIndicator("Themes");
         tabHost.addTab(tabSpec);
 
-        tabSpec = tabHost.newTabSpec("Radius");
-        tabSpec.setContent(R.id.radius);
-        tabSpec.setIndicator("Radius");
-        tabHost.addTab(tabSpec);
-
         tabSpec = tabHost.newTabSpec("About");
         tabSpec.setContent(R.id.about);
         tabSpec.setIndicator("About");
@@ -78,14 +73,14 @@ public class SettingsActivity extends ActionBarActivity {
      * @param //menu
      * @return
      */
-    //@Override
-    /*public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_settings, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
-    }*/
+    }
 
 
 
@@ -95,21 +90,23 @@ public class SettingsActivity extends ActionBarActivity {
      * @param //item
      * @return
      */
-    //@Override
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
             case R.id.action_back:
+                finish();
                 return true;
             case R.id.action_history:
+                finish();
                 Intent intent = new Intent(this, ParkingLocationActivity.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 
 
 
@@ -202,7 +199,7 @@ public class SettingsActivity extends ActionBarActivity {
         }  else if (MainActivity.theme.equalsIgnoreCase("royal")) {
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
         } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
         }
     }
 

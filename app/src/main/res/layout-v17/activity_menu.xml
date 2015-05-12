@@ -542,7 +542,8 @@
 
                         <TableRow
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent">
+                            android:layout_height="fill_parent"
+                            android:layout_marginBottom="25dp">
 
                             <TextView
                                 android:layout_width="75dp"
@@ -567,24 +568,6 @@
 
                     </LinearLayout>
                 </ScrollView>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/radius"
-                    android:focusableInTouchMode="true">
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Choose a Radius"
-                        android:id="@+id/radius_title"
-                        android:textColor="#333333"
-                        android:gravity="center_horizontal"
-                        android:layout_marginTop="10dp" />
-                </LinearLayout>
 
             </FrameLayout>
 

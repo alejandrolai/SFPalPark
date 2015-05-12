@@ -35,8 +35,9 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
     // Data fields
 
+    //Button goButton;
+    //String goToLocation;
     String counter = "empty";
-    //int numOfSavedLocations;
     double latitude, longitude;
     TextView latitudeTxt, longitudeTxt, timeTxt;
     ParkingLocationDatabase dbParkingLocation;
@@ -79,7 +80,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
         }
 
         // Creates a toolbar
-        /*Toolbar*/ mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -127,7 +128,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
                     ParkingLocations.add(parkingLocation);
                     populateList();
                     Toast.makeText(getApplicationContext(), "Location saved to Parking History.", Toast.LENGTH_SHORT).show();
-                    //numOfSavedLocations++;
                     dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
                     dbParkingLocation.changeDatabaseCounter("notEmpty");
 
@@ -145,7 +145,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "Your Parking History has been deleted.", Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(getIntent());
-                        //numOfSavedLocations = 0;
                         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
                         dbParkingLocation.changeDatabaseCounter("empty");
                     } else {
@@ -189,6 +188,8 @@ public class ParkingLocationActivity extends ActionBarActivity {
         timeTxt.setText(getDateTime());
     }
 
+
+
     /**
      * Accumulates the locations in the list
      */
@@ -209,12 +210,12 @@ public class ParkingLocationActivity extends ActionBarActivity {
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup parent) {
+        public View getView(final int position, View view, ViewGroup parent) {
             if (view == null) {
                 view = getLayoutInflater().inflate(R.layout.listview_history, parent, false);
             }
 
-            ParkingLocation currentParkingLocation = ParkingLocations.get(position);
+            final ParkingLocation currentParkingLocation = ParkingLocations.get(position);
 
             TextView lat = (TextView) view.findViewById(R.id.history_latitude);
             lat.setText(currentParkingLocation.getLatitude());
@@ -225,35 +226,48 @@ public class ParkingLocationActivity extends ActionBarActivity {
             TextView time = (TextView) view.findViewById(R.id.history_time);
             time.setText(currentParkingLocation.getTime());
 
-            Button goButton = (Button) view.findViewById(R.id.Go);
-            String location = currentParkingLocation.getLatitude() + "," + currentParkingLocation.getLongitude() + "," + currentParkingLocation.getTime();
-            goButton.setContentDescription(location);
+            final String goToLocation = currentParkingLocation.getLatitude() + "," + currentParkingLocation.getLongitude() + "," + currentParkingLocation.getTime();
+
+            final Button goButton = (Button) view.findViewById(R.id.go);
+            goButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    goButton.setContentDescription(goToLocation);
+                    Toast.makeText(getApplicationContext(),goToLocation,Toast.LENGTH_SHORT).show();
+                    String location = (String) view.getContentDescription();
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    intent.putExtra("location", location);
+                    startActivity(intent);
+                }
+            });
             return view;
         }
 
     }
 
-    public void putOnMap(View view){
-        Toast.makeText(context,"putonmap",Toast.LENGTH_SHORT).show();
-        String location = (String) view.getContentDescription();
-        Intent intent = new Intent(context,MainActivity.class);
-        intent.putExtra("location", location);
-        startActivity(intent);
-    }
+
+
+    //public void putOnMap(View view){
+
+    //}
+
+
+
     /**
      * Displays the menu
      *
      * @param //menu
      * @return
      */
-    //@Override
-    /*public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_history, menu);
         return true;
-    }*/
+    }
 
 
 
@@ -263,20 +277,22 @@ public class ParkingLocationActivity extends ActionBarActivity {
      * @param //item
      * @return
      */
-    //@Override
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_back:
+                finish();
                 return true;
             case R.id.action_settings:
+                finish();
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 
 
     /**
@@ -302,29 +318,29 @@ public class ParkingLocationActivity extends ActionBarActivity {
             history_delete.setBackgroundColor(getResources().getColor(R.color.beach_orange));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
         } else if (MainActivity.theme.equalsIgnoreCase("garden")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            history_save.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.garden_plant));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
         } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.red_rose));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            history_save.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
         } else if (MainActivity.theme.equalsIgnoreCase("ice")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.ice_blue));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            history_save.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_ice));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
         } else if (MainActivity.theme.equalsIgnoreCase("desert")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            history_save.setBackgroundColor(getResources().getColor(R.color.bright_desert));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_desert));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
         }  else if (MainActivity.theme.equalsIgnoreCase("royal")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.royal_purple));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            history_save.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_purple));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
         } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
-            history_save.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            history_delete.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            history_save.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            history_delete.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
             history_save.setTextColor(getResources().getColor(R.color.default_grey));
             history_delete.setTextColor(getResources().getColor(R.color.default_grey));
         }

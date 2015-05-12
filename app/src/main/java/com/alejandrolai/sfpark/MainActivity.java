@@ -423,7 +423,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, ".25");
         String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
@@ -507,30 +507,12 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
     public static String getCurrentTheme() {
         return theme;
     }
 
-    /**
-     * Starts LocationDatabaseActivity and puts longitude and latitude.
-     */
-   /* private void startLocationDatabaseHistory() {
-        Toast.makeText(getApplicationContext(), "Inside startLocationDatabaseHistory.",
-                Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, LocationDatabaseActivity.class);
-        double latitude = currentLatitude;
-        double longitude = currentLongitude;
-        intent.putExtra("latitude", latitude);
-        intent.putExtra("longitude", longitude);
-        startActivity(intent);
-        //useCurrentLocation();
-    }*/
-    private void showParkedHistory() {
-        Intent intent = new Intent(this, ParkedHistory.class);
-
-
-        startActivity(intent);
-    }
 
 
     public static void setTheme(String theTheme) {
@@ -557,29 +539,29 @@ public class MainActivity extends ActionBarActivity
             RemindMe.setBackgroundColor(getResources().getColor(R.color.beach_orange));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.beach_blue));
         } else if (theme.equalsIgnoreCase("garden")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.garden_plant));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.garden_plant));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.garden_foilage));
         } else if (theme.equalsIgnoreCase("rose")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.red_rose));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.red_rose));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
         } else if (theme.equalsIgnoreCase("ice")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.ice_blue));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.ice_blue));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_ice));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_ice));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.ice_blue));
         } else if (theme.equalsIgnoreCase("desert")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_desert));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_desert));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.desert_yellow));
         } else if (theme.equalsIgnoreCase("royal")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.royal_purple));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.royal_purple));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_purple));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_purple));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
         } else if (theme.equalsIgnoreCase("snow")) {
-            parkMebutton.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            RemindMe.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            parkMebutton.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            RemindMe.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
             parkMebutton.setTextColor(getResources().getColor(R.color.default_grey));
             RemindMe.setTextColor(getResources().getColor(R.color.default_grey));
         }
