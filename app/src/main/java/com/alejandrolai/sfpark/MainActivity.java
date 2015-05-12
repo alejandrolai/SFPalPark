@@ -81,11 +81,12 @@ public class MainActivity extends ActionBarActivity
 
     public static final String RADIUS = "radiusKey";
     public static final String UNIT = "unitKey";
-
+    public static final String FIRST_BOOT = "firstBootKey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String firstboot = sharedPreferencesHelper.readFromPreferences(this, FIRST_BOOT, "true");
 
         /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
@@ -116,9 +117,6 @@ public class MainActivity extends ActionBarActivity
                     .title("You parked here " + location[2]));
         } else if (isOnline()) {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            criteria.setAltitudeRequired(true);
-            String bestProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
             if (location != null) {
@@ -128,9 +126,16 @@ public class MainActivity extends ActionBarActivity
                 zoomToMap(latitude, longitude);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
+                if (firstboot.equals("true")) {
+                    dialog.showNoLocationsFoundDialog(this);
+                    sharedPreferencesHelper.saveToPreferences(this,FIRST_BOOT,"false");
+                }
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
+            Criteria criteria = new Criteria();
+            criteria.setAltitudeRequired(true);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
             locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
         } else {
             dialog.showInternetAlert(this);
@@ -197,10 +202,6 @@ public class MainActivity extends ActionBarActivity
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-
-        if (location != null) {
-            zoomToMap(getLatitude(), getLongitude());
-        }
 
         // Added by Ihsan on 5/7/15
         checkColorTheme();
@@ -560,7 +561,6 @@ public class MainActivity extends ActionBarActivity
         } else if (!isOnline()) {
             dialog.showInternetAlert(this);
         }
-
     }
 
     public static String getCurrentTheme() {

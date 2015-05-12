@@ -29,7 +29,7 @@ public class AlertDialogs {
      * @param context Context of calling activity
      */
     public void showLocationSettingsAlert(final Context context) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         //Setting Dialog Title
         alertDialog.setTitle(context.getString(R.string.location_services_not_activated));
@@ -41,6 +41,7 @@ public class AlertDialogs {
         alertDialog.setPositiveButton(context.getString(R.string.settings), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 context.startActivity(intent);
             }
@@ -66,8 +67,36 @@ public class AlertDialogs {
         alertDialog.setPositiveButton(context.getString(R.string.settings), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 context.startActivity(intent);
+            }
+        });
+
+        //On pressing cancel button
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+    }
+
+
+    /**
+     * Shows a dialog telling the user to long tap on the map to find more locations
+     * @param context
+     */
+    public void showNoLocationsFoundDialog(final Context context) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        //Setting Dialog Title
+        alertDialog.setTitle("No locations around you?");
+
+        //Setting Dialog Message
+        alertDialog.setMessage("Try long tapping on the map on different locations");
+
+        //On Pressing Setting button
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
 
