@@ -67,21 +67,16 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_PARKING_HISTORY + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LATITUDE + " TEXT," + KEY_LONGITUDE + " TEXT," + KEY_TIME + " TEXT" + ")");
-    String expression = ("CREATE TABLE " + TABLE_COLOR_THEME + "(" + KEY_THEME + " TEXT" + ")");
-        db.execSQL(expression);
 
-    String counterExpression = ("CREATE TABLE " + TABLE_HISTORY_COUNTER + "(" + KEY_COUNTER + " TEXT" + ")");
-        db.execSQL(counterExpression);
+        db.execSQL("CREATE TABLE " + TABLE_COLOR_THEME + "(" + KEY_THEME + " TEXT" + ")");
 
-       // db.beginTransaction();
-//        SQLiteDatabase dba = getWritableDatabase();
+        db.execSQL("CREATE TABLE " + TABLE_HISTORY_COUNTER + "(" + KEY_COUNTER + " TEXT" + ")");
 
         ContentValues values = new ContentValues();
 
         values.put(KEY_THEME, "default");
 
         db.insert(TABLE_COLOR_THEME, null, values);
-        //db.close();
 
         ContentValues values1 = new ContentValues();
 
