@@ -53,7 +53,6 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                 parkingSpot.setStreetName(dataObject.get("NAME").getAsString());
                             }
 
-
                             if (dataObject.getAsJsonObject("RATES").getAsJsonArray("RS").isJsonArray()) {
                                 JsonArray prices = dataObject.getAsJsonObject("RATES").getAsJsonArray("RS");
                                 for (int j = 0; j < prices.size(); j++) {

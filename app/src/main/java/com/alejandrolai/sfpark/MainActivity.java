@@ -115,6 +115,7 @@ public class MainActivity extends ActionBarActivity
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1])))
                     .title("You parked here " + location[2]));
+            zoomToMap(Double.parseDouble(location[0]), Double.parseDouble(location[1]),16);
         } else if (isOnline()) {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -123,7 +124,7 @@ public class MainActivity extends ActionBarActivity
                 double latitude = getLatitude();
                 double longitude = getLongitude();
 
-                zoomToMap(latitude, longitude);
+                zoomToMap(latitude, longitude, 12);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
                 if (firstboot.equals("true")) {
@@ -207,10 +208,10 @@ public class MainActivity extends ActionBarActivity
         checkColorTheme();
     }
 
-    private void zoomToMap(double latitude, double longitude) {
+    private void zoomToMap(double latitude, double longitude, int zoomLevel) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude))
-                .zoom(14)
+                .zoom(zoomLevel)
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -423,7 +424,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, ".25");
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
         String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
