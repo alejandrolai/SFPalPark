@@ -62,8 +62,6 @@ public class MainActivity extends ActionBarActivity
 
     double currentLatitude = 0;
     double currentLongitude = 0;
-    int numOfParkingSpots = 0;
-
     AlertDialogs dialog = AlertDialogs.getInstance();
     ParkingSpotList mParkingSpotList;
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
@@ -82,6 +80,7 @@ public class MainActivity extends ActionBarActivity
     public static final String RADIUS = "radiusKey";
     public static final String UNIT = "unitKey";
     public static final String FIRST_BOOT = "firstBootKey";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +108,7 @@ public class MainActivity extends ActionBarActivity
         }
 
         setUpMapIfNeeded();
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String[] location = extras.getString("location").split(",");
@@ -128,7 +128,7 @@ public class MainActivity extends ActionBarActivity
                 getResponse(latitude, longitude);
                 if (firstboot.equals("true")) {
                     dialog.showNoLocationsFoundDialog(this);
-                    sharedPreferencesHelper.saveToPreferences(this,FIRST_BOOT,"false");
+                    sharedPreferencesHelper.saveToPreferences(this, FIRST_BOOT, "false");
                 }
             } else {
                 dialog.showLocationSettingsAlert(this);
@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void addCircle(double latitude, double longitude) {
-        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15"));
+        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25"));
         mMap.addCircle(new CircleOptions()
                 .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
@@ -338,62 +338,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-    /**
-     * Added by Dolly 4/27/15
-     *
-     * @param listOfSpots - list of Parking spots (in our case the whole sfpark list)
-     */
-    public void getNearestParkingSpots(ParkingSpotList listOfSpots) {
-
-        // the list that  will contain numberReturn nearest spots (in our case 5 spots)
-        ParkingSpotList nearestParkingSpots = new ParkingSpotList();
-        LatLng current_loc = new LatLng(this.getLatitude(), this.getLongitude());
-        //temporary list
-        ParkingSpot[] copy_parkings = new ParkingSpot[listOfSpots.getListSize()];
-
-        // check if there is enough spots in the list compared to the number of nearest spots to be returned
-        if (numOfParkingSpots <= listOfSpots.getListSize()) {
-
-            //copy into temporary list for sorting
-            for (int i = 0; i < listOfSpots.getListSize(); i++) {
-                copy_parkings[i] = listOfSpots.getSpot(i);
-            }
-
-            // bubble sorting the list in ascending order
-            boolean swapped = true;
-            int j = 0;
-            ParkingSpot tmp;
-
-            while (swapped) {
-                swapped = false;
-                j++;
-                for (int i = 0; i < copy_parkings.length - j; i++) {
-
-                    if (copy_parkings[i].computeDistanceFrom(current_loc) >
-                            copy_parkings[i + 1].computeDistanceFrom(current_loc)) {
-                        tmp = copy_parkings[i];
-                        copy_parkings[i] = copy_parkings[i + 1];
-                        copy_parkings[i + 1] = tmp;
-                        swapped = true;
-                    }
-                }
-            }
-
-
-            //copy the first numberReturn ( first 5) spots
-
-            for (int i = 0; i < numOfParkingSpots; i++) {
-                nearestParkingSpots.addParkingSpot(copy_parkings[i]);
-            }
-
-        } else {
-
-            //add error message that  the list doesn't contain enough spots to return
-        }
-        markNearSpots(nearestParkingSpots);
-    }
-
-
     public void markNearSpots(ParkingSpotList nearSpots) {
 
 
@@ -479,7 +423,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.15");
+        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
         String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
