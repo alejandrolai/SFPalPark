@@ -51,7 +51,7 @@ public class ReminderActivity extends ActionBarActivity{
     Vibrator v;
     PendingIntent pendingIntent;
     private CounterClass timer = new CounterClass(0,0);
-    long userInputTime, millisecs;
+    long userInputTime, millisecs, newTime;
     static long timeInTimerWhenPause, systemTimeWhenPause;
     static boolean isPaused = false;
     static String textInNotes;
@@ -208,12 +208,15 @@ public class ReminderActivity extends ActionBarActivity{
     @Override
     protected void onResume() {
         super.onResume();
-
+        timer.cancel();
         if (isPaused) {
             isPaused = false;
             timer.cancel();
-            timer = new CounterClass((timeInTimerWhenPause - (System.currentTimeMillis() - systemTimeWhenPause)), 1000);
-            timer.start();
+            newTime = timeInTimerWhenPause - (System.currentTimeMillis() - systemTimeWhenPause);
+            if(newTime > 0) {
+                timer = new CounterClass(newTime, 1000);
+                timer.start();
+            }
             notes.setText(textInNotes);
         }
 
