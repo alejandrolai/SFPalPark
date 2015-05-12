@@ -378,7 +378,7 @@
                             android:ems="10"
                             android:id="@+id/help_history_text"
                             android:layout_margin="10dp"
-                            android:text="The Parking History page contains two sections. The first is a display of information on your current location including the latitude, longitude, and time. There is also a button that allows you to save the current location. The second is a list of your saved parking locations. It contains a button that allows you to delete all of the saved locations."
+                            android:text="The Parking History page contains two sections. The first is a display of information on your current location including the latitude, longitude, and time. There is also a button that allows you to save the current location. Saving your current location can also be accessed by the Park Me button on the home page. The second is a list of your saved parking locations. It contains a button that allows you to delete all of the saved locations."
                             android:textColor="#333333"
                             android:textIsSelectable="false" />
 
@@ -403,6 +403,30 @@
                             android:id="@+id/history_settings_text"
                             android:layout_margin="10dp"
                             android:text="The settings contains a radius section that allows you to choose a radial distance in which you can find parking locations. The themes section allows you to choose a color theme for the app. The help page is where the user can learn how to use the app. Finally, the About page contains information on the app&apos;s developers."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Reminder"
+                            android:id="@+id/history_reminder_subtitle"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/history_reminder_text"
+                            android:layout_margin="10dp"
+                            android:text="The Reminder page is a feature that allows you to set a countdown timer. Simply select how long you will be parked by hours and/or minutes, set the time, and start the timer. You can also add a personal note to yourself when the timer ends."
                             android:textColor="#333333"
                             android:textIsSelectable="false" />
 

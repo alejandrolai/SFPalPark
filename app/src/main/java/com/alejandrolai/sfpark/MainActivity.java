@@ -370,14 +370,14 @@ public class MainActivity extends ActionBarActivity
 
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
+                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)
                     .snippet("$" + rate + " " + rateQual + " until " + endTime));
         } else {
             mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
+                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)
