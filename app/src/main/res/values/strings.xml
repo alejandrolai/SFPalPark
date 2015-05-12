@@ -105,6 +105,7 @@
     <string name="parked_history">Parked History</string>
     <string name="no_parking_spots_within_radius">There was an error connecting to SFPark</string>
 
+    <string name="go">Go</string>
 
     <!-- <string name="action_refresh">Refresh</string> -->
 
