@@ -50,7 +50,7 @@ public class ReminderActivity extends ActionBarActivity{
     EditText notes;
     Vibrator v;
     PendingIntent pendingIntent;
-    private CounterClass timer;
+    private CounterClass timer = new CounterClass(0,0);
     long userInputTime, millisecs;
     static long timeInTimerWhenPause, systemTimeWhenPause;
     static boolean isPaused = false;
@@ -104,6 +104,8 @@ public class ReminderActivity extends ActionBarActivity{
     public void setTimerTime(View view){
 
         // Gets Hour and Minute from XML file
+
+        timer.cancel();
         TextView hour = (EditText) findViewById(R.id.hour);
         TextView minute = (EditText) findViewById(R.id.minute);
 
@@ -128,61 +130,62 @@ public class ReminderActivity extends ActionBarActivity{
 
         // Puts the users total desired time into milliseconds
         userInputTime = hourToMillisecs + minuteToMillisecs;
+        timer = new CounterClass(userInputTime, 1000);
 
-
-
-
-        // Resets Timer
-        resetTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startButton.setText("Start");
-                textViewTime.setText("00:00:00");
-                timer.cancel();
-            }
-        });
-
-        // Starts timer countdown
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timer = new CounterClass(userInputTime, 1000);
-                if(startButton.getText().equals("Start")){
-                    // Creates timer with user time
-
-                    startButton.setText("Restart");
-                    stopButton.setText("Stop");
-                    timer.start();
-
-                }
-                else if(startButton.getText().equals("Restart")){
-                    stopButton.setText("Stop");
-                    timer.start();
-                }
-
-            }
-        });
-
-        //Stops resume timer when clicked
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               if(stopButton.getText().equals("Stop")){
-                   stopButton.setText("Resume");
-                   startButton.setText("Restart");
-                   timer.cancel();
-               }
-               else if(stopButton.getText().equals("Resume")){
-                   stopButton.setText("Stop");
-                   startButton.setText("Restart");
-                   timer.cancel();
-                   timer = new CounterClass(millisecs, 1000);
-                   timer.start();
-               }
-            }
-        });
 
     }
+
+    /**
+     * A method that is called when the user clicks the start/ restart button
+     * @param view
+     */
+
+     public void startButtonListener(View view){
+
+
+         if(startButton.getText().equals("Start")){
+             startButton.setText("Restart");
+             stopButton.setText("Stop");
+             timer.start();
+
+         }
+         else if(startButton.getText().equals("Restart")){
+             stopButton.setText("Stop");
+             timer.start();
+         }
+     }
+
+    /**
+     * A method that is invoked when the stop / resume button is clicked
+     * @param view
+     */
+     public void stopButtonListener(View view){
+
+         if(stopButton.getText().equals("Stop")){
+             stopButton.setText("Resume");
+             startButton.setText("Restart");
+             timer.cancel();
+         }
+         else if(stopButton.getText().equals("Resume")){
+             stopButton.setText("Stop");
+             startButton.setText("Restart");
+             timer.cancel();
+             timer = new CounterClass(millisecs, 1000);
+             timer.start();
+         }
+     }
+
+    /**
+     * A method invoked when the reset button is called
+     * @param view
+     */
+     public void resetButtonListener(View view){
+         millisecs = 0;
+         startButton.setText("Start");
+         textViewTime.setText("00:00:00");
+         timer.cancel();
+     }
+
 
     /**
      * Over ride the onPause method and gets called when the user exits the activity to go back to the main activity
@@ -208,6 +211,7 @@ public class ReminderActivity extends ActionBarActivity{
         super.onResume();
         if (isPaused) {
             isPaused = false;
+            timer.cancel();
             timer = new CounterClass((timeInTimerWhenPause - (System.currentTimeMillis() - systemTimeWhenPause)), 1000);
             timer.start();
             notes.setText(textInNotes);
@@ -260,7 +264,7 @@ public class ReminderActivity extends ActionBarActivity{
                 String userNotes = notes.getText().toString();
 
                 //sIntent to open App
-                Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), MainActivity.class);
+                Intent notificationIntent = new Intent(ReminderActivity.this.getApplicationContext(), ReminderActivity.class);
                 PendingIntent openAppIntent = PendingIntent.getActivity(ReminderActivity.this,
                         0, notificationIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
