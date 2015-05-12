@@ -28,7 +28,7 @@
         <!-- add your own key inside value -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDxxKNrFgGn6wVuOj2vjjKF459uN8DpeGM" />
+            android:value="AIzaSyC4-kdF9nPsl_YRqqSsPIUU01bN3M-2ZZI" />
 
         <activity
             android:name="com.alejandrolai.sfpark.MainActivity"

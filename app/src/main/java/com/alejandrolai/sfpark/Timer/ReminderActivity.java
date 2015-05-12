@@ -108,10 +108,6 @@ public class ReminderActivity extends ActionBarActivity{
         TextView hour = (EditText) findViewById(R.id.hour);
         TextView minute = (EditText) findViewById(R.id.minute);
 
-        // MAKES SURE TIMER IS STILL THERE WHEN RETURNING TO MAP
-        // NEEDS TO PUT A CONTINUE BUTTON WHEN TIME IS STOPPED.
-        // NEEDS TO PUT A WAY THAT IF THERE IS A TIMER ON, and when a new set timer is clicked, previous timer stops.
-
         // ChangeS Hour and Minute from TextView Object to Int
         int hourInt = Integer.parseInt(hour.getText().toString());
         int minuteInt = Integer.parseInt(minute.getText().toString());
@@ -212,6 +208,7 @@ public class ReminderActivity extends ActionBarActivity{
         if (isPaused) {
             isPaused = false;
             timer.cancel();
+
             newTime = timeInTimerWhenPause - (System.currentTimeMillis() - systemTimeWhenPause);
             if(newTime > 0) {
                 timer = new CounterClass(newTime, 1000);
@@ -292,35 +289,8 @@ public class ReminderActivity extends ActionBarActivity{
 
                 notifyManager.notify(8, notify);
 
-
-                // Gets Notes from user
-            /*TextView notes = (EditText) findViewById(R.id.Notes);
-            String userNotes = notes.getText().toString();
-
-            // Creates Alert Dialog
-            AlertDialog reminderDialog = new AlertDialog.Builder(ReminderActivity.this).create();
-
-            // Sets Title
-            reminderDialog.setTitle("Reminder");
-
-            // Dialog to User Notes
-            reminderDialog.setMessage(userNotes);
-
-
-            reminderDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                        // here you can add functions
-                }
-            });
-
-           if(!isFinishing()){
-
-               reminderDialog.show();
-           }*/
             }
         }
-
-
 
 
     /**
@@ -337,8 +307,6 @@ public class ReminderActivity extends ActionBarActivity{
         inflater.inflate(R.menu.menu_reminder, menu);
         return true;
     }
-
-
 
     /**
      * Responds to the actions in the menu
