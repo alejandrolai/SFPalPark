@@ -50,7 +50,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity
-        implements LocationListener{
+        implements LocationListener {
 
     public static String theme = "default";
 
@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity
     Toolbar mToolbar;
     // End of Addition
 
-    LinkedHashMap<String,String> map = new LinkedHashMap();
+    LinkedHashMap<String, String> map = new LinkedHashMap();
 
     ArrayList<ParkingSpot> list = new ArrayList();
 
@@ -108,8 +108,13 @@ public class MainActivity extends ActionBarActivity
         }
 
         setUpMapIfNeeded();
-
-        if (isOnline()) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String[] location = extras.getString("location").split(",");
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(location[0]), Double.parseDouble(location[1])))
+                    .title("You parked here " + location[2]));
+        } else if (isOnline()) {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
@@ -332,7 +337,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Added by Dolly 4/27/15
      *
@@ -413,7 +417,7 @@ public class MainActivity extends ActionBarActivity
 
             }
         } else {
-            Toast.makeText(this, "No parking spots within your selected radius. Long tap in a different location or change the radius", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No parking spots within your selected radius. Long tap in a different location", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -421,24 +425,24 @@ public class MainActivity extends ActionBarActivity
      * Adds a marker to the map with information about the prices
      *
      * @param streetName Name of the block
-     * @param rate Price per hour
-     * @param rateQual Per hour, street sweep or no charge
-     * @param endTime End time of the current time bracket
-     * @param position Position of marker
+     * @param rate       Price per hour
+     * @param rateQual   Per hour, street sweep or no charge
+     * @param endTime    End time of the current time bracket
+     * @param position   Position of marker
      */
     private void addMarkerWithInfo(String streetName, double rate, String rateQual,
                                    String endTime, LatLng position) {
 
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)
                     .snippet("$" + rate + " " + rateQual + " until " + endTime));
         } else {
             mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)

@@ -2,6 +2,8 @@ package com.alejandrolai.sfpark;
 
 import com.alejandrolai.sfpark.data.ParkingLocation;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -43,6 +45,8 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
     Button history_save, history_delete;
     Toolbar mToolbar;
+
+    Context context;
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -185,8 +189,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
         timeTxt.setText(getDateTime());
     }
 
-
-
     /**
      * Accumulates the locations in the list
      */
@@ -223,13 +225,21 @@ public class ParkingLocationActivity extends ActionBarActivity {
             TextView time = (TextView) view.findViewById(R.id.history_time);
             time.setText(currentParkingLocation.getTime());
 
+            Button goButton = (Button) view.findViewById(R.id.Go);
+            String location = currentParkingLocation.getLatitude() + "," + currentParkingLocation.getLongitude() + "," + currentParkingLocation.getTime();
+            goButton.setContentDescription(location);
             return view;
         }
 
     }
 
-
-
+    public void putOnMap(View view){
+        Toast.makeText(context,"putonmap",Toast.LENGTH_SHORT).show();
+        String location = (String) view.getContentDescription();
+        Intent intent = new Intent(context,MainActivity.class);
+        intent.putExtra("location", location);
+        startActivity(intent);
+    }
     /**
      * Displays the menu
      *
