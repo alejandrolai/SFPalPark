@@ -106,6 +106,9 @@
     <string name="no_parking_spots_within_radius">There was an error connecting to SFPark</string>
 
     <string name="go">Go</string>
+    <string name="title_activity_map_preferences">MapPreferences</string>
+
+    <string name="hello_world">Hello world!</string>
 
     <!-- <string name="action_refresh">Refresh</string> -->
 

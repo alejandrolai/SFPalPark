@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String firstboot = sharedPreferencesHelper.readFromPreferences(this, FIRST_BOOT, "true");
+        boolean firstboot = sharedPreferencesHelper.readBooleanFromPreferences(this, FIRST_BOOT, true);
 
         /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
@@ -127,9 +127,9 @@ public class MainActivity extends ActionBarActivity
                 zoomToMap(latitude, longitude, 12);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
-                if (firstboot.equals("true")) {
+                if (firstboot) {
                     dialog.showNoLocationsFoundDialog(this);
-                    sharedPreferencesHelper.saveToPreferences(this, FIRST_BOOT, "false");
+                    sharedPreferencesHelper.saveBooleanToPreferences(this, FIRST_BOOT, false);
                 }
             } else {
                 dialog.showLocationSettingsAlert(this);
@@ -145,7 +145,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void addCircle(double latitude, double longitude) {
-        double radius = Double.parseDouble(sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25"));
+        double radius = Double.parseDouble(sharedPreferencesHelper.readStringsFromPreferences(this, RADIUS, "0.25"));
         mMap.addCircle(new CircleOptions()
                 .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
@@ -176,17 +176,15 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
+        dialog.showLocationSettingsAlert(this);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
     }
 
     private boolean isGooglePlayServicesAvailable() {
@@ -294,14 +292,9 @@ public class MainActivity extends ActionBarActivity
         Intent intent;
 
         switch (item.getItemId()) {
-            case R.id.action_back:
-                return true;
             case R.id.action_settings:
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.action_refresh:
-                getResponse(getLongitude(), getLongitude());
                 return true;
             case R.id.action_history:
                 intent = new Intent(this, ParkingLocationActivity.class);
@@ -310,10 +303,6 @@ public class MainActivity extends ActionBarActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void goToStoreLocation(View view) {
-        //StoreLocation SL = new StoreLocation(context);
     }
 
     /**
@@ -404,14 +393,13 @@ public class MainActivity extends ActionBarActivity
      * @param rate        Rate of the block
      */
     private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
-        int color = getResources().getColor(R.color.black);
-
+        int color;
         if (rate <= 1) {
             color = getResources().getColor(R.color.green_500);
         } else if (rate > 1 && rate <= 2) {
             color = getResources().getColor(R.color.yellow_500);
-        } else if (rate > 2) {
-            color = getResources().getColor(R.color.red_500);
+        } else {
+            color = getResources().getColor(R.color.black);
         }
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .color(color)
@@ -424,8 +412,8 @@ public class MainActivity extends ActionBarActivity
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readFromPreferences(this, RADIUS, "0.25");
-        String newUOM = sharedPreferencesHelper.readFromPreferences(this, UNIT, "mile");
+        String newRadius = sharedPreferencesHelper.readStringsFromPreferences(this, RADIUS, "0.25");
+        String newUOM = sharedPreferencesHelper.readStringsFromPreferences(this, UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
         map.put("long", Double.toString(newLongitude));
@@ -494,27 +482,9 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            dialog.showLocationSettingsAlert(this);
-        } else if (!isOnline()) {
-            dialog.showInternetAlert(this);
-        }
-    }
-
-
-
     public static String getCurrentTheme() {
         return theme;
     }
-
-
 
     public static void setTheme(String theTheme) {
         theme = theTheme;

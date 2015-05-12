@@ -21,14 +21,7 @@ public class ParkingSpotList {
         return list;
     }
 
-    public int getListSize(){
-        return list.size();
-    }
-
     public void addParkingSpot(ParkingSpot newParkingSpot) {
         list.add(newParkingSpot);
     }
-
-    public ParkingSpot getSpot(int i){ return list.get(i);}
-
 }
