@@ -184,7 +184,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     * ?
+     * Gets the number of saved locations
      *
      * @return
      */
@@ -200,7 +200,7 @@ public class ParkingLocationDatabase extends SQLiteOpenHelper {
 
 
     /**
-     * ?
+     * Adds saved locations to a list
      *
      * @return
      */
