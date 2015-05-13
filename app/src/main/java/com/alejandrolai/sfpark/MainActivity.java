@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        boolean firstboot = sharedPreferencesHelper.readBooleanFromPreferences(this, FIRST_BOOT, true);
+        String firstboot = sharedPreferencesHelper.readStringsFromPreferences(this, FIRST_BOOT, "true");
 
         /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
@@ -127,9 +127,9 @@ public class MainActivity extends ActionBarActivity
                 zoomToMap(latitude, longitude, 12);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
-                if (firstboot) {
+                if (firstboot.equals("true")) {
                     dialog.showNoLocationsFoundDialog(this);
-                    sharedPreferencesHelper.saveBooleanToPreferences(this, FIRST_BOOT, false);
+                    sharedPreferencesHelper.saveStringToPreferences(this, FIRST_BOOT, "false");
                 }
             } else {
                 dialog.showLocationSettingsAlert(this);
@@ -330,7 +330,6 @@ public class MainActivity extends ActionBarActivity
 
     public void markNearSpots(ParkingSpotList nearSpots) {
 
-
         list = nearSpots.getList();
 
         if (list.size() > 0) {
@@ -370,14 +369,14 @@ public class MainActivity extends ActionBarActivity
 
         if (rateQual.equals("Per hour")) {
             mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)
                     .snippet("$" + rate + " " + rateQual + " until " + endTime));
         } else {
             mMap.addMarker(new MarkerOptions()
-                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin))
                     .position(position)
                     .draggable(true)
                     .title(streetName)

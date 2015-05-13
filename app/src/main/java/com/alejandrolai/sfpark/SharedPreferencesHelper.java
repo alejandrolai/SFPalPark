@@ -24,7 +24,7 @@ public class SharedPreferencesHelper {
      * @param preferenceName Key of the value to be saved
      * @param preferenceValue Value to be saved
      */
-    public void saveStringsToPreferences(Context context, String preferenceName, String preferenceValue) {
+    public void saveStringToPreferences(Context context, String preferenceName, String preferenceValue) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
