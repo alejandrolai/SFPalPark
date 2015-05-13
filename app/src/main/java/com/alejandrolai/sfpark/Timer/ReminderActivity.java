@@ -359,6 +359,7 @@ public class ReminderActivity extends ActionBarActivity{
         } else if (MainActivity.theme.equalsIgnoreCase("rose")) {
             startButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             stopButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             stopButton.setBackgroundColor(getResources().getColor(R.color.bright_rose));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.red_rose));
