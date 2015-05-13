@@ -1,0 +1,671 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SettingsActivity"
+    android:orientation="vertical"
+    android:id="@+id/menu"
+    android:focusableInTouchMode="false"
+    android:background="#EEEEEE"
+    android:padding="0dp">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TabHost
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/tabHost">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#999999"
+                android:clickable="true"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/scrollViewRadius" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/radius"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/radius_title"
+                            android:id="@+id/radius_title"
+                            android:textColor="#333333"
+                            android:gravity="center"
+                            android:layout_marginTop="10dp" />
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollViewThemes">
+
+                    <LinearLayout
+                        android:id="@+id/themes"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false"
+                        android:layout_gravity="center"
+                        android:focusable="false"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#EEEEEE">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/themes_title"
+                            android:id="@+id/themes_title"
+                            android:layout_marginTop="0dp"
+                            android:textColor="#333333"
+                            android:gravity="center" />
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="45dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/first_theme"
+                                android:id="@+id/first_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_beach"
+                                android:id="@+id/button3"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#DD6600"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:onClick="changeToBeach"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/second_theme"
+                                android:id="@+id/second_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_garden"
+                                android:id="@+id/button_garden"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#006633"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToGarden" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/third_theme"
+                                android:id="@+id/third_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_rose"
+                                android:id="@+id/button_rose"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#990000"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToRose" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/fourth_theme"
+                                android:id="@+id/fourth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_ice"
+                                android:id="@+id/button_ice"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#0066CC"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToIce" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/fifth_theme"
+                                android:id="@+id/fifth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_desert"
+                                android:id="@+id/button"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#CC9900"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#EEEEEE"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToDesert" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/sixth_theme"
+                                android:id="@+id/sixth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_royal"
+                                android:id="@+id/button_royal"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#660066"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#FFFFFF"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToRoyal" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/seventh_theme"
+                                android:id="@+id/seventh_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_snow"
+                                android:id="@+id/button_snow"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#FFFFFF"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:textColor="#333333"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false"
+                                android:onClick="changeToSnow" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="110dp">
+
+                            <TextView
+                                android:layout_width="25dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/eighth_theme"
+                                android:id="@+id/eigth_theme"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#333333"
+                                android:singleLine="false" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:text="@string/button_default"
+                                android:id="@+id/button_default"
+                                android:layout_gravity="center_horizontal|left"
+                                android:background="#333333"
+                                android:alpha="50"
+                                android:clickable="true"
+                                android:onClick="changeToDefault"
+                                android:textColor="#FFFFFF"
+                                android:padding="0dp"
+                                android:nestedScrollingEnabled="false" />
+                        </TableRow>
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollViewHelp"
+                    android:layout_marginBottom="25dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/help"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Help"
+                            android:id="@+id/help_title"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Main Page"
+                            android:id="@+id/help_main_subtitle"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_main_text"
+                            android:text="The main page consists of a map, two buttons, and a toolbar. A pin can be dropped any where on the map, and display parking spots around it. The number of spots that appear around it is based on the size of the radius containing the pin. When any marker is selected, information on the street name, cost, and location will be displayed. You will also be able to connect to Google Maps for directions to your destination. "
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_maintext_2"
+                            android:text="If you wish to save a parking location for future reference, simply hit the “Park Me!” button to view the details of the location and save it. If you wish to set a reminder to make it back to your vehicle in time, simply hit the “Reminder!” button, and set the amount of time you have."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:focusable="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_maintext_3"
+                            android:text="You can access a menu in the top left corner that contains a link to the parking history and settings. NOTE: Accessing the parking history from the menu will not set up a location description."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Parking History"
+                            android:id="@+id/help_history_subtitle"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_history_text"
+                            android:text="The Parking History page contains two sections. The first is a display of information on your current location including the latitude, longitude, and time. There is also a button that allows you to save the current location. The second is a list of your saved parking locations. It contains a button that allows you to delete all of the saved locations."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Reminder"
+                            android:id="@+id/help_reminder_subtitle"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_reminder_text"
+                            android:text="The Reminder page is a feature that allows you to set a countdown timer. Simply select how long you will be parked by hours and/or minutes, set the time, and start the timer. You can also add a personal note to yourself when the timer ends."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Settings"
+                            android:id="@+id/help_settings_subtitle"
+                            android:textColor="#333333"
+                            android:textStyle="bold"
+                            android:gravity="left"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:inputType="textMultiLine"
+                            android:ems="10"
+                            android:id="@+id/help_settings_text"
+                            android:text="The settings contains three sections. The first is the color themes section allows you to choose a color theme for the app. The second is the help page is where the user can learn how to use the app. Finally, the About page contains information on the app&apos;s developers."
+                            android:textColor="#333333"
+                            android:textIsSelectable="false"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollViewAbout"
+                    android:layout_marginBottom="25dp">
+
+                    <LinearLayout
+                        android:id="@+id/about"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:clickable="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="@string/about_title"
+                            android:id="@+id/about_title"
+                            android:singleLine="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:textColor="#333333"
+                            android:gravity="center"
+                            android:layout_marginRight="0dp"
+                            android:layout_marginLeft="0dp" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_creators"
+                            android:id="@+id/about_creator"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"
+                            android:textColor="#333333" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_company"
+                            android:id="@+id/about_company"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_class"
+                            android:id="@+id/about_class"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_group"
+                            android:id="@+id/about_group"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_date"
+                            android:id="@+id/about_date"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_members"
+                            android:id="@+id/about_members"
+                            android:textColor="#333333"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_membernames"
+                            android:id="@+id/about_membernames"
+                            android:layout_marginTop="5dp"
+                            android:textColor="#666666" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/about_contact"
+                            android:id="@+id/about_contact"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="bold"
+                            android:textColor="#333333" />
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_email"
+                                android:id="@+id/about_email"
+                                android:layout_marginTop="0dp"
+                                android:textColor="#666666" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_leaderemail"
+                                android:id="@+id/about_leaderemail"
+                                android:layout_marginTop="0dp"
+                                android:textIsSelectable="true"
+                                android:linksClickable="true"
+                                android:autoLink="email" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginBottom="25dp">
+
+                            <TextView
+                                android:layout_width="75dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_phone"
+                                android:id="@+id/about_phone"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#666666" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/about_phonenumber"
+                                android:id="@+id/about_phonenumber"
+                                android:layout_marginTop="5dp"
+                                android:textIsSelectable="true"
+                                android:longClickable="true"
+                                android:autoLink="phone" />
+                        </TableRow>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>
+<!-- -->

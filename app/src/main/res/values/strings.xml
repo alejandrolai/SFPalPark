@@ -56,7 +56,8 @@
     <string name="button_default">Default</string>
 
     <!--Settings - Radius Tab-->
-    <string name="radius_title">Choose a Radius</string>
+    <string name="radius_title">Edit Radius</string>
+    <string name="radius_subtitle">Choose a Radius</string>
 
     <!--Settings - About Tab-->
     <string name="about_title">About SF Park Pal</string>
