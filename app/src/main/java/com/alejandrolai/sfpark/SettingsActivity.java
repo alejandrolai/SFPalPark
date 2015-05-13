@@ -209,4 +209,3 @@ public class SettingsActivity extends ActionBarActivity {
     }
 
 }
-//

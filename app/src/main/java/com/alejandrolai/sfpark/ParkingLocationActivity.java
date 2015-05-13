@@ -35,8 +35,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
     // Data fields
 
-    //Button goButton;
-    //String goToLocation;
     String counter = "empty";
     double latitude, longitude;
     TextView latitudeTxt, longitudeTxt, timeTxt;
@@ -46,8 +44,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
     Button history_save, history_delete;
     Toolbar mToolbar;
-
-    Context context;
 
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -90,7 +86,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
         history_delete  = (Button) findViewById(R.id.history_delete);
 
         checkColorTheme();
-        //checkCounter();
 
         // Passes the latitude and longitude values from the Main Activity
         Intent intent = getIntent();
@@ -248,12 +243,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
 
 
 
-    //public void putOnMap(View view){
-
-    //}
-
-
-
     /**
      * Displays the menu
      *
@@ -295,6 +284,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
     }
 
 
+
     /**
      * Checks the current counter value
      */
@@ -302,6 +292,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
         dbParkingLocation = new ParkingLocationDatabase(getApplicationContext());
         counter = dbParkingLocation.checkDatabaseCounter();
     }
+
 
 
     /**

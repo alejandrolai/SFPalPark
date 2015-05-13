@@ -24,6 +24,7 @@ public class AlertDialogs {
         return instance;
     }
 
+
     /**
      * Shows an alert dialog asking the user to turn location services
      * @param context Context of calling activity
@@ -49,6 +50,7 @@ public class AlertDialogs {
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
+
 
     /**
      * Shows an alert dialog asking the user to turn on wifi or data services
