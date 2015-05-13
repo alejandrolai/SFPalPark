@@ -52,45 +52,61 @@ import retrofit.client.Response;
 public class MainActivity extends ActionBarActivity
         implements LocationListener {
 
-    public static String theme = "default";
+    // Data fields
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
-    private static final String TAG = MainActivity.class.getSimpleName();
-
+    Toolbar mToolbar;
+    Button parkMebutton, RemindMe;
+    ParkingLocationDatabase dbParkingLocation;
     Location location;
 
     double currentLatitude = 0;
     double currentLongitude = 0;
-    AlertDialogs dialog = AlertDialogs.getInstance();
-    ParkingSpotList mParkingSpotList;
-    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
 
-    ParkingLocationDatabase dbParkingLocation;
+    public static String theme = "default";
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    // Added By Ihsan Taha on 5/7/15
-    Button parkMebutton, RemindMe;
-    Toolbar mToolbar;
-    // End of Addition
-
-    LinkedHashMap<String, String> map = new LinkedHashMap();
-
-    ArrayList<ParkingSpot> list = new ArrayList();
-
-    public static final String RADIUS = "radiusKey";
     public static final String UNIT = "unitKey";
+    public static final String RADIUS = "radiusKey";
     public static final String FIRST_BOOT = "firstBootKey";
 
+    ParkingSpotList mParkingSpotList;
+    AlertDialogs dialog = AlertDialogs.getInstance();
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
+    LinkedHashMap<String, String> map = new LinkedHashMap();
+    ArrayList<ParkingSpot> list = new ArrayList();
+
+
+
+    // Data methods
+
+    /**
+     * Adds functional visual elements to the main Activity upon its creation
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Displays the main Activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String firstboot = sharedPreferencesHelper.readStringsFromPreferences(this, FIRST_BOOT, "true");
 
-        /*final Button parkMebutton = (Button) findViewById(R.id.parkMebutton);*/ // Edited By Ihsan Taha on 5/7/15
+        // Displays the Terms of Service (if this is the first time the app has been opened since its installation)
+        new TermsOfService(this).show();
+
+        // Displays the tool bar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Displays the "Park Me!" and "Reminder!" buttons
         parkMebutton = (Button) findViewById(R.id.parkMebutton);
         RemindMe = (Button) findViewById(R.id.RemindMe);
 
+        // Calls the goToParkHistory function when the "Park Me!" button isclicked
         parkMebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,17 +114,21 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        new TermsOfService(this).show();
+        // Calls the goToReminder function when the "Reminder" button is clicked
+        RemindMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToReminder();
+            }
+        });
 
-        /*Toolbar*/
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        // ?
+        String firstboot = sharedPreferencesHelper.readStringsFromPreferences(this, FIRST_BOOT, "true");
 
+        // Calls the setUpMapIfNeeded function
         setUpMapIfNeeded();
 
+        // Gets the required materials to give functionality to the map (latitude, longitude, zoom level, radius, and location updates)
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String[] location = extras.getString("location").split(",");
@@ -127,6 +147,7 @@ public class MainActivity extends ActionBarActivity
                 zoomToMap(latitude, longitude, 12);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
+
                 if (firstboot.equals("true")) {
                     dialog.showNoLocationsFoundDialog(this);
                     sharedPreferencesHelper.saveStringToPreferences(this, FIRST_BOOT, "false");
@@ -134,6 +155,7 @@ public class MainActivity extends ActionBarActivity
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
+
             Criteria criteria = new Criteria();
             criteria.setAltitudeRequired(true);
             String bestProvider = locationManager.getBestProvider(criteria, true);
@@ -144,6 +166,14 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+
+
+    /**
+     * Displays the radius surrounding the marker's current location
+     *
+     * @param latitude
+     * @param longitude
+     */
     private void addCircle(double latitude, double longitude) {
         double radius = Double.parseDouble(sharedPreferencesHelper.readStringsFromPreferences(this, RADIUS, "0.25"));
         mMap.addCircle(new CircleOptions()
@@ -153,6 +183,13 @@ public class MainActivity extends ActionBarActivity
                 .fillColor(Color.argb(50, 100, 100, 100)));
     }
 
+
+
+    /**
+     * Updates the location
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
         currentLatitude = location.getLatitude();
@@ -160,6 +197,12 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+
+    /**
+     *  Gets the current location's latitude
+     *
+     * @return
+     */
     public double getLatitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -167,6 +210,12 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+
+    /**
+     * Gets the current location's longitude
+     *
+     * @return
+     */
     public double getLongitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
@@ -174,6 +223,12 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+
+    /**
+     * Handles service provider issues
+     *
+     * @param provider
+     */
     @Override
     public void onProviderDisabled(String provider) {
         dialog.showLocationSettingsAlert(this);
@@ -197,15 +252,27 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
+    /**
+     * Sets up the map if required, and updates the color theme based on the theme's current value
+     */
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-
-        // Added by Ihsan on 5/7/15
         checkColorTheme();
     }
 
+
+
+    /**
+     * Zooms the map on to the current location's latitude, longitude, and zoom level
+     *
+     * @param latitude
+     * @param longitude
+     * @param zoomLevel
+     */
     private void zoomToMap(double latitude, double longitude, int zoomLevel) {
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude))
@@ -214,6 +281,8 @@ public class MainActivity extends ActionBarActivity
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
+
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -229,20 +298,22 @@ public class MainActivity extends ActionBarActivity
      * method in {@link #onResume()} to guarantee that it will be called.
      */
     private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
+        // Does a null check to confirm that the user has not already instantiated the map.
         if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
+            // Tries to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            // Check if we were successful in obtaining the map.
+            // Checks if the user was successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
             }
         }
     }
 
+
+
     /**
-     * This is where we can add markers or lines, add listeners or move the camera.
+     * Allows the user to add markers or lines, add listeners or move the camera.
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
@@ -265,8 +336,10 @@ public class MainActivity extends ActionBarActivity
         });
     }
 
+
+
     /**
-     * Check if there is internet connection
+     * Checks if there is internet connection
      *
      * @return true if there is a connection to the internet, false otherwise
      */
@@ -277,15 +350,29 @@ public class MainActivity extends ActionBarActivity
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+
+
+    /**
+     * Inflates the menu in the main Activity
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_about, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
+
+
+    /**
+     * Handles user interaction with the actions in the menu
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -305,20 +392,22 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
-    /**
-     * This method is used for the Park Me button, when called, opens up the
-     * reminder Activity
-     *
-     * @param view button view
-     */
-    public void goToReminder(View view) {
 
+
+    /**
+     * Sends the user to the Reminder Activity
+     */
+    public void goToReminder() {
         Intent intent = new Intent(this, ReminderActivity.class);
         startActivity(intent);
     }
 
-    public void goToParkHistory() {
 
+
+    /**
+     * Sends the user to the Parking History Activity, and passes the current location's latitude and longitude values
+     */
+    public void goToParkHistory() {
         Intent intent = new Intent(this, ParkingLocationActivity.class);
         double latitude = currentLatitude;
         double longitude = currentLongitude;
@@ -328,6 +417,12 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+
+    /**
+     * Adds information to the list of nearest parking spots
+     *
+     * @param nearSpots
+     */
     public void markNearSpots(ParkingSpotList nearSpots) {
 
         list = nearSpots.getList();
@@ -348,15 +443,16 @@ public class MainActivity extends ActionBarActivity
                     addColoredLine(startLatLng, endLatLng, rate);
                     addMarkerWithInfo(streetName, rate, rateQual, endTime, startLatLng);
                 }
-
             }
         } else {
             Toast.makeText(this, "No parking spots within your selected radius. Long tap in a different location", Toast.LENGTH_SHORT).show();
         }
     }
 
+
+
     /**
-     * Adds a marker to the map with information about the prices
+     * Adds a marker to the map with information about the street name, price, parking type, parking time availability, and location
      *
      * @param streetName Name of the block
      * @param rate       Price per hour
@@ -384,6 +480,8 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
     /**
      * Adds colored polyline to the map according to its rate
      *
@@ -406,6 +504,8 @@ public class MainActivity extends ActionBarActivity
                 .add(endLatLng));
     }
 
+
+
     /**
      * Uses a callback to check the response from SF Park
      */
@@ -423,8 +523,7 @@ public class MainActivity extends ActionBarActivity
 
         if (isOnline()) {
             Toast.makeText(this, getString(R.string.retrieving_data), Toast.LENGTH_SHORT).show();
-            // Call getParkingSpots() and test connection to Sfpark,
-            // on success retrieve
+            // Calls getParkingSpots() and tests connection to Sfpark on success retrieve
             Service.getService().getParkingSpots(map, new Callback<ParkingSpotList>() {
                 @Override
                 public void success(ParkingSpotList parkingSpotList, Response response) {
@@ -449,6 +548,8 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(this, getString(R.string.no_parking_spots_within_radius), Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     /**
      * Contains an asynctask to get all the data from SFPark
@@ -481,13 +582,28 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
+
+    /**
+     * Gets the current color theme value
+     *
+     * @return
+     */
     public static String getCurrentTheme() {
         return theme;
     }
 
+
+
+    /**
+     * Sets the current color theme value
+     *
+     * @param theTheme
+     */
     public static void setTheme(String theTheme) {
         theme = theTheme;
     }
+
 
 
     /**
