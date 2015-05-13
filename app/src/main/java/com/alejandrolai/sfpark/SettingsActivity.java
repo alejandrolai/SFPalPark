@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.alejandrolai.sfpark.Timer.ReminderActivity;
 import com.alejandrolai.sfpark.database.ParkingLocationDatabase;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by Ihsan Taha on 4/30/15.
@@ -25,6 +28,16 @@ public class SettingsActivity extends ActionBarActivity {
     Toolbar mToolbar;
     ParkingLocationDatabase dbParkingLocation;
 
+    int color = 0xffffff;
+
+    SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
+
+    Button changeColorButton1;
+    Button changeColorButton2;
+    Button changeColorButton3;
+    int goodColor;
+    int okColor;
+    int badColor;
     /**
      * Creates a tab menu with the Settings' features.
      *
@@ -48,9 +61,9 @@ public class SettingsActivity extends ActionBarActivity {
 
         tabHost.setup();
 
-        TabHost.TabSpec  tabSpec= tabHost.newTabSpec("Radius");
-        tabSpec.setContent(R.id.radius);
-        tabSpec.setIndicator("Radius");
+        TabHost.TabSpec  tabSpec= tabHost.newTabSpec("Map");
+        tabSpec.setContent(R.id.map);
+        tabSpec.setIndicator("Map");
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("Themes");
@@ -68,6 +81,84 @@ public class SettingsActivity extends ActionBarActivity {
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
 
+        goodColor = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_500));
+        okColor =  sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.yellow_500));
+        badColor =   sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.black));
+
+        changeColorButton1 = (Button) findViewById(R.id.changeColorButton1);
+        changeColorButton2 = (Button) findViewById(R.id.changeColorButton2);
+        changeColorButton3 = (Button) findViewById(R.id.changeColorButton3);
+
+        changeColorButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog1(false);
+            }
+        });
+
+        changeColorButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog2(false);
+            }
+        });
+
+        changeColorButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog3(false);
+            }
+        });
+
+    }
+
+    void openDialog1(boolean supportsAlpha) {
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(SettingsActivity.this, color, supportsAlpha, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                sharedPreferencesHelper.saveIntToPreferences(SettingsActivity.this,SharedPreferencesHelper.GOOD_COLOR,color);
+                changeColorButton1.setBackgroundColor(color);
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
+    void openDialog2(boolean supportsAlpha) {
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(SettingsActivity.this, color, supportsAlpha, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                sharedPreferencesHelper.saveIntToPreferences(SettingsActivity.this,SharedPreferencesHelper.OK_COLOR,color);
+                changeColorButton2.setBackgroundColor(color);
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
+    void openDialog3(boolean supportsAlpha) {
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(SettingsActivity.this, color, supportsAlpha, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                sharedPreferencesHelper.saveIntToPreferences(SettingsActivity.this,SharedPreferencesHelper.BAD_COLOR,color);
+                changeColorButton3.setBackgroundColor(color);
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
 
 

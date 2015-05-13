@@ -66,19 +66,12 @@ public class MainActivity extends ActionBarActivity
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final String UNIT = "unitKey";
-    public static final String RADIUS = "radiusKey";
-    public static final String FIRST_BOOT = "firstBootKey";
-
     ParkingSpotList mParkingSpotList;
     AlertDialogs dialog = AlertDialogs.getInstance();
     SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
     LinkedHashMap<String, String> map = new LinkedHashMap();
     ArrayList<ParkingSpot> list = new ArrayList();
 
-
-
-    // Data methods
 
     /**
      * Adds functional visual elements to the main Activity upon its creation
@@ -92,10 +85,16 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String firstboot = sharedPreferencesHelper.readStringsFromPreferences(this, SharedPreferencesHelper.FIRST_BOOT, "true");
+        if (firstboot.equals("true")) {
+            dialog.showNoLocationsFoundDialog(this);
+            sharedPreferencesHelper.saveStringToPreferences(this, SharedPreferencesHelper.FIRST_BOOT, "false");
+        }
+
         // Displays the Terms of Service (if this is the first time the app has been opened since its installation)
         new TermsOfService(this).show();
 
-        // Displays the tool bar
+        // Displays the toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -122,9 +121,6 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        // ?
-        String firstboot = sharedPreferencesHelper.readStringsFromPreferences(this, FIRST_BOOT, "true");
-
         // Calls the setUpMapIfNeeded function
         setUpMapIfNeeded();
 
@@ -144,14 +140,10 @@ public class MainActivity extends ActionBarActivity
                 double latitude = getLatitude();
                 double longitude = getLongitude();
 
-                zoomToMap(latitude, longitude, 12);
+                zoomToMap(latitude, longitude, 14);
                 addCircle(latitude, longitude);
                 getResponse(latitude, longitude);
 
-                if (firstboot.equals("true")) {
-                    dialog.showNoLocationsFoundDialog(this);
-                    sharedPreferencesHelper.saveStringToPreferences(this, FIRST_BOOT, "false");
-                }
             } else {
                 dialog.showLocationSettingsAlert(this);
             }
@@ -166,8 +158,6 @@ public class MainActivity extends ActionBarActivity
 
     }
 
-
-
     /**
      * Displays the radius surrounding the marker's current location
      *
@@ -175,7 +165,7 @@ public class MainActivity extends ActionBarActivity
      * @param longitude
      */
     private void addCircle(double latitude, double longitude) {
-        double radius = Double.parseDouble(sharedPreferencesHelper.readStringsFromPreferences(this, RADIUS, "0.25"));
+        double radius = Double.parseDouble(sharedPreferencesHelper.readStringsFromPreferences(this, SharedPreferencesHelper.RADIUS, "0.25"));
         mMap.addCircle(new CircleOptions()
                 .center(new LatLng(latitude, longitude))
                 .radius(radius * 1609.34) // miles to meters
@@ -183,11 +173,8 @@ public class MainActivity extends ActionBarActivity
                 .fillColor(Color.argb(50, 100, 100, 100)));
     }
 
-
-
     /**
      * Updates the location
-     *
      * @param location
      */
     @Override
@@ -197,11 +184,9 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      *  Gets the current location's latitude
-     *
-     * @return
+     * @return latitude
      */
     public double getLatitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -210,11 +195,9 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Gets the current location's longitude
-     *
-     * @return
+     * @return longitude
      */
     public double getLongitude() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -253,7 +236,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Sets up the map if required, and updates the color theme based on the theme's current value
      */
@@ -265,9 +247,8 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
-     * Zooms the map on to the current location's latitude, longitude, and zoom level
+     * Zooms the map on to the current location's latitude, longitude
      *
      * @param latitude
      * @param longitude
@@ -324,12 +305,12 @@ public class MainActivity extends ActionBarActivity
             public void onMapLongClick(LatLng latLng) {
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                         .position(latLng)
                         .draggable(true))
                         .setTitle("You are here: " + latLng.toString());
                 currentLatitude = latLng.latitude;
                 currentLongitude = latLng.longitude;
+                zoomToMap(currentLatitude,currentLongitude,16);
                 addCircle(currentLatitude, currentLongitude);
                 getResponse(currentLatitude, currentLongitude);
             }
@@ -340,7 +321,6 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * Checks if there is internet connection
-     *
      * @return true if there is a connection to the internet, false otherwise
      */
     public boolean isOnline() {
@@ -425,6 +405,7 @@ public class MainActivity extends ActionBarActivity
      */
     public void markNearSpots(ParkingSpotList nearSpots) {
 
+
         list = nearSpots.getList();
 
         if (list.size() > 0) {
@@ -453,12 +434,11 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * Adds a marker to the map with information about the street name, price, parking type, parking time availability, and location
-     *
      * @param streetName Name of the block
-     * @param rate       Price per hour
-     * @param rateQual   Per hour, street sweep or no charge
-     * @param endTime    End time of the current time bracket
-     * @param position   Position of marker
+     * @param rate Price per hour
+     * @param rateQual Per hour, street sweep or no charge
+     * @param endTime End time of the current time bracket
+     * @param position Position of marker
      */
     private void addMarkerWithInfo(String streetName, double rate, String rateQual,
                                    String endTime, LatLng position) {
@@ -481,22 +461,20 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Adds colored polyline to the map according to its rate
-     *
      * @param startLatLng Starting latitude and longitude of the block
-     * @param endLatLng   Ending latitude and longitude of the block
-     * @param rate        Rate of the block
+     * @param endLatLng Ending latitude and longitude of the block
+     * @param rate Rate of the block
      */
     private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color;
         if (rate <= 1) {
-            color = getResources().getColor(R.color.green_500);
+            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_500));
         } else if (rate > 1 && rate <= 2) {
-            color = getResources().getColor(R.color.yellow_500);
+            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.OK_COLOR,getResources().getColor(R.color.yellow_500));
         } else {
-            color = getResources().getColor(R.color.black);
+            color = sharedPreferencesHelper.readIntFromPreferences(this, SharedPreferencesHelper.BAD_COLOR, getResources().getColor(R.color.black));
         }
         mMap.addPolyline(new PolylineOptions().geodesic(true)
                 .color(color)
@@ -505,14 +483,15 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
-     * Uses a callback to check the response from SF Park
+     * Method that uses a callback to check the sfpark connection
+     * @param newLatitude latitude of requested spot
+     * @param newLongitude longitude of requested spot
      */
     public void getResponse(double newLatitude, double newLongitude) {
 
-        String newRadius = sharedPreferencesHelper.readStringsFromPreferences(this, RADIUS, "0.25");
-        String newUOM = sharedPreferencesHelper.readStringsFromPreferences(this, UNIT, "mile");
+        String newRadius = sharedPreferencesHelper.readStringsFromPreferences(this, SharedPreferencesHelper.RADIUS, "0.25");
+        String newUOM = sharedPreferencesHelper.readStringsFromPreferences(this, SharedPreferencesHelper.UNIT, "mile");
 
         map.put("lat", Double.toString(newLatitude));
         map.put("long", Double.toString(newLongitude));

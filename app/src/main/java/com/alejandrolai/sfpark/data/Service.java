@@ -45,10 +45,6 @@ public class Service {
 
         @GET("/sfpark/rest/availabilityservice")
         void getParkingSpots(@QueryMap Map<String, String> options, Callback<ParkingSpotList> callback);
-
-        @GET("/sfpark/rest/availabilityservice?response=json&pricing=yes")
-        void getParkingSpots(Callback<ParkingSpotList> callback);
-
     }
 
 }

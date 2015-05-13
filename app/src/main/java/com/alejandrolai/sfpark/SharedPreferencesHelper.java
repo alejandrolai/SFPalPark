@@ -17,6 +17,12 @@ public class SharedPreferencesHelper {
     }
 
     public static final String PREFERENCES_FILE = "MyPreferences";
+    public static final String UNIT = "unitKey";
+    public static final String RADIUS = "radiusKey";
+    public static final String FIRST_BOOT = "firstBootKey";
+    public static final String GOOD_COLOR = "goodColorKey";
+    public static final String OK_COLOR = "okColorKey";
+    public static final String BAD_COLOR = "badColorKey";
 
     /**
      * Writes strings to a shared preferences file
