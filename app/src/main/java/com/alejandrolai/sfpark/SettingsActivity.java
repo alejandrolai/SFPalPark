@@ -81,13 +81,16 @@ public class SettingsActivity extends ActionBarActivity {
         tabSpec.setIndicator("About");
         tabHost.addTab(tabSpec);
 
-        goodColor = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_500));
-        okColor =  sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.yellow_500));
-        badColor =   sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.black));
+        goodColor = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_600));
+        okColor =  sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.OK_COLOR,getResources().getColor(R.color.orange_600));
+        badColor =   sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.BAD_COLOR,getResources().getColor(R.color.black));
 
         changeColorButton1 = (Button) findViewById(R.id.changeColorButton1);
+        changeColorButton1.setBackgroundColor(goodColor);
         changeColorButton2 = (Button) findViewById(R.id.changeColorButton2);
+        changeColorButton2.setBackgroundColor(okColor);
         changeColorButton3 = (Button) findViewById(R.id.changeColorButton3);
+        changeColorButton3.setBackgroundColor(badColor);
 
         changeColorButton1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -318,7 +318,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Checks if there is internet connection
      * @return true if there is a connection to the internet, false otherwise
@@ -329,7 +328,6 @@ public class MainActivity extends ActionBarActivity
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
 
 
     /**
@@ -431,7 +429,6 @@ public class MainActivity extends ActionBarActivity
     }
 
 
-
     /**
      * Adds a marker to the map with information about the street name, price, parking type, parking time availability, and location
      * @param streetName Name of the block
@@ -470,9 +467,9 @@ public class MainActivity extends ActionBarActivity
     private void addColoredLine(LatLng startLatLng, LatLng endLatLng, double rate) {
         int color;
         if (rate <= 1) {
-            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_500));
+            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.GOOD_COLOR,getResources().getColor(R.color.green_700));
         } else if (rate > 1 && rate <= 2) {
-            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.OK_COLOR,getResources().getColor(R.color.yellow_500));
+            color = sharedPreferencesHelper.readIntFromPreferences(this,SharedPreferencesHelper.OK_COLOR,getResources().getColor(R.color.yellow_800));
         } else {
             color = sharedPreferencesHelper.readIntFromPreferences(this, SharedPreferencesHelper.BAD_COLOR, getResources().getColor(R.color.black));
         }
@@ -527,7 +524,6 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(this, getString(R.string.no_parking_spots_within_radius), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     /**

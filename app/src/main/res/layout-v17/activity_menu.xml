@@ -57,26 +57,27 @@
                             android:layout_height="wrap_content"
                             android:textSize="17sp"
                             android:textColor="@color/black"
-                            android:textAlignment="center"
-                            android:text="Change the color of the lines" />
+                            android:text="Change the color of the lines"
+                            android:autoText="false"
+                            android:gravity="center" />
 
                         <Button
                             android:text="Color of $0 - $1 street"
-                            android:layout_width="wrap_content"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton1"
                             android:onClick="changeColorGoodParking"/>
 
                         <Button
-                            android:text="Color of $1 - $2 street"
-                            android:layout_width="wrap_content"
+                            android:text="Color of +$1 - $2 street"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton2"
                             android:onClick="changeColorOKParking"/>
 
                         <Button
                             android:text="Color of +$2 street"
-                            android:layout_width="wrap_content"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton3"
                             android:onClick="changeColorBadParking"/>
