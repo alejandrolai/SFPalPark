@@ -16,20 +16,13 @@ public class ParkingSpot {
     private String parkingType;
     private String streetName;
 
-    private String location;
-
-    private double latitude;
-    private double longitude;
-
     private double startLongitude;
     private double startLatitude;
     private double endLongitude;
     private double endLatitude;
 
     private String endTime;
-
     private double rate;
-
     // Per hour, street sweep, no charge
     private String rateQualifier;
 
@@ -46,24 +39,6 @@ public class ParkingSpot {
     public void setParkingType(String parkingType) {
         this.parkingType = parkingType;
     }
-
-    public String getLocation() {
-        return location;
-    }
-
-
-
-    public void setLocation(String location) {
-        this.location = location;
-
-        // Added by Dolly to extract latitude & longitude from string
-        // location and parse them to double.
-        String[] splittedLocation = location.split(",");
-        this.latitude = Double.parseDouble(splittedLocation[0]);
-        this.longitude = Double.parseDouble(splittedLocation[1]);
-    }
-
-
 
     public double getStartLongitude() {
         return startLongitude;
@@ -119,35 +94,6 @@ public class ParkingSpot {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-
-
-    /**
-     * Added by Dolly 4/27/15
-     * A method that computes the distance of a parking spot from the current location.
-     *
-     * @param original_position - coordinates of current location
-     * @return distance from current location
-     */
-    public double computeDistanceFrom(LatLng original_position) {
-
-        LatLng parking_spot_coord = new LatLng(this.latitude, this.longitude);
-
-        return SphericalUtil.computeDistanceBetween(parking_spot_coord, original_position);
-
-    }
-
-
-
-    /**
-     * Added by Dolly 4/27/2015
-     *
-     * @return LatLng object for the coordinates of the spot
-     */
-    public LatLng getCoordinates() {
-        LatLng coordinates;
-        return coordinates = new LatLng(this.latitude, this.longitude);
     }
 
 }

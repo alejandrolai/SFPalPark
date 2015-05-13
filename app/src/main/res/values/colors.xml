@@ -289,8 +289,6 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
 
-    <color name="color_blind_primary">#3182bd</color>
-    <color name="color_blind_primary_dark">#08519c</color>
 
     <!-- Added by Ihsan Taha 5/2/2015 -->
     <color name="beach_orange">#DD6600</color>

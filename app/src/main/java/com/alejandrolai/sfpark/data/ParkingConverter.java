@@ -107,13 +107,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
                                     parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
                                     parkingSpot.setEndLongitude(Double.parseDouble(parts[2]));
                                     parkingSpot.setEndLatitude(Double.parseDouble(parts[3]));
-                                } /*else {
-                                parkingSpot.setStartLatitude(Double.parseDouble(parts[1]));
-                                parkingSpot.setStartLongitude(Double.parseDouble(parts[0]));
-                                parkingSpot.setEndLatitude(Double.parseDouble(parts[1]));
-                                parkingSpot.setEndLongitude(Double.parseDouble(parts[0]));
-                            }*/
-
+                                }
                             } else {
                                 Log.e("ParkingConverter", "No parking spots");
                             }
@@ -129,7 +123,7 @@ public class ParkingConverter implements JsonDeserializer<ParkingSpotList> {
             }
 
         } else {
-            Log.e("ParkingConverter", "No Data");
+            Log.e(TAG, "No Data");
         }
 
         return parkingSpotList;
