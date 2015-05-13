@@ -75,13 +75,7 @@ public class ParkingLocationActivity extends ActionBarActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        // Creates a toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
+        // Creates the save and delete buttons
         history_save  = (Button) findViewById(R.id.history_save);
         history_delete  = (Button) findViewById(R.id.history_delete);
 
