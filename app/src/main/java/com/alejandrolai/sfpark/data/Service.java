@@ -16,7 +16,7 @@ import retrofit.http.QueryMap;
  */
 
 /**
- * Service class that sets the url to to get the data from SFPark, and configures gson to use our custom serializer (ParkingConverter)
+ * Service class that sets up everything for retrofit. Building an adapter, setting up the custom converter and serializer
  */
 public class Service {
 
@@ -31,7 +31,6 @@ public class Service {
                     .create();
 
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setEndpoint("http://api.sfpark.org")
                     .setConverter(new GsonConverter(gson))
                     .build();
@@ -42,7 +41,6 @@ public class Service {
     }
 
     public interface SFParkService {
-
         @GET("/sfpark/rest/availabilityservice")
         void getParkingSpots(@QueryMap Map<String, String> options, Callback<ParkingSpotList> callback);
     }

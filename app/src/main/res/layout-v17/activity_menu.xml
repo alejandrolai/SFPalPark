@@ -48,35 +48,41 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:id="@+id/map"
                         android:focusableInTouchMode="true"
                         android:gravity="center">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="17sp"
-                            android:textColor="@color/black"
-                            android:text="Change the color of the lines"
-                            android:autoText="false"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Change Parking Rate Colors"
+                            android:id="@+id/textView"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="#333333"
                             android:gravity="center" />
 
                         <Button
-                            android:text="Color of $0 - $1 street"
+                            android:text="Color of $0 - $1 street(s)"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton1"
+                            android:layout_marginBottom="10dp"
                             android:onClick="changeColorGoodParking"/>
 
                         <Button
-                            android:text="Color of +$1 - $2 street"
+                            android:text="Color of +$1 - $2 street(s)"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton2"
+                            android:layout_marginBottom="10dp"
                             android:onClick="changeColorOKParking"/>
 
                         <Button
-                            android:text="Color of +$2 street"
+                            android:text="Color of +$2 street(s)"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/changeColorButton3"

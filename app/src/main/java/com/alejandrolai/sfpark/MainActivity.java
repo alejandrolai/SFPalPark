@@ -225,16 +225,6 @@ public class MainActivity extends ActionBarActivity
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
-    private boolean isGooglePlayServicesAvailable() {
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (ConnectionResult.SUCCESS == status) {
-            return true;
-        } else {
-            GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
-            return false;
-        }
-    }
-
 
     /**
      * Sets up the map if required, and updates the color theme based on the theme's current value

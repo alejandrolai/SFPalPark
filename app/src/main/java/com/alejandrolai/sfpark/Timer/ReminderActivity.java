@@ -382,10 +382,10 @@ public class ReminderActivity extends ActionBarActivity{
             resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_purple));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.royal_purple));
         } else if (MainActivity.theme.equalsIgnoreCase("snow")) {
-            startButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            stopButton.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            setTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
-            resetTimer.setBackgroundColor(getResources().getColor(R.color.snow_white));
+            startButton.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            stopButton.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            setTimer.setBackgroundColor(getResources().getColor(R.color.bright_snow));
+            resetTimer.setBackgroundColor(getResources().getColor(R.color.bright_snow));
             mToolbar.setBackgroundColor(getResources().getColor(R.color.black));
             startButton.setTextColor(getResources().getColor(R.color.default_grey));
             stopButton.setTextColor(getResources().getColor(R.color.default_grey));

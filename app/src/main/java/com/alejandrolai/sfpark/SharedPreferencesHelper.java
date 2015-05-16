@@ -52,31 +52,6 @@ public class SharedPreferencesHelper {
     }
 
     /**
-     * Writes booleans to a shared preferences file
-     * @param context Context of the calling activity
-     * @param preferenceName Key of the value to be read
-     * @param preferenceValue Value to be saved
-     */
-    public void saveBooleanToPreferences(Context context, String preferenceName, boolean preferenceValue) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(preferenceName, preferenceValue);
-        editor.apply();
-    }
-
-    /**
-     * Reads boolean from the value of the provided key, if the provided key does not exist it returns a default value
-     * @param context Context of the calling activity
-     * @param preferenceName Key of the value to be read
-     * @param defaultValue Default value to be return in case there is no value for the key provided
-     * @return boolean value of the requested key
-     */
-    public boolean readBooleanFromPreferences(Context context, String preferenceName, boolean defaultValue){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE,Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(preferenceName, defaultValue);
-    }
-
-    /**
      * Writes int to a shared preferences file
      * @param context Context of the calling activity
      * @param preferenceName Key of the value to be read

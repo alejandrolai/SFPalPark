@@ -253,13 +253,6 @@ public class ParkingLocationActivity extends ActionBarActivity {
     }
 
 
-
-    /**
-     * Responds to the actions in the menu
-     *
-     * @param //item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
